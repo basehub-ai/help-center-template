@@ -1,10 +1,9 @@
 import { Pump } from "@/.basehub/react-pump";
-import { Box, Container, Flex, Grid, Heading, Section } from "@radix-ui/themes";
+import { Box, Container, Grid, Heading } from "@radix-ui/themes";
 import { CategoryCard, CategoryMeta } from "./_components/category-card";
 import { ArticleLink, ArticleMeta } from "./_components/article-link";
-import { Search } from "./_components/search";
 
-export default function Home() {
+export default function HomePage() {
   return (
     <Pump
       queries={[
@@ -29,7 +28,7 @@ export default function Home() {
         "use server";
 
         return (
-          <Container py="9">
+          <Container py="9" position="relative" overflow="clip">
             {/* radial-gradient(farthest-side, var(--purple-3), transparent) */}
             <Box
               style={{
