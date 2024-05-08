@@ -7,15 +7,14 @@ import {
   Grid,
   Heading,
   Link,
-  Select,
-  Separator,
-  ThickChevronRightIcon,
 } from "@radix-ui/themes";
 import NextLink from "next/link";
 import { Search } from "./search";
 import { Fragment } from "react";
 
 import s from "./header.module.css";
+import { ThemeSwitcher } from "./theme-switcher";
+import { SlashIcon } from "@radix-ui/react-icons";
 
 export const Header = () => {
   return (
@@ -45,7 +44,7 @@ export const Header = () => {
           <Container className={s.container} pb="8">
             <Grid gap="9">
               <Flex align="center" justify="between" py="3">
-                <Flex align="center" gap="2">
+                <Flex align="center" gap="1">
                   <Flex asChild align="center">
                     <NextLink href="/">
                       <img
@@ -55,7 +54,7 @@ export const Header = () => {
                       />
                     </NextLink>
                   </Flex>
-                  <ThickChevronRightIcon />
+                  <SlashIcon color="var(--gray-11)" height={21} />
                   <Link
                     color="gray"
                     style={{ color: "var(--gray-12)" }}
@@ -66,26 +65,16 @@ export const Header = () => {
                 </Flex>
                 <Flex gap="4" align="center" asChild>
                   <nav>
+                    <ThemeSwitcher />
                     {settings.navLinks.items.map((item, i, { length }) => {
                       const isLast = i === length - 1;
                       if (isLast)
                         return (
-                          <Fragment key={item._id}>
-                            <Button asChild>
+                            <Button key={item._id} asChild>
                               <NextLink href={item.href}>
                                 {item._title}
                               </NextLink>
                             </Button>
-                            <Separator />
-                            <Select.Root defaultValue="system">
-                              <Select.Trigger />
-                              <Select.Content>
-                                <Select.Item value="system">System</Select.Item>
-                                <Select.Item value="light">Light</Select.Item>
-                                <Select.Item value="dark">Dark</Select.Item>
-                              </Select.Content>
-                            </Select.Root>
-                          </Fragment>
                         );
                       return (
                         <Link key={item._id} color="gray" asChild>
