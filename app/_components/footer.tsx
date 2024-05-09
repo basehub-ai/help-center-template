@@ -1,5 +1,5 @@
 import { Pump } from "@/.basehub/react-pump"
-import { DotFilledIcon } from "@radix-ui/react-icons"
+import { DotFilledIcon, QuestionMarkCircledIcon } from "@radix-ui/react-icons"
 import { Flex, Link, Separator, Text, VisuallyHidden } from "@radix-ui/themes"
 import Image from "next/image"
 import { Fragment } from "react"
@@ -37,9 +37,9 @@ export const Footer = () => {
 }} />
     <Flex gap="3">
       {index.socialMediaLinks.items.map((item) => {
-        const icon = icons[item.platform.toLowerCase() as keyof typeof icons] ?? Fragment
+        const icon = icons[item.platform.toLowerCase() as keyof typeof icons] ?? <QuestionMarkCircledIcon height={20} width={20} />
         return (
-          <Link key={item._id} color="gray" href={item.url} aria-label={item.platform} target="_blank">
+          <Link key={item._id} style={{flexShrink: 0}} color="gray" href={item.url} aria-label={item.platform} target="_blank">
             {icon}
             <VisuallyHidden>{item.platform}</VisuallyHidden>
           </Link>
