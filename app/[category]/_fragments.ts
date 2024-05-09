@@ -1,6 +1,6 @@
-import { fragmentOn } from "@/.basehub";
+import { fragmentOn } from '@/.basehub'
 
-export const Category = fragmentOn("CategoriesItem", {
+export const Category = fragmentOn('CategoriesItem', {
   _id: true,
   _title: true,
   _slug: true,
@@ -13,6 +13,6 @@ export const Category = fragmentOn("CategoriesItem", {
       _title: true,
     },
   },
-});
+})
 
-export type Category = fragmentOn.infer<typeof Category>;
+export type Category = fragmentOn.infer<typeof Category>

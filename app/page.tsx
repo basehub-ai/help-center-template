@@ -1,7 +1,7 @@
-import { Pump } from "@/.basehub/react-pump";
-import { Box, Container, Grid, Heading } from "@radix-ui/themes";
-import { CategoryCard, CategoryMeta } from "./_components/category-card";
-import { ArticleLink, ArticleMeta } from "./_components/article-link";
+import { Pump } from '@/.basehub/react-pump'
+import { Box, Container, Grid, Heading } from '@radix-ui/themes'
+import { CategoryCard, CategoryMeta } from './_components/category-card'
+import { ArticleLink, ArticleMeta } from './_components/article-link'
 
 export default function HomePage() {
   return (
@@ -25,7 +25,7 @@ export default function HomePage() {
       ]}
     >
       {async ([data]) => {
-        "use server";
+        'use server'
 
         return (
           <Container py="9" position="relative" overflow="clip">
@@ -33,25 +33,25 @@ export default function HomePage() {
             <Box
               style={{
                 zIndex: -1,
-                position: "absolute",
+                position: 'absolute',
                 top: 0,
                 left: -400,
                 background:
-                  "radial-gradient(farthest-side, var(--accent-3), transparent)",
-                width: "700px",
-                height: "700px",
+                  'radial-gradient(farthest-side, var(--accent-3), transparent)',
+                width: '700px',
+                height: '700px',
               }}
             />
             <Box
               style={{
                 zIndex: -1,
-                position: "absolute",
+                position: 'absolute',
                 top: 200,
                 left: -500,
                 background:
-                  "radial-gradient(farthest-side, var(--purple-3), transparent)",
-                width: "700px",
-                height: "700px",
+                  'radial-gradient(farthest-side, var(--purple-3), transparent)',
+                width: '700px',
+                height: '700px',
               }}
             />
 
@@ -67,17 +67,17 @@ export default function HomePage() {
                         (category) => {
                           return category.articles.items.some(
                             (item) => item._id === article._id
-                          );
+                          )
                         }
-                      );
-                    if (!category) return null;
+                      )
+                    if (!category) return null
                     return (
                       <ArticleLink
                         data={article}
                         key={article._id}
                         categorySlug={category?._slug}
                       />
-                    );
+                    )
                   })}
                 </Grid>
               </Box>
@@ -89,17 +89,15 @@ export default function HomePage() {
                 <Grid gap="4" columns="3">
                   {data.index.categoriesSection.categories.items.map(
                     (category) => {
-                      return (
-                        <CategoryCard data={category} key={category._id} />
-                      );
+                      return <CategoryCard data={category} key={category._id} />
                     }
                   )}
                 </Grid>
               </Box>
             </Grid>
           </Container>
-        );
+        )
       }}
     </Pump>
-  );
+  )
 }

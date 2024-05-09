@@ -1,11 +1,11 @@
-import type { Metadata } from "next";
-import { Header } from "./_components/header";
-import { ThemeProvider } from "./_components/theme-provider/server";
-import { basehub } from "@/.basehub";
-import { Pump } from "@/.basehub/react-pump";
+import type { Metadata } from 'next'
+import { Header } from './_components/header'
+import { ThemeProvider } from './_components/theme-provider/server'
+import { basehub } from '@/.basehub'
+import { Pump } from '@/.basehub/react-pump'
 
-import "./globals.css";
-import { Footer } from "./_components/footer";
+import './globals.css'
+import { Footer } from './_components/footer'
 
 export const generateMetadata = async (): Promise<Metadata> => {
   const data = await basehub().query({
@@ -17,7 +17,7 @@ export const generateMetadata = async (): Promise<Metadata> => {
         ogImage: { url: true, width: true, height: true, alt: true },
       },
     },
-  });
+  })
 
   return {
     title: {
@@ -36,25 +36,25 @@ export const generateMetadata = async (): Promise<Metadata> => {
         },
       ],
     },
-  };
-};
+  }
+}
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: React.ReactNode
 }>) {
   return (
     <html lang="en">
       <Pump queries={[{ settings: { icon: { url: true } } }]}>
         {async ([data]) => {
-          "use server";
+          'use server'
 
           return (
             <>
               <link rel="icon" href={data.settings.icon.url} sizes="any" />
             </>
-          );
+          )
         }}
       </Pump>
       <body>
@@ -65,5 +65,5 @@ export default function RootLayout({
         </ThemeProvider>
       </body>
     </html>
-  );
+  )
 }

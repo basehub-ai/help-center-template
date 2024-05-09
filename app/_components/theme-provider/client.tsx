@@ -1,8 +1,8 @@
-"use client";
+'use client'
 
-import { useThemeContext } from "@radix-ui/themes";
-import { ThemeFragment } from "./server";
-import { useEffect } from "react";
+import { useThemeContext } from '@radix-ui/themes'
+import { ThemeFragment } from './server'
+import { useEffect } from 'react'
 
 export const LiveThemeSwitcher = ({ data }: { data: ThemeFragment }) => {
   const {
@@ -12,15 +12,15 @@ export const LiveThemeSwitcher = ({ data }: { data: ThemeFragment }) => {
     onAppearanceChange,
     onPanelBackgroundChange,
     onScalingChange,
-  } = useThemeContext();
+  } = useThemeContext()
 
   useEffect(() => {
-    onAccentColorChange(data.accentColor as any);
-    onRadiusChange(data.radius as any);
-    onGrayColorChange(data.grayScale as any);
-    onAppearanceChange(data.appearance as any);
-    onPanelBackgroundChange(data.panelBackground as any);
-    onScalingChange(data.scaling as any);
+    onAccentColorChange(data.accentColor as any)
+    onRadiusChange(data.radius as any)
+    onGrayColorChange(data.grayScale as any)
+    onAppearanceChange(data.appearance as any)
+    onPanelBackgroundChange(data.panelBackground as any)
+    onScalingChange(data.scaling as any)
   }, [
     data,
     onAccentColorChange,
@@ -29,7 +29,7 @@ export const LiveThemeSwitcher = ({ data }: { data: ThemeFragment }) => {
     onPanelBackgroundChange,
     onRadiusChange,
     onScalingChange,
-  ]);
+  ])
 
-  return null;
-};
+  return null
+}
