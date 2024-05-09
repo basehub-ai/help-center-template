@@ -1,20 +1,11 @@
 import { Pump } from '@/.basehub/react-pump'
-import {
-  Button,
-  Card,
-  Container,
-  Flex,
-  Grid,
-  Heading,
-  Link,
-  Text,
-} from '@radix-ui/themes'
+import { Container, Flex, Grid, Heading, Link, Text } from '@radix-ui/themes'
 import { basehub } from '@/.basehub'
 import { CategoryMeta } from '../_components/category-card'
 import { ArticleMeta } from '../_components/article-link'
 import { notFound } from 'next/navigation'
-import { ArrowRightIcon, SlashIcon } from '@radix-ui/react-icons'
-import NextLink from 'next/link'
+import { SlashIcon } from '@radix-ui/react-icons'
+import { ArticlesList } from '../_components/articles-list'
 
 export const generateStaticParams = async () => {
   const data = await basehub().query({
@@ -91,32 +82,10 @@ export default function CategoryPage({
             >
               <Heading size="8">{category._title}</Heading>
               <Text color="gray">{category.description}</Text>
-              <Card variant="classic" style={{ gridRow: '-1 / 1' }}>
-                <Flex direction="column" p="2">
-                  {category.articles.items.map((item) => {
-                    return (
-                      <Button
-                        color="gray"
-                        key={item._id}
-                        asChild
-                        variant="ghost"
-                        style={{ padding: '12px 16px' }}
-                      >
-                        <NextLink
-                          href={`/${category._slug}/${item._slug}`}
-                          style={{
-                            display: 'flex',
-                            justifyContent: 'space-between',
-                          }}
-                        >
-                          {item._title}
-                          <ArrowRightIcon />
-                        </NextLink>
-                      </Button>
-                    )
-                  })}
-                </Flex>
-              </Card>
+              <ArticlesList
+                categorySlug={category._slug}
+                articles={category.articles.items}
+              />
             </Grid>
           </Container>
         )
