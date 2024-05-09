@@ -1,9 +1,20 @@
-import { Pump } from "@/.basehub/react-pump";
-import { Container, Flex, Heading, Text } from "@radix-ui/themes";
-import { basehub } from "@/.basehub";
-import { CategoryMeta } from "../_components/category-card";
-import { ArticleLink, ArticleMeta } from "../_components/article-link";
-import { notFound } from "next/navigation";
+import { Pump } from '@/.basehub/react-pump'
+import {
+  Button,
+  Card,
+  Container,
+  Flex,
+  Grid,
+  Heading,
+  Link,
+  Text,
+} from '@radix-ui/themes'
+import { basehub } from '@/.basehub'
+import { CategoryMeta } from '../_components/category-card'
+import { ArticleMeta } from '../_components/article-link'
+import { notFound } from 'next/navigation'
+import { ArrowRightIcon, SlashIcon } from '@radix-ui/react-icons'
+import NextLink from 'next/link'
 
 export const generateStaticParams = async () => {
   const data = await basehub().query({
@@ -15,16 +26,16 @@ export const generateStaticParams = async () => {
         },
       },
     },
-  });
+  })
   return data.index.categoriesSection.categories.items.map((category) => ({
     params: { category: category._slug },
-  }));
-};
+  }))
+}
 
 export default function CategoryPage({
   params,
 }: {
-  params: { category: string };
+  params: { category: string }
 }) {
   return (
     <Pump
@@ -51,29 +62,65 @@ export default function CategoryPage({
       ]}
     >
       {async ([data]) => {
-        "use server";
+        'use server'
 
-        const category = data.index.categoriesSection.categories.items[0];
-        if (!category) notFound();
+        const category = data.index.categoriesSection.categories.items[0]
+        if (!category) notFound()
 
         return (
-          <Container py="9">
-            <Heading size="8">{category._title}</Heading>
-            <Text>{category.description}</Text>
-            <Flex gap="4">
-              {category.articles.items.map((item) => {
-                return (
-                  <ArticleLink
-                    key={item._id}
-                    data={item}
-                    categorySlug={params.category}
-                  />
-                );
-              })}
+          <Container py="9" maxWidth="840px">
+            <Flex gap="1" mb="5" align="center">
+              <Link href="/" color="gray">
+                Index
+              </Link>
+
+              <Text color="gray" asChild>
+                <SlashIcon height={21} />
+              </Text>
+              <Link href={`/${category._slug}`} color="gray" highContrast>
+                {category._title}
+              </Link>
             </Flex>
+
+            <Grid
+              gapX="7"
+              flow="column"
+              gapY="2"
+              columns="minmax(auto, 278px) 1fr"
+              rows="auto auto"
+            >
+              <Heading size="8">{category._title}</Heading>
+              <Text color="gray">{category.description}</Text>
+              <Card variant="classic" style={{ gridRow: '-1 / 1' }}>
+                <Flex direction="column" p="2">
+                  {category.articles.items.map((item) => {
+                    return (
+                      <Button
+                        color="gray"
+                        key={item._id}
+                        asChild
+                        variant="ghost"
+                        style={{ padding: '12px 16px' }}
+                      >
+                        <NextLink
+                          href={`/${category._slug}/${item._slug}`}
+                          style={{
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                          }}
+                        >
+                          {item._title}
+                          <ArrowRightIcon />
+                        </NextLink>
+                      </Button>
+                    )
+                  })}
+                </Flex>
+              </Card>
+            </Grid>
           </Container>
-        );
+        )
       }}
     </Pump>
-  );
+  )
 }
