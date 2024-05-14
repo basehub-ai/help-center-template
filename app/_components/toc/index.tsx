@@ -1,7 +1,7 @@
-import { Code, Text } from '@radix-ui/themes'
+import { Box, Code, Heading, Link, Text } from '@radix-ui/themes'
 import { RichText, RichTextProps } from 'basehub/react-rich-text'
 import s from './toc.module.scss'
-import Link from 'next/link'
+import NextLink from 'next/link'
 
 export const TOCRenderer = ({
   children,
@@ -13,15 +13,27 @@ export const TOCRenderer = ({
   return (
     <div className={s.container}>
       <div>
-        <div className={s.indicator} />
+        <Heading size="3" weight="medium" as="h4" mb="2">
+          On this page
+        </Heading>
         <RichText
           components={{
-            p: (props) => <Text size="2" as="p" {...props} />,
-            a: (props) => (
-              // {/* TODO: Remove target when bug in basehub api is fixed */}
-              <Link {...props} target="_self" className={s.link} />
+            p: (props) => (
+              <Box asChild py="1">
+                <Text size="2" as="p" {...props} />
+              </Box>
             ),
-            // li: (props) => <li {...props} />,
+            a: (props) => (
+              <Link color="gray" className={s.link} asChild>
+                {/* TODO: Remove target when bug in basehub api is fixed */}
+                <NextLink {...props} target="_self" />
+              </Link>
+            ),
+            // li: (props) => (
+            //   <Box asChild py="1">
+            //     <li {...props} />
+            //   </Box>
+            // ),
             ol: (props) => (
               <ol
                 style={{ paddingInlineStart: 0, listStyle: 'none' }}
