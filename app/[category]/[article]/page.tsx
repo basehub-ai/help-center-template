@@ -145,10 +145,10 @@ export default function ArticlePage({
             <TOCRenderer>{article.body?.json.toc}</TOCRenderer>
             <Container maxWidth="700px">
               <Breadcrumb category={category} article={article} />
-              <Heading as="h1" size="8">
+              <Heading as="h1" size={{ initial: '7', md: '8' }}>
                 {article._title}
               </Heading>
-              <Text as="p" mt="1">
+              <Text as="p" mt="1" size={{ initial: '2', md: '3' }}>
                 {article.excerpt}
               </Text>
               {article.author && (
@@ -174,17 +174,35 @@ export default function ArticlePage({
                 <RichText
                   blocks={article.body?.json.blocks}
                   components={{
-                    p: (props) => <Text as="p" {...props} />,
+                    p: (props) => (
+                      <Text
+                        as="p"
+                        {...props}
+                        size={{ initial: '2', md: '3' }}
+                      />
+                    ),
                     a: (props) => (
                       <Link asChild>
                         <NextLink {...props} />
                       </Link>
                     ),
                     h2: (props) => (
-                      <Heading as="h2" size="6" mt="6" mb="2" {...props} />
+                      <Heading
+                        as="h2"
+                        size={{ initial: '5', md: '6' }}
+                        mt="6"
+                        mb="2"
+                        {...props}
+                      />
                     ),
                     h3: (props) => (
-                      <Heading as="h3" size="5" mt="6" mb="2" {...props} />
+                      <Heading
+                        as="h3"
+                        size={{ initial: '4', md: '5' }}
+                        mt="6"
+                        mb="2"
+                        {...props}
+                      />
                     ),
                     img: (props) => (
                       <Box asChild my="6" mx="0" width="100%">
