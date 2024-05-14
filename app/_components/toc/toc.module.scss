@@ -27,7 +27,7 @@
 
 .container {
   position: relative;
-  left: min(3vw, 100px);
+  left: clamp(24px, 2.8%, 100px);
   max-width: 280px;
 
   @media (max-width: 1023px) {

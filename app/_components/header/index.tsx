@@ -44,7 +44,10 @@ export const Header = () => {
         'use server'
 
         return (
-          <Container mb={{ initial: '2', sm: '9' }} px="5">
+          <Container
+            mb={{ initial: '2', sm: '9' }}
+            px={{ initial: '5', md: '7' }}
+          >
             <Grid
               align="center"
               columns={{

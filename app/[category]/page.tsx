@@ -63,7 +63,7 @@ export default function CategoryPage({
             pb="9"
             pt={{ initial: '6', sm: '0' }}
             maxWidth="840px"
-            px="5"
+            px={{ initial: '5', md: '7' }}
           >
             <Breadcrumb category={category} />
             <Grid

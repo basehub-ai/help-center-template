@@ -140,7 +140,7 @@ export default function ArticlePage({
             pb="9"
             pt={{ initial: '6', sm: '0' }}
             mx="auto"
-            px="5"
+            px={{ initial: '5', md: '7' }}
           >
             <TOCRenderer>{article.body?.json.toc}</TOCRenderer>
             <Container maxWidth="700px">

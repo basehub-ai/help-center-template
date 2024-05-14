@@ -73,7 +73,12 @@ export default function HomePage() {
               )}
             </Flex>
 
-            <Container py="9" position="relative" overflow="clip" px="5">
+            <Container
+              py="9"
+              position="relative"
+              overflow="clip"
+              px={{ initial: '5', md: '7' }}
+            >
               {/* radial-gradient(farthest-side, var(--purple-3), transparent) */}
               <Box
                 style={{
