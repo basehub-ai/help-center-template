@@ -29,6 +29,7 @@
   position: relative;
   left: clamp(24px, 2.8%, 100px);
   max-width: 280px;
+  flex-shrink: 0;
 
   @media (max-width: 1023px) {
     display: none;

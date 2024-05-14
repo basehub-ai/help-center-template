@@ -62,8 +62,9 @@ export default function CategoryPage({
           <Container
             pb="9"
             pt={{ initial: '6', sm: '0' }}
-            maxWidth="840px"
             px={{ initial: '5', md: '7' }}
+            style={{ flexGrow: '1' }}
+            size="3"
           >
             <Breadcrumb category={category} />
             <Grid

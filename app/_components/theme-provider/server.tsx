@@ -44,6 +44,11 @@ export const ThemeProvider = async ({
         scaling={data.settings.theme.scaling as any}
         appearance={data.settings.theme.appearance as any}
         panelBackground={data.settings.theme.panelBackground as any}
+        style={{
+          minHeight: '100vh',
+          display: 'flex',
+          flexDirection: 'column',
+        }}
       >
         {children}
         <Pump queries={[{ settings: { theme: ThemeFragment } }]}>

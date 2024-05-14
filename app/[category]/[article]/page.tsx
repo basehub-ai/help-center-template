@@ -140,10 +140,11 @@ export default function ArticlePage({
             pb="9"
             pt={{ initial: '6', sm: '0' }}
             mx="auto"
+            size="3"
             px={{ initial: '5', md: '7' }}
           >
             <TOCRenderer>{article.body?.json.toc}</TOCRenderer>
-            <Container maxWidth="700px">
+            <div>
               <Breadcrumb category={category} article={article} />
               <Heading as="h1" size={{ initial: '7', md: '8' }}>
                 {article._title}
@@ -179,6 +180,7 @@ export default function ArticlePage({
                         as="p"
                         {...props}
                         size={{ initial: '2', md: '3' }}
+                        mb="4"
                       />
                     ),
                     a: (props) => (
@@ -285,7 +287,7 @@ export default function ArticlePage({
                   </Flex>
                 </Card>
               </Box>
-            </Container>
+            </div>
           </Container>
         )
       }}

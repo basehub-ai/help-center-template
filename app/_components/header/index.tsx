@@ -47,6 +47,7 @@ export const Header = () => {
           <Container
             mb={{ initial: '2', sm: '9' }}
             px={{ initial: '5', md: '7' }}
+            flexGrow="0"
           >
             <Grid
               align="center"
