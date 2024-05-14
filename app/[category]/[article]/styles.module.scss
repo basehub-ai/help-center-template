@@ -1,0 +1,8 @@
+@media (min-width: 1024px) {
+  .container {
+    > div {
+      display: flex;
+      flex-direction: row-reverse;
+    }
+  }
+}

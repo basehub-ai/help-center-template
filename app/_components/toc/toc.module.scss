@@ -27,8 +27,12 @@
 
 .container {
   position: relative;
-  left: 100px;
+  left: min(3vw, 100px);
   max-width: 280px;
+
+  @media (max-width: 1023px) {
+    display: none;
+  }
 
   > div {
     position: sticky;
