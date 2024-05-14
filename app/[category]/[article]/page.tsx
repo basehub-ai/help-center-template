@@ -1,12 +1,14 @@
 import { Pump } from '@/.basehub/react-pump'
 import { RichText } from '@/.basehub/react-rich-text'
 import {
+  Avatar,
   Box,
   Button,
   Card,
   Code,
   Container,
   Flex,
+  Grid,
   Heading,
   Link,
   Separator,
@@ -23,6 +25,7 @@ import { Fragment } from 'react'
 import { ArticlesList } from '@/app/_components/articles-list'
 import { TOCRenderer } from '@/app/_components/toc'
 import { Breadcrumb } from '@/app/_components/breadcrumb'
+import { format } from 'date-fns'
 
 export const generateStaticParams = async () => {
   const data = await basehub().query({
@@ -76,6 +79,15 @@ export default function ArticlePage({
                     },
                     items: {
                       ...ArticleMeta,
+                      _sys: {
+                        lastModifiedAt: true,
+                      },
+                      author: {
+                        avatar: {
+                          url: true,
+                        },
+                        _title: true,
+                      },
                       body: {
                         json: {
                           toc: true,
@@ -112,6 +124,14 @@ export default function ArticlePage({
         const article = category.articles.items[0]
         if (!article) notFound()
 
+        const authorInitials =
+          article.author?._title
+            .split(/\s/)
+            .reduce(
+              (acc, name, idx) => (idx < 3 && name ? acc + name[0] : acc),
+              ''
+            ) ?? 'A'
+
         return (
           <Container py="9" mx="auto">
             <Flex direction="row-reverse">
@@ -121,12 +141,33 @@ export default function ArticlePage({
                 <Heading as="h1" size="8">
                   {article._title}
                 </Heading>
-                <Text>{article.excerpt}</Text>
-                <Box>
+                <Text as="p" mt="1">
+                  {article.excerpt}
+                </Text>
+                {article.author && (
+                  <Grid columns="auto 1fr" rows="2" gapX="2" mt="5">
+                    <Avatar
+                      src={article.author?.avatar.url}
+                      fallback={authorInitials}
+                      style={{ gridRow: '-1 / 1' }}
+                    />
+                    <Text size="2" weight="medium">
+                      {article.author?._title}
+                    </Text>
+                    <Text size="2" color="gray">
+                      Last Updated{' '}
+                      {format(
+                        new Date(article._sys.lastModifiedAt),
+                        'MMMM dd, yyyy'
+                      )}
+                    </Text>
+                  </Grid>
+                )}
+                <Box mt="9">
                   <RichText
                     blocks={article.body?.json.blocks}
                     components={{
-                      p: (props) => <Text {...props} />,
+                      p: (props) => <Text as="p" {...props} />,
                       a: (props) => (
                         <Link asChild>
                           <NextLink {...props} />
