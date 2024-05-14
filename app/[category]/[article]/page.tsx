@@ -133,7 +133,7 @@ export default function ArticlePage({
             ) ?? 'A'
 
         return (
-          <Container py="9" mx="auto">
+          <Container pb="9" mx="auto">
             <Flex direction="row-reverse">
               <TOCRenderer>{article.body?.json.toc}</TOCRenderer>
               <Container maxWidth="700px">

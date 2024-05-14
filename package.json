@@ -20,6 +20,7 @@
     "next-themes": "^0.3.0",
     "react": "^18",
     "react-dom": "^18",
+    "react-use-intercom": "^5.4.0",
     "sass": "^1.77.0"
   },
   "devDependencies": {

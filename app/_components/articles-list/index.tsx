@@ -2,6 +2,7 @@ import { Button, Card, Flex } from '@radix-ui/themes'
 import { ArrowRightIcon } from '@radix-ui/react-icons'
 import NextLink from 'next/link'
 import { ArticlesItem } from '@/.basehub/schema'
+import s from './articles-list.module.scss'
 
 export const ArticlesList = ({
   articles,
@@ -11,7 +12,12 @@ export const ArticlesList = ({
   categorySlug: string
 }) => {
   return (
-    <Card variant="classic" style={{ gridRow: '-1 / 1' }} size="2">
+    <Card
+      variant="classic"
+      size="2"
+      mt={{ initial: '6', sm: '0' }}
+      className={s.card}
+    >
       <Flex direction="column" gap="2">
         {articles.map((item) => {
           return (

@@ -6,6 +6,7 @@ import { Pump } from '@/.basehub/react-pump'
 
 import './globals.css'
 import { Footer } from './_components/footer'
+import { IntercomProvider } from './_components/intercom'
 
 export const generateMetadata = async (): Promise<Metadata> => {
   const data = await basehub().query({
@@ -59,9 +60,11 @@ export default function RootLayout({
       </Pump>
       <body>
         <ThemeProvider>
-          <Header />
-          {children}
-          <Footer />
+          <IntercomProvider>
+            <Header />
+            {children}
+            <Footer />
+          </IntercomProvider>
         </ThemeProvider>
       </body>
     </html>

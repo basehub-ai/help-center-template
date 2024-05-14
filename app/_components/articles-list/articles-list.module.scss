@@ -1,0 +1,6 @@
+.card {
+  height: fit-content;
+  @media (min-width: 768px) {
+    grid-row: -1 / 1;
+  }
+}

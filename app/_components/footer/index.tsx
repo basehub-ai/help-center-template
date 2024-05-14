@@ -2,6 +2,7 @@ import { Pump } from '@/.basehub/react-pump'
 import { DotFilledIcon, QuestionMarkCircledIcon } from '@radix-ui/react-icons'
 import { Flex, Link, Separator, Text, VisuallyHidden } from '@radix-ui/themes'
 import Image from 'next/image'
+import s from './footer.module.scss'
 
 export const Footer = () => {
   return (
@@ -28,7 +29,7 @@ export const Footer = () => {
         return (
           <Flex
             style={{ borderTop: '1px solid var(--gray-3)' }}
-            px={{ md: '64px', lg: '142px' }}
+            px={{ initial: '5', md: '64px', lg: '142px' }}
             direction="column"
             justify="center"
             align="center"
@@ -78,13 +79,7 @@ export const Footer = () => {
                 )
               })}
             </Flex>
-            <Flex
-              as="span"
-              align="center"
-              gap="1"
-              mt="8"
-              style={{ alignSelf: 'start' }}
-            >
+            <Flex as="span" align="center" gap="1" mt="8" className={s.status}>
               <DotFilledIcon
                 height={12}
                 width={12}

@@ -59,14 +59,19 @@ export default function CategoryPage({
         if (!category) notFound()
 
         return (
-          <Container py="9" maxWidth="840px">
+          <Container
+            pb="9"
+            pt={{ initial: '6', sm: '0' }}
+            maxWidth="840px"
+            px="5"
+          >
             <Breadcrumb category={category} />
             <Grid
               gapX="7"
               flow="column"
               gapY="2"
-              columns="minmax(auto, 278px) 1fr"
-              rows="auto auto"
+              columns={{ sm: 'minmax(auto, 278px) 1fr' }}
+              rows={{ initial: 'repeat(3, auto)', sm: 'auto auto' }}
             >
               <Heading size="8">{category._title}</Heading>
               <Text color="gray">{category.description}</Text>
