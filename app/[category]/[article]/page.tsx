@@ -3,13 +3,13 @@ import { RichText } from '@/.basehub/react-rich-text'
 import {
   Avatar,
   Box,
-  Button,
   Card,
   Code,
   Container,
   Flex,
   Grid,
   Heading,
+  IconButton,
   Link,
   Separator,
   Text,
@@ -27,7 +27,7 @@ import { TOCRenderer } from '@/app/_components/toc'
 import { Breadcrumb } from '@/app/_components/breadcrumb'
 import { format } from 'date-fns'
 import s from './styles.module.scss'
-import { ThickArrowDownIcon, ThickArrowUpIcon } from '@radix-ui/react-icons'
+import { ThumbsDown, ThumbsUp } from 'lucide-react'
 
 export const generateStaticParams = async () => {
   const data = await basehub().query({
@@ -149,7 +149,7 @@ export default function ArticlePage({
               <Heading as="h1" size={{ initial: '7', md: '8' }}>
                 {article._title}
               </Heading>
-              <Text as="p" mt="1" size={{ initial: '2', md: '3' }}>
+              <Text as="p" mt="1" size={{ initial: '3', md: '4' }} color="gray">
                 {article.excerpt}
               </Text>
               {article.author && (
@@ -268,21 +268,21 @@ export default function ArticlePage({
                     <Text style={{ flexGrow: 1 }}>
                       Did this answer your question?
                     </Text>
-                    <Flex gap={{ initial: '2', sm: '4' }}>
-                      <Button variant="ghost" size="3" color="gray">
-                        <ThickArrowDownIcon
-                          height={20}
-                          style={{ marginTop: -1 }}
-                          width={20}
-                        />
-                      </Button>
-                      <Button variant="ghost" size="3" color="gray">
-                        <ThickArrowUpIcon
-                          height={20}
-                          style={{ marginTop: 1 }}
-                          width={20}
-                        />
-                      </Button>
+                    <Flex gap="2">
+                      <IconButton
+                        variant="ghost"
+                        mx="0 !important"
+                        color="gray"
+                      >
+                        <ThumbsDown height={16} width={16} />
+                      </IconButton>
+                      <IconButton
+                        variant="ghost"
+                        mx="0 !important"
+                        color="gray"
+                      >
+                        <ThumbsUp height={16} width={16} />
+                      </IconButton>
                     </Flex>
                   </Flex>
                 </Card>

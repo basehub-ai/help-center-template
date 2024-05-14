@@ -1,8 +1,16 @@
 import { Pump } from '@/.basehub/react-pump'
-import { DotFilledIcon, QuestionMarkCircledIcon } from '@radix-ui/react-icons'
-import { Flex, Link, Separator, Text, VisuallyHidden } from '@radix-ui/themes'
+import { QuestionMarkCircledIcon } from '@radix-ui/react-icons'
+import {
+  Flex,
+  IconButton,
+  Link,
+  Separator,
+  Text,
+  VisuallyHidden,
+} from '@radix-ui/themes'
 import Image from 'next/image'
 import s from './footer.module.scss'
+import NextLink from 'next/link'
 
 export const Footer = () => {
   return (
@@ -65,30 +73,47 @@ export const Footer = () => {
                   item.platform.toLowerCase() as keyof typeof icons
                 ] ?? <QuestionMarkCircledIcon height={20} width={20} />
                 return (
-                  <Link
+                  <IconButton
+                    asChild
                     key={item._id}
+                    variant="ghost"
                     style={{ flexShrink: 0 }}
                     color="gray"
-                    href={item.url}
                     aria-label={item.platform}
-                    target="_blank"
                   >
-                    {icon}
-                    <VisuallyHidden>{item.platform}</VisuallyHidden>
-                  </Link>
+                    <NextLink href={item.url} target="_blank">
+                      {icon}
+                      <VisuallyHidden>{item.platform}</VisuallyHidden>
+                    </NextLink>
+                  </IconButton>
                 )
               })}
             </Flex>
-            <Flex as="span" align="center" gap="1" mt="8" className={s.status}>
-              <DotFilledIcon
-                height={12}
-                width={12}
-                color="var(--green-a11)"
-                style={{ marginTop: 1, flexShrink: 0 }}
-              />
-              <Text color="green" size="1">
-                All Systems Normal
-              </Text>
+            <Flex
+              maxWidth="max-content"
+              mx="auto"
+              asChild
+              align="center"
+              justify="center"
+              mt="8"
+            >
+              <Link asChild size="2" color="gray">
+                <NextLink
+                  href="https://basehub.com/home"
+                  className={s['footer__badge']}
+                >
+                  <Image
+                    src="/basehub.svg"
+                    width={11}
+                    height={14}
+                    alt="BaseHub logo"
+                  />
+                  &nbsp;&nbsp;Powered by&nbsp;
+                  <Text as="span" color="orange">
+                    BaseHub
+                  </Text>
+                </NextLink>
+              </Link>
             </Flex>
           </Flex>
         )
