@@ -22,6 +22,7 @@ import { Callout } from '@/app/_components/callout'
 import { Fragment } from 'react'
 import { ArticlesList } from '@/app/_components/articles-list'
 import { TOCRenderer } from '@/app/_components/toc'
+import { Breadcrumb } from '@/app/_components/breadcrumb'
 
 export const generateStaticParams = async () => {
   const data = await basehub().query({
@@ -116,6 +117,7 @@ export default function ArticlePage({
             <Flex direction="row-reverse">
               <TOCRenderer>{article.body?.json.toc}</TOCRenderer>
               <Container maxWidth="700px">
+                <Breadcrumb category={category} article={article} />
                 <Heading as="h1" size="8">
                   {article._title}
                 </Heading>

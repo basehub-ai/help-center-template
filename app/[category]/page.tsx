@@ -1,11 +1,11 @@
 import { Pump } from '@/.basehub/react-pump'
-import { Container, Flex, Grid, Heading, Link, Text } from '@radix-ui/themes'
+import { Container, Grid, Heading, Text } from '@radix-ui/themes'
 import { basehub } from '@/.basehub'
 import { CategoryMeta } from '../_components/category-card'
 import { ArticleMeta } from '../_components/article-link'
 import { notFound } from 'next/navigation'
-import { SlashIcon } from '@radix-ui/react-icons'
 import { ArticlesList } from '../_components/articles-list'
+import { Breadcrumb } from '../_components/breadcrumb'
 
 export const generateStaticParams = async () => {
   const data = await basehub().query({
@@ -60,19 +60,7 @@ export default function CategoryPage({
 
         return (
           <Container py="9" maxWidth="840px">
-            <Flex gap="1" mb="5" align="center">
-              <Link href="/" color="gray">
-                Index
-              </Link>
-
-              <Text color="gray" asChild>
-                <SlashIcon height={21} />
-              </Text>
-              <Link href={`/${category._slug}`} color="gray" highContrast>
-                {category._title}
-              </Link>
-            </Flex>
-
+            <Breadcrumb category={category} />
             <Grid
               gapX="7"
               flow="column"
