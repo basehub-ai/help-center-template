@@ -38,6 +38,7 @@ export const ThemeProvider = async ({
       }
     >
       <Theme
+        id="theme-provider"
         accentColor={data.settings.theme.accentColor as any}
         grayColor={data.settings.theme.grayScale as any}
         radius={data.settings.theme.radius as any}

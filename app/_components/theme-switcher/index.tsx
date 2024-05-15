@@ -8,13 +8,15 @@ import { useHasRendered } from '@/hooks/use-has-rendered'
 import { MoonIcon, SunIcon } from '../../icons'
 
 import s from './theme-switcher.module.scss'
+import { CSSProperties } from 'react'
 
-export const ThemeSwitcher = () => {
+export const ThemeSwitcher = ({ style }: { style?: CSSProperties }) => {
   const { theme, setTheme } = useTheme()
   const hasRendered = useHasRendered()
 
   return (
     <Flex
+      style={style}
       className={s['theme-switcher__wrapper']}
       align="center"
       justify="center"

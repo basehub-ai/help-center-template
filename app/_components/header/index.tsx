@@ -13,6 +13,16 @@ import { ThemeSwitcher } from '../theme-switcher'
 import { SlashIcon } from '@radix-ui/react-icons'
 import { Search } from '../search'
 import s from './header.module.scss'
+import { MobileNavbar } from './mobile-navbar'
+import { fragmentOn } from '@/.basehub'
+
+const navLinkFragment = fragmentOn('NavLinksItem', {
+  _id: true,
+  _title: true,
+  href: true,
+})
+
+export type NavLinkFragment = fragmentOn.infer<typeof navLinkFragment>
 
 export const Header = () => {
   return (
@@ -30,11 +40,7 @@ export const Header = () => {
           settings: {
             icon: { url: true, alt: true },
             navLinks: {
-              items: {
-                _id: true,
-                _title: true,
-                href: true,
-              },
+              items: navLinkFragment,
             },
           },
         },
@@ -48,6 +54,12 @@ export const Header = () => {
             mb={{ initial: '2', sm: '9' }}
             px={{ initial: '5', md: '7' }}
             flexGrow="0"
+            style={{
+              position: 'sticky',
+              top: 0,
+              zIndex: 49,
+              backgroundColor: 'var(--gray-1)',
+            }}
           >
             <Grid
               align="center"
@@ -110,6 +122,7 @@ export const Header = () => {
                   })}
                 </nav>
               </Flex>
+              <MobileNavbar links={settings.navLinks.items} />
             </Grid>
           </Container>
         )
