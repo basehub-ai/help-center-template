@@ -11,10 +11,10 @@ import {
 import NextLink from 'next/link'
 import { ThemeSwitcher } from '../theme-switcher'
 import { SlashIcon } from '@radix-ui/react-icons'
-import { Search } from '../search'
 import s from './header.module.scss'
 import { MobileNavbar } from './mobile-navbar'
 import { fragmentOn } from '@/.basehub'
+import { DialogTriggerDesktop as Search } from '../search'
 
 const navLinkFragment = fragmentOn('NavLinksItem', {
   _id: true,

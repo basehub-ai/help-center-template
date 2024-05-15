@@ -7,6 +7,7 @@ import { Pump } from '@/.basehub/react-pump'
 import './globals.css'
 import { Footer } from './_components/footer'
 import { IntercomProvider } from './_components/intercom'
+import { SearchProvider } from './_components/search'
 
 export const generateMetadata = async (): Promise<Metadata> => {
   const data = await basehub().query({
@@ -66,7 +67,27 @@ export default function RootLayout({
       <body>
         <ThemeProvider>
           <IntercomProvider>
-            <Header />
+            <Pump
+              queries={[
+                { _componentInstances: { articlesItem: { _searchKey: true } } },
+              ]}
+            >
+              {async ([
+                {
+                  _componentInstances: {
+                    articlesItem: { _searchKey },
+                  },
+                },
+              ]) => {
+                'use server'
+
+                return (
+                  <SearchProvider _searchKey={_searchKey}>
+                    <Header />
+                  </SearchProvider>
+                )
+              }}
+            </Pump>
             {children}
             <Footer />
           </IntercomProvider>

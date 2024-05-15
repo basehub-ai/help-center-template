@@ -1,0 +1,13 @@
+export function getArticleSlugFromSlugPath(slugPath: string) {
+  // article _slugPath will have something like root index categories-section categories <category> articles <page> children <page> children <page>...
+  // remove root/pages and then filter out every other part
+  return (
+    '/' +
+    slugPath
+      .replace(/root|index|categories-section|categories|articles/gm, '')
+      .trim()
+      .split(/\s/)
+      .filter(Boolean)
+      .join('/')
+  )
+}

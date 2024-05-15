@@ -1,11 +1,12 @@
 'use client'
 import { useToggleState } from '@/hooks/use-toggle-state'
-import { HamburgerMenuIcon, MagnifyingGlassIcon } from '@radix-ui/react-icons'
+import { HamburgerMenuIcon } from '@radix-ui/react-icons'
 import { Box, Button, Flex, IconButton, Link, Portal } from '@radix-ui/themes'
 import { ThemeSwitcher } from '../theme-switcher'
 import { NavLinkFragment } from './index'
 import NextLink from 'next/link'
 import * as React from 'react'
+import { DialogTriggerMobile as Search } from '../search'
 
 export const MobileNavbar = ({ links }: { links: NavLinkFragment[] }) => {
   const toggleState = useToggleState()
@@ -27,9 +28,7 @@ export const MobileNavbar = ({ links }: { links: NavLinkFragment[] }) => {
         display={{ initial: 'flex', sm: 'none' }}
       >
         <nav>
-          <IconButton variant="ghost" color="gray">
-            <MagnifyingGlassIcon />
-          </IconButton>
+          <Search />
           <IconButton
             variant="ghost"
             color="gray"
