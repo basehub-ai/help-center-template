@@ -5,9 +5,16 @@ import { Box, Button, Flex, IconButton, Link, Portal } from '@radix-ui/themes'
 import { ThemeSwitcher } from '../theme-switcher'
 import { NavLinkFragment } from './index'
 import NextLink from 'next/link'
+import * as React from 'react'
 
 export const MobileNavbar = ({ links }: { links: NavLinkFragment[] }) => {
   const toggleState = useToggleState()
+  const [container, setContainer] = React.useState<HTMLElement | null>(null)
+
+  React.useEffect(() => {
+    if (!document) return
+    setContainer(document.getElementById('theme-provider'))
+  }, [])
 
   return (
     <>
@@ -34,9 +41,7 @@ export const MobileNavbar = ({ links }: { links: NavLinkFragment[] }) => {
       </Flex>
       <Portal
         className="curtain"
-        container={
-          document.querySelector('#theme-provider') as HTMLElement | null
-        }
+        container={container}
         onClick={toggleState.handleOff}
         style={{
           position: 'fixed',
@@ -52,12 +57,7 @@ export const MobileNavbar = ({ links }: { links: NavLinkFragment[] }) => {
           display={{ initial: toggleState.isOn ? 'block' : 'none', sm: 'none' }}
         />
       </Portal>
-      <Portal
-        asChild
-        container={
-          document.querySelector('#theme-provider') as HTMLElement | null
-        }
-      >
+      <Portal asChild container={container}>
         <Flex
           style={{
             position: 'fixed',
