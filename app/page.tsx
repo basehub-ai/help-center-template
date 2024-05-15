@@ -13,7 +13,10 @@ import { CategoryCard, CategoryMeta } from './_components/category-card'
 import { ArticleLink, ArticleMeta } from './_components/article-link'
 
 import { RichText } from 'basehub/react-rich-text'
-import { DialogTriggerDesktop as Search } from './_components/search'
+import {
+  DialogTriggerDesktop as Search,
+  SearchProvider,
+} from './_components/search'
 
 export default function HomePage() {
   return (
@@ -39,10 +42,15 @@ export default function HomePage() {
             },
           },
         },
+        {
+          _componentInstances: { articlesItem: { _searchKey: true } },
+        },
       ]}
     >
-      {async ([data]) => {
+      {async ([data, { _componentInstances }]) => {
         'use server'
+
+        const _searchKey = _componentInstances.articlesItem._searchKey
 
         return (
           <>
@@ -58,7 +66,10 @@ export default function HomePage() {
               <Heading align="center" size="8" wrap="pretty">
                 {data.index.greeting}
               </Heading>
-              {/* <Search style={{ width: '100%' }} /> */}
+
+              <SearchProvider disableHotkey _searchKey={_searchKey}>
+                <Search style={{ width: '100%' }} />
+              </SearchProvider>
               {data.index.subtitle?.json && (
                 <Text as="span" color="gray" size="2">
                   <RichText

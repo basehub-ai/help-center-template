@@ -22,21 +22,18 @@ import s from './search.module.scss'
 
 export const SearchProvider = ({
   _searchKey,
-  // searchCategories,
   children,
+  disableHotkey = false,
 }: {
   _searchKey: string | null
-  // searchCategories: CategoriesItem[]
   children: React.ReactNode
+  disableHotkey?: boolean
 }) => {
   const [open, setOpen] = React.useState(false)
 
   const search = useSearch({
     _searchKey,
     queryBy: ['_title', 'body', 'excerpt'],
-    // ...(selectedCategoryId !== '__all__' && {
-    //   filterBy: `_idPath:${selectedCategoryId}*`,
-    // }),
     saveRecentSearches: {
       key: 'docs-recent-searches',
       getStorage: () => localStorage,
@@ -44,6 +41,8 @@ export const SearchProvider = ({
   })
 
   React.useEffect(() => {
+    if (disableHotkey) return
+
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'k' && event.metaKey) {
         event.preventDefault()
@@ -55,7 +54,7 @@ export const SearchProvider = ({
     return () => {
       document.removeEventListener('keydown', handleKeyDown)
     }
-  }, [])
+  }, [disableHotkey])
 
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>
@@ -67,19 +66,7 @@ export const SearchProvider = ({
         }}
         key={open ? 'open' : 'closed'}
       >
-        <DialogContent
-        // searchCategories={searchCategories}
-        // selectedCategoryId={selectedCategoryId}
-        // onCategoryChange={(id) => {
-        //   flushSync(() => {
-        //     setSelectedCategoryId(id)
-        //   })
-        //   // flushSync ^ so that we can reset the search with the new filterBy clause being applied
-        //   if (search.valid) {
-        //     search.onQueryChange(search.query)
-        //   }
-        // }}
-        />
+        <DialogContent />
       </SearchBox.Root>
     </Dialog.Root>
   )
@@ -88,11 +75,6 @@ export const SearchProvider = ({
 const DialogContent = () => {
   const search = SearchBox.useContext()
   const inputRef = React.useRef<HTMLInputElement>(null)
-
-  // const selectedCategoryLabel =
-  //   searchCategories.find(
-  //     (category) => category.page?._id === selectedCategoryId
-  //   )?.page?._title ?? 'All'
 
   return (
     <Dialog.Content maxWidth="550px" className={s['search-dialog__content']}>
@@ -155,49 +137,6 @@ const DialogContent = () => {
             <HitList hits={search.result?.hits ?? []} />
           </Box>
         </ScrollArea>
-
-        {/* {searchCategories.length && (
-          <>
-            <Separator size="4" />
-            <Flex
-              className={s['search-dialog-content__footer']}
-              py="1"
-              px="3"
-              align="center"
-            >
-              <Text size="1" weight="medium" mr="1">
-                Show results from:&nbsp;
-              </Text>
-              <Select.Root
-                size="1"
-                defaultValue="all"
-                onValueChange={(id) => {
-                  onCategoryChange(id)
-                  setTimeout(() => {
-                    inputRef.current?.focus()
-                  }, 16)
-                }}
-                value={selectedCategoryId}
-              >
-                <Select.Trigger>{selectedCategoryLabel}</Select.Trigger>
-                <Select.Content>
-                  <Select.Item value={'__all__'}>All</Select.Item>
-                  {searchCategories.map((category) => {
-                    if (!category.page) return null
-                    return (
-                      <Select.Item
-                        key={category.page._id}
-                        value={category.page._id}
-                      >
-                        {category.page._title}
-                      </Select.Item>
-                    )
-                  })}
-                </Select.Content>
-              </Select.Root>
-            </Flex>
-          </>
-        )} */}
       </Flex>
     </Dialog.Content>
   )
