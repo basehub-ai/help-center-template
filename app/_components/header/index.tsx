@@ -38,7 +38,7 @@ export const Header = () => {
             },
           },
           settings: {
-            icon: { url: true, alt: true },
+            logo: { url: true, alt: true, width: true, height: true },
             navLinks: {
               items: navLinkFragment,
             },
@@ -74,13 +74,17 @@ export const Header = () => {
                 <Flex asChild align="center" flexShrink="0">
                   <NextLink href="/">
                     <img
-                      src={settings.icon.url}
-                      alt={settings.icon.alt ?? ''}
-                      style={{ width: 28, height: 28 }}
+                      src={settings.logo.url}
+                      alt={settings.logo.alt ?? ''}
+                      style={{
+                        width: settings.logo.width,
+                        height: settings.logo.height,
+                        maxHeight: 28,
+                      }}
                     />
-                    {settings.icon.alt && (
+                    {settings.logo.alt && (
                       <VisuallyHidden asChild>
-                        <h2>{settings.icon.alt}</h2>
+                        <h2>{settings.logo.alt}</h2>
                       </VisuallyHidden>
                     )}
                   </NextLink>

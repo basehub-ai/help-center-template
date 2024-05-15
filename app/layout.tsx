@@ -11,11 +11,12 @@ import { IntercomProvider } from './_components/intercom'
 export const generateMetadata = async (): Promise<Metadata> => {
   const data = await basehub().query({
     settings: {
-      icon: { url: true },
+      logo: { url: true },
       metadata: {
         title: true,
         description: true,
         ogImage: { url: true, width: true, height: true, alt: true },
+        icon: { url: true },
       },
     },
   })
@@ -26,7 +27,7 @@ export const generateMetadata = async (): Promise<Metadata> => {
       template: `%s | ${data.settings.metadata.title}`,
     },
     description: data.settings.metadata.description,
-    icons: [{ url: data.settings.icon.url }],
+    icons: [{ url: data.settings.metadata.icon.url }],
     openGraph: {
       images: [
         {
@@ -47,13 +48,17 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <Pump queries={[{ settings: { icon: { url: true } } }]}>
+      <Pump queries={[{ settings: { metadata: { icon: { url: true } } } }]}>
         {async ([data]) => {
           'use server'
 
           return (
             <>
-              <link rel="icon" href={data.settings.icon.url} sizes="any" />
+              <link
+                rel="icon"
+                href={data.settings.metadata.icon.url}
+                sizes="any"
+              />
             </>
           )
         }}
