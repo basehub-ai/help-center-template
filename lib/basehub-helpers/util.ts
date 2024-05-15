@@ -4,10 +4,8 @@ export function getArticleSlugFromSlugPath(slugPath: string) {
   return (
     '/' +
     slugPath
-      .replace(/root|index|categories-section|categories|articles/gm, '')
-      .trim()
+      .replace(/(root|index|categories-section|categories|articles)\s/gm, '')
       .split(/\s/)
-      .filter(Boolean)
       .join('/')
   )
 }
