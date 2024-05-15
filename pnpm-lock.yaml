@@ -14,6 +14,9 @@ dependencies:
   basehub:
     specifier: ^4.0.10
     version: 4.0.10(react-dom@18.2.0)(react@18.2.0)
+  change-case:
+    specifier: ^5.4.4
+    version: 5.4.4
   date-fns:
     specifier: ^3.6.0
     version: 3.6.0
@@ -2259,6 +2262,10 @@ packages:
       ansi-styles: 4.3.0
       supports-color: 7.2.0
     dev: true
+
+  /change-case@5.4.4:
+    resolution: {integrity: sha512-HRQyTk2/YPEkt9TnUPbOpr64Uw3KOicFWPVBb+xiHvd6eBx/qPr9xqfBFDT8P2vWsvvz4jbEkfDe71W3VyNu2w==}
+    dev: false
 
   /chokidar@3.6.0:
     resolution: {integrity: sha512-7VT13fmjotKpGipCW9JEQAusEPE+Ei8nl6/g4FBAmIm0GOOLMua9NDDo/DWp0ZAxCr3cPq5ZpBqmPAQgDda2Pw==}

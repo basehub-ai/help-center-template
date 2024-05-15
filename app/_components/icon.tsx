@@ -1,14 +1,9 @@
 import { InfoCircledIcon } from '@radix-ui/react-icons'
+import { icons, LucideProps } from 'lucide-react'
+import { pascalCase } from 'change-case'
 
-export const Icon = ({
-  name,
-  ...rest
-}: { name: string } & React.ComponentProps<typeof InfoCircledIcon>) => {
-  switch (name.toLowerCase()) {
-    case 'info':
-      return <InfoCircledIcon {...rest} />
+export const Icon = ({ name, ...rest }: { name: string } & LucideProps) => {
+  const Icon = icons[pascalCase(name) as keyof typeof icons] ?? InfoCircledIcon
 
-    default:
-      return `Icon not found: ${name}`
-  }
+  return <Icon {...rest} />
 }
