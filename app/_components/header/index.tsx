@@ -14,6 +14,8 @@ import s from './header.module.scss'
 import { MobileNavbar } from './mobile-navbar'
 import { fragmentOn } from '@/.basehub'
 import { DialogTriggerDesktop as Search } from '../search'
+import Image from 'next/image'
+import clsx from 'clsx'
 
 const navLinkFragment = fragmentOn('NavLinksItem', {
   _id: true,
@@ -38,6 +40,7 @@ export const Header = () => {
           },
           settings: {
             logo: { url: true, alt: true, width: true, height: true },
+            logoLightMode: { url: true, alt: true, width: true, height: true },
             navLinks: {
               items: navLinkFragment,
             },
@@ -71,15 +74,25 @@ export const Header = () => {
             >
               <Flex asChild align="center" flexShrink="0">
                 <NextLink href="/">
-                  <img
+                  <Image
+                    // only hide on light-mode if there's a light-mode logo
+                    className={clsx(settings.logoLightMode?.url && 'dark-only')}
                     src={settings.logo.url}
                     alt={settings.logo.alt ?? ''}
-                    style={{
-                      width: settings.logo.width,
-                      height: settings.logo.height,
-                      maxHeight: 28,
-                    }}
+                    width={settings.logo.width}
+                    height={settings.logo.height}
+                    style={{ maxHeight: 28 }}
                   />
+                  {settings.logoLightMode?.url && (
+                    <Image
+                      className="light-only"
+                      src={settings.logoLightMode.url}
+                      alt={settings.logoLightMode.alt ?? ''}
+                      width={settings.logoLightMode.width}
+                      height={settings.logoLightMode.height}
+                      style={{ maxHeight: 28 }}
+                    />
+                  )}
                   {settings.logo.alt && (
                     <VisuallyHidden asChild>
                       <h2>{settings.logo.alt}</h2>

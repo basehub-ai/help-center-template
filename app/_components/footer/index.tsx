@@ -17,10 +17,8 @@ export const Footer = () => {
     <Pump
       queries={[
         {
-          settings: {
-            logo: { url: true, alt: true, width: true, height: true },
-          },
           index: {
+            logo: { url: true, alt: true, width: true, height: true },
             rights: true,
             socialMediaLinks: {
               items: {
@@ -33,7 +31,7 @@ export const Footer = () => {
         },
       ]}
     >
-      {async ([{ index, settings }]) => {
+      {async ([{ index }]) => {
         'use server'
 
         return (
@@ -46,11 +44,12 @@ export const Footer = () => {
             pt="9"
             pb="80px"
           >
-            {settings.logo && (
+            {index.logo && (
               <Image
-                {...settings.logo}
-                src={settings.logo.url}
-                alt={settings.logo?.alt ?? ''}
+                {...index.logo}
+                src={index.logo.url}
+                alt={index.logo?.alt ?? ''}
+                style={{ maxHeight: 28 }}
               />
             )}
             <Text size="1" color="gray" mt="3">
