@@ -42,11 +42,17 @@ export const generateMetadata = async (): Promise<Metadata> => {
   }
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  const _searchKey = (
+    await basehub().query({
+      _componentInstances: { articlesItem: { _searchKey: true } },
+    })
+  )._componentInstances.articlesItem._searchKey
+
   return (
     <html lang="en">
       <Pump queries={[{ settings: { metadata: { icon: { url: true } } } }]}>
@@ -67,28 +73,10 @@ export default function RootLayout({
       <body>
         <ThemeProvider>
           <IntercomProvider>
-            <Pump
-              queries={[
-                { _componentInstances: { articlesItem: { _searchKey: true } } },
-              ]}
-            >
-              {async ([
-                {
-                  _componentInstances: {
-                    articlesItem: { _searchKey },
-                  },
-                },
-              ]) => {
-                'use server'
-
-                return (
-                  <SearchProvider _searchKey={_searchKey}>
-                    <Header />
-                  </SearchProvider>
-                )
-              }}
-            </Pump>
-            {children}
+            <SearchProvider _searchKey={_searchKey}>
+              <Header />
+              {children}
+            </SearchProvider>
             <Footer />
           </IntercomProvider>
         </ThemeProvider>

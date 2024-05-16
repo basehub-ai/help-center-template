@@ -23,11 +23,9 @@ import s from './search.module.scss'
 export const SearchProvider = ({
   _searchKey,
   children,
-  disableHotkey = false,
 }: {
   _searchKey: string | null
   children: React.ReactNode
-  disableHotkey?: boolean
 }) => {
   const [open, setOpen] = React.useState(false)
 
@@ -41,8 +39,6 @@ export const SearchProvider = ({
   })
 
   React.useEffect(() => {
-    if (disableHotkey) return
-
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'k' && event.metaKey) {
         event.preventDefault()
@@ -54,7 +50,7 @@ export const SearchProvider = ({
     return () => {
       document.removeEventListener('keydown', handleKeyDown)
     }
-  }, [disableHotkey])
+  }, [])
 
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>
