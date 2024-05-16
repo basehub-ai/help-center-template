@@ -142,152 +142,160 @@ export default function ArticlePage({
             mx="auto"
             size="3"
             px={{ initial: '5', md: '7' }}
+            asChild
           >
-            <TOCRenderer>{article.body?.json.toc}</TOCRenderer>
-            <div>
-              <Breadcrumb category={category} article={article} />
-              <Heading as="h1" size={{ initial: '7', md: '8' }}>
-                {article._title}
-              </Heading>
-              <Text as="p" mt="1" size={{ initial: '3', md: '4' }} color="gray">
-                {article.excerpt}
-              </Text>
-              {article.author && (
-                <Grid columns="auto 1fr" rows="2" gapX="2" mt="5">
-                  <Avatar
-                    src={article.author?.avatar.url}
-                    fallback={authorInitials}
-                    style={{ gridRow: '-1 / 1' }}
-                  />
-                  <Text size="2" weight="medium">
-                    {article.author?._title}
-                  </Text>
-                  <Text size="2" color="gray">
-                    Last Updated{' '}
-                    {format(
-                      new Date(article._sys.lastModifiedAt),
-                      'MMMM dd, yyyy'
-                    )}
-                  </Text>
-                </Grid>
-              )}
-              <Box mt="9">
-                <RichText
-                  blocks={article.body?.json.blocks}
-                  components={{
-                    p: (props) => (
-                      <Text
-                        as="p"
-                        {...props}
-                        size={{ initial: '2', md: '3' }}
-                        mb="4"
-                      />
-                    ),
-                    a: (props) => (
-                      <Link asChild>
-                        <NextLink {...props} />
-                      </Link>
-                    ),
-                    h2: (props) => (
-                      <Heading
-                        as="h2"
-                        size={{ initial: '5', md: '6' }}
-                        mt="6"
-                        mb="2"
-                        {...props}
-                      />
-                    ),
-                    h3: (props) => (
-                      <Heading
-                        as="h3"
-                        size={{ initial: '4', md: '5' }}
-                        mt="6"
-                        mb="2"
-                        {...props}
-                      />
-                    ),
-                    img: (props) => (
-                      <Box asChild my="6" mx="0" width="100%">
-                        <figure>
-                          <Image
-                            {...props}
-                            alt={props.alt ?? ''}
-                            style={{
-                              maxWidth: '100%',
-                              height: 'auto',
-                              objectFit: 'contain',
-                              borderRadius: 'var(--radius-4)',
-                            }}
-                          />
-
-                          {props.alt && (
-                            <Text
-                              color="gray"
-                              size="1"
-                              asChild
-                              mx="auto"
-                              style={{ width: 'fit-content' }}
-                            >
-                              <figcaption>{props.alt}</figcaption>
-                            </Text>
-                          )}
-                        </figure>
-                      </Box>
-                    ),
-                    code: ({ isInline, ...rest }) => {
-                      if (isInline) {
-                        return <Code {...rest} />
-                      }
-                      return (
-                        <pre>
-                          <code {...rest} />
-                        </pre>
-                      )
-                    },
-                    pre: ({ children }) => children,
-                    CalloutComponent: Callout,
-                  }}
+            <main>
+              <TOCRenderer>{article.body?.json.toc}</TOCRenderer>
+              <div>
+                <Breadcrumb category={category} article={article} />
+                <Heading as="h1" size={{ initial: '7', md: '8' }}>
+                  {article._title}
+                </Heading>
+                <Text
+                  as="p"
+                  mt="1"
+                  size={{ initial: '3', md: '4' }}
+                  color="gray"
                 >
-                  {article.body?.json.content}
-                </RichText>
-                {!!article.related?.length && (
-                  <Fragment>
-                    <Heading as="h2" size="6" mt="6" mb="3">
-                      Related Articles
-                    </Heading>
-                    <ArticlesList
-                      categorySlug={category._slug}
-                      articles={article.related}
+                  {article.excerpt}
+                </Text>
+                {article.author && (
+                  <Grid columns="auto 1fr" rows="2" gapX="2" mt="5">
+                    <Avatar
+                      src={article.author?.avatar.url}
+                      fallback={authorInitials}
+                      style={{ gridRow: '-1 / 1' }}
                     />
-                  </Fragment>
-                )}
-                {/* TODO: Related articles */}
-                <Separator size="4" my="6" />
-                <Card variant="classic" size="3">
-                  <Flex gap="2" align="center" wrap="wrap">
-                    <Text style={{ flexGrow: 1 }}>
-                      Did this answer your question?
+                    <Text size="2" weight="medium">
+                      {article.author?._title}
                     </Text>
-                    <Flex gap="2">
-                      <IconButton
-                        variant="ghost"
-                        mx="0 !important"
-                        color="gray"
-                      >
-                        <ThumbsDown height={16} width={16} />
-                      </IconButton>
-                      <IconButton
-                        variant="ghost"
-                        mx="0 !important"
-                        color="gray"
-                      >
-                        <ThumbsUp height={16} width={16} />
-                      </IconButton>
+                    <Text size="2" color="gray">
+                      Last Updated{' '}
+                      {format(
+                        new Date(article._sys.lastModifiedAt),
+                        'MMMM dd, yyyy'
+                      )}
+                    </Text>
+                  </Grid>
+                )}
+                <Box mt="9">
+                  <RichText
+                    blocks={article.body?.json.blocks}
+                    components={{
+                      p: (props) => (
+                        <Text
+                          as="p"
+                          {...props}
+                          size={{ initial: '2', md: '3' }}
+                          mb="4"
+                        />
+                      ),
+                      a: (props) => (
+                        <Link asChild>
+                          <NextLink {...props} />
+                        </Link>
+                      ),
+                      h2: (props) => (
+                        <Heading
+                          as="h2"
+                          size={{ initial: '5', md: '6' }}
+                          mt="6"
+                          mb="2"
+                          {...props}
+                        />
+                      ),
+                      h3: (props) => (
+                        <Heading
+                          as="h3"
+                          size={{ initial: '4', md: '5' }}
+                          mt="6"
+                          mb="2"
+                          {...props}
+                        />
+                      ),
+                      img: (props) => (
+                        <Box asChild my="6" mx="0" width="100%">
+                          <figure>
+                            <Image
+                              {...props}
+                              alt={props.alt ?? ''}
+                              style={{
+                                maxWidth: '100%',
+                                height: 'auto',
+                                objectFit: 'contain',
+                                borderRadius: 'var(--radius-4)',
+                              }}
+                            />
+
+                            {props.alt && (
+                              <Text
+                                color="gray"
+                                size="1"
+                                asChild
+                                mx="auto"
+                                style={{ width: 'fit-content' }}
+                              >
+                                <figcaption>{props.alt}</figcaption>
+                              </Text>
+                            )}
+                          </figure>
+                        </Box>
+                      ),
+                      code: ({ isInline, ...rest }) => {
+                        if (isInline) {
+                          return <Code {...rest} />
+                        }
+                        return (
+                          <pre>
+                            <code {...rest} />
+                          </pre>
+                        )
+                      },
+                      pre: ({ children }) => children,
+                      CalloutComponent: Callout,
+                    }}
+                  >
+                    {article.body?.json.content}
+                  </RichText>
+                  {!!article.related?.length && (
+                    <Fragment>
+                      <Heading as="h2" size="6" mt="6" mb="3">
+                        Related Articles
+                      </Heading>
+                      <ArticlesList
+                        categorySlug={category._slug}
+                        articles={article.related}
+                      />
+                    </Fragment>
+                  )}
+                  {/* TODO: Related articles */}
+                  <Separator size="4" my="6" />
+                  <Card variant="classic" size="3">
+                    <Flex gap="2" align="center" wrap="wrap">
+                      <Text style={{ flexGrow: 1 }}>
+                        Did this answer your question?
+                      </Text>
+                      <Flex gap="2">
+                        <IconButton
+                          variant="ghost"
+                          mx="0 !important"
+                          color="gray"
+                        >
+                          <ThumbsDown height={16} width={16} />
+                        </IconButton>
+                        <IconButton
+                          variant="ghost"
+                          mx="0 !important"
+                          color="gray"
+                        >
+                          <ThumbsUp height={16} width={16} />
+                        </IconButton>
+                      </Flex>
                     </Flex>
-                  </Flex>
-                </Card>
-              </Box>
-            </div>
+                  </Card>
+                </Box>
+              </div>
+            </main>
           </Container>
         )
       }}

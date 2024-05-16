@@ -249,7 +249,7 @@ export const DialogTriggerDesktop = ({
   if (pathname === '/' && hideOnHomepage) return null
 
   return (
-    <Dialog.Trigger style={{ width: '100%' }}>
+    <Dialog.Trigger style={{ width: '100%' }} className={className}>
       <button
         style={{
           padding: 0,
@@ -267,7 +267,7 @@ export const DialogTriggerDesktop = ({
           readOnly
           placeholder="Search articles..."
           size="2"
-          className={clsx(s['search-trigger'], className)}
+          className={s['search-trigger']}
           onKeyDown={(e) => {
             if (e.key === 'Enter') {
               e.preventDefault()

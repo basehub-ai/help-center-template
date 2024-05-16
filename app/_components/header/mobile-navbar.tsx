@@ -61,7 +61,7 @@ export const MobileNavbar = ({ links }: { links: NavLinkFragment[] }) => {
           style={{
             position: 'fixed',
             backgroundColor: 'var(--gray-1)',
-            top: 52,
+            top: 'var(--header-height)',
             left: 0,
             right: 0,
             zIndex: 51,

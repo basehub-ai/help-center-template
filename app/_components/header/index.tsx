@@ -10,7 +10,6 @@ import {
 } from '@radix-ui/themes'
 import NextLink from 'next/link'
 import { ThemeSwitcher } from '../theme-switcher'
-import { SlashIcon } from '@radix-ui/react-icons'
 import s from './header.module.scss'
 import { MobileNavbar } from './mobile-navbar'
 import { fragmentOn } from '@/.basehub'
@@ -68,35 +67,25 @@ export const Header = () => {
                 sm: '1fr minmax(165px, auto) 1fr',
               }}
               gapX="4"
-              py="3"
+              height="var(--header-height)"
             >
-              <Flex align="center" gap="1">
-                <Flex asChild align="center" flexShrink="0">
-                  <NextLink href="/">
-                    <img
-                      src={settings.logo.url}
-                      alt={settings.logo.alt ?? ''}
-                      style={{
-                        width: settings.logo.width,
-                        height: settings.logo.height,
-                        maxHeight: 28,
-                      }}
-                    />
-                    {settings.logo.alt && (
-                      <VisuallyHidden asChild>
-                        <h2>{settings.logo.alt}</h2>
-                      </VisuallyHidden>
-                    )}
-                  </NextLink>
-                </Flex>
-                <SlashIcon
-                  color="var(--gray-11)"
-                  height={21}
-                  style={{ flexShrink: 0 }}
-                />
-                <Link color="gray" style={{ color: 'var(--gray-12)' }} asChild>
-                  <NextLink href="/">Help Center</NextLink>
-                </Link>
+              <Flex asChild align="center" flexShrink="0">
+                <NextLink href="/">
+                  <img
+                    src={settings.logo.url}
+                    alt={settings.logo.alt ?? ''}
+                    style={{
+                      width: settings.logo.width,
+                      height: settings.logo.height,
+                      maxHeight: 28,
+                    }}
+                  />
+                  {settings.logo.alt && (
+                    <VisuallyHidden asChild>
+                      <h2>{settings.logo.alt}</h2>
+                    </VisuallyHidden>
+                  )}
+                </NextLink>
               </Flex>
               <Search className={s.search} hideOnHomepage />
               <Flex

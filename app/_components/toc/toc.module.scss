@@ -15,7 +15,7 @@
 
   > div {
     position: sticky;
-    top: 56px;
+    top: calc(var(--space-6) + var(--header-height));
   }
 
   ol {

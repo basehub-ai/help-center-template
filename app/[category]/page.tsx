@@ -65,22 +65,25 @@ export default function CategoryPage({
             px={{ initial: '5', md: '7' }}
             style={{ flexGrow: '1' }}
             size="3"
+            asChild
           >
-            <Breadcrumb category={category} />
-            <Grid
-              gapX="7"
-              flow="column"
-              gapY="2"
-              columns={{ sm: 'minmax(auto, 278px) 1fr' }}
-              rows={{ initial: 'repeat(3, auto)', sm: 'auto auto' }}
-            >
-              <Heading size="8">{category._title}</Heading>
-              <Text color="gray">{category.description}</Text>
-              <ArticlesList
-                categorySlug={category._slug}
-                articles={category.articles.items}
-              />
-            </Grid>
+            <main>
+              <Breadcrumb category={category} />
+              <Grid
+                gapX="7"
+                flow="column"
+                gapY="2"
+                columns={{ sm: 'minmax(auto, 278px) 1fr' }}
+                rows={{ initial: 'repeat(3, auto)', sm: 'auto auto' }}
+              >
+                <Heading size="8">{category._title}</Heading>
+                <Text color="gray">{category.description}</Text>
+                <ArticlesList
+                  categorySlug={category._slug}
+                  articles={category.articles.items}
+                />
+              </Grid>
+            </main>
           </Container>
         )
       }}
