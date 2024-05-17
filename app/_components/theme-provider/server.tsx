@@ -55,7 +55,7 @@ export const ThemeProvider = async ({
         <Pump queries={[{ settings: { theme: ThemeFragment } }]}>
           {async ([data]) => {
             'use server'
-            return <LiveThemeSwitcher data={data.settings.theme} />
+            return <LiveThemeSwitcher theme={data.settings.theme} />
           }}
         </Pump>
       </Theme>
