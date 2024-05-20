@@ -1,9 +1,9 @@
-import { fragmentOn } from "@/.basehub";
-import { Card, Flex, Text } from "@radix-ui/themes";
-import { Icon } from "./icon";
-import Link from "next/link";
+import { fragmentOn } from '@/.basehub'
+import { Card, Flex, Text } from '@radix-ui/themes'
+import { Icon } from './icon'
+import Link from 'next/link'
 
-export const CategoryMeta = fragmentOn("CategoriesItem", {
+export const CategoryMeta = fragmentOn('CategoriesItem', {
   _id: true,
   _title: true,
   _slug: true,
@@ -14,9 +14,9 @@ export const CategoryMeta = fragmentOn("CategoriesItem", {
       _id: true,
     },
   },
-});
+})
 
-export type CategoryMeta = fragmentOn.infer<typeof CategoryMeta>;
+export type CategoryMeta = fragmentOn.infer<typeof CategoryMeta>
 
 export const CategoryCard = ({ data }: { data: CategoryMeta }) => {
   return (
@@ -33,5 +33,5 @@ export const CategoryCard = ({ data }: { data: CategoryMeta }) => {
         </Flex>
       </Link>
     </Card>
-  );
-};
+  )
+}

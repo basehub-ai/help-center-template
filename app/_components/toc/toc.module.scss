@@ -1,0 +1,24 @@
+.container {
+  position: relative;
+  max-width: 280px;
+  flex-shrink: 0;
+  display: none;
+
+  @media (min-width: 1024px) {
+    display: block;
+    left: max(24px, 4%);
+  }
+
+  @media (min-width: 1120px) {
+    left: 100px;
+  }
+
+  > div {
+    position: sticky;
+    top: calc(var(--space-6) + var(--header-height));
+  }
+
+  ol {
+    margin: 0;
+  }
+}

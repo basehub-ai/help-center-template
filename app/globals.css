@@ -1,4 +1,4 @@
-@import "./normalize.css";
+@import './normalize.css';
 
 html.light .dark-only {
   display: none;
@@ -6,4 +6,8 @@ html.light .dark-only {
 
 html.dark .light-only {
   display: none;
+}
+
+:root {
+  --header-height: 48px;
 }

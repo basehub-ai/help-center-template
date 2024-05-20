@@ -1,35 +1,61 @@
-"use client";
+'use client'
 
-import { useThemeContext } from "@radix-ui/themes";
-import { ThemeFragment } from "./server";
-import { useEffect } from "react";
+import { useThemeContext } from '@radix-ui/themes'
+import { ThemeFragment } from './server'
+import * as React from 'react'
+import { useTheme } from 'next-themes'
+import { useHasRendered } from '@/hooks/use-has-rendered'
 
-export const LiveThemeSwitcher = ({ data }: { data: ThemeFragment }) => {
+export const LiveThemeSwitcher = ({ theme }: { theme: ThemeFragment }) => {
   const {
     onAccentColorChange,
     onRadiusChange,
     onGrayColorChange,
-    onAppearanceChange,
-    onPanelBackgroundChange,
     onScalingChange,
-  } = useThemeContext();
-
-  useEffect(() => {
-    onAccentColorChange(data.accentColor as any);
-    onRadiusChange(data.radius as any);
-    onGrayColorChange(data.grayScale as any);
-    onAppearanceChange(data.appearance as any);
-    onPanelBackgroundChange(data.panelBackground as any);
-    onScalingChange(data.scaling as any);
-  }, [
-    data,
-    onAccentColorChange,
     onAppearanceChange,
-    onGrayColorChange,
     onPanelBackgroundChange,
+  } = useThemeContext()
+  const { setTheme, theme: activeTheme } = useTheme()
+  const activeThemeRef = React.useRef(activeTheme)
+  activeThemeRef.current = activeTheme
+  const hasRendered = useHasRendered()
+
+  React.useEffect(() => {
+    // wait for first render to happen before re-syncing theme
+    if (!hasRendered) return
+    onAccentColorChange(theme.accentColor as any)
+    onRadiusChange(theme.radius as any)
+    onGrayColorChange(theme.grayScale as any)
+    onAppearanceChange(theme.appearance as any)
+    onScalingChange(theme.scaling as any)
+    onPanelBackgroundChange(theme.panelBackground as any)
+
+    const themeChanged =
+      activeThemeRef.current !== theme.appearance &&
+      theme.appearance !== 'inherit' &&
+      theme.appearance !== 'system'
+    if (themeChanged && theme.appearance) {
+      if (!theme.appearance || theme.appearance === 'inherit') {
+        setTheme('system')
+      }
+      return setTheme(theme.appearance)
+    }
+  }, [
+    theme.accentColor,
+    theme.radius,
+    theme.grayScale,
+    theme.appearance,
+    theme.scaling,
+    theme.panelBackground,
+    onAccentColorChange,
+    onGrayColorChange,
+    onAppearanceChange,
     onRadiusChange,
     onScalingChange,
-  ]);
+    onPanelBackgroundChange,
+    setTheme,
+    hasRendered,
+  ])
 
-  return null;
-};
+  return null
+}

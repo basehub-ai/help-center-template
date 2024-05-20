@@ -1,9 +1,11 @@
-import { Pump } from "@/.basehub/react-pump";
-import { Container, Flex, Heading, Text } from "@radix-ui/themes";
-import { basehub } from "@/.basehub";
-import { CategoryMeta } from "../_components/category-card";
-import { ArticleLink, ArticleMeta } from "../_components/article-link";
-import { notFound } from "next/navigation";
+import { Pump } from '@/.basehub/react-pump'
+import { Container, Grid, Heading, Text } from '@radix-ui/themes'
+import { basehub } from '@/.basehub'
+import { CategoryMeta } from '../_components/category-card'
+import { ArticleMeta } from '../_components/article-link'
+import { notFound } from 'next/navigation'
+import { ArticlesList } from '../_components/articles-list'
+import { Breadcrumb } from '../_components/breadcrumb'
 
 export const generateStaticParams = async () => {
   const data = await basehub().query({
@@ -15,16 +17,16 @@ export const generateStaticParams = async () => {
         },
       },
     },
-  });
+  })
   return data.index.categoriesSection.categories.items.map((category) => ({
     params: { category: category._slug },
-  }));
-};
+  }))
+}
 
 export default function CategoryPage({
   params,
 }: {
-  params: { category: string };
+  params: { category: string }
 }) {
   return (
     <Pump
@@ -51,29 +53,40 @@ export default function CategoryPage({
       ]}
     >
       {async ([data]) => {
-        "use server";
+        'use server'
 
-        const category = data.index.categoriesSection.categories.items[0];
-        if (!category) notFound();
+        const category = data.index.categoriesSection.categories.items[0]
+        if (!category) notFound()
 
         return (
-          <Container py="9">
-            <Heading size="8">{category._title}</Heading>
-            <Text>{category.description}</Text>
-            <Flex gap="4">
-              {category.articles.items.map((item) => {
-                return (
-                  <ArticleLink
-                    key={item._id}
-                    data={item}
-                    categorySlug={params.category}
-                  />
-                );
-              })}
-            </Flex>
+          <Container
+            pb="9"
+            pt={{ initial: '6', sm: '0' }}
+            px={{ initial: '5', md: '7' }}
+            style={{ flexGrow: '1' }}
+            size="3"
+            asChild
+          >
+            <main>
+              <Breadcrumb category={category} />
+              <Grid
+                gapX="7"
+                flow="column"
+                gapY="2"
+                columns={{ sm: 'minmax(auto, 278px) 1fr' }}
+                rows={{ initial: 'repeat(3, auto)', sm: 'auto auto' }}
+              >
+                <Heading size="8">{category._title}</Heading>
+                <Text color="gray">{category.description}</Text>
+                <ArticlesList
+                  categorySlug={category._slug}
+                  articles={category.articles.items}
+                />
+              </Grid>
+            </main>
           </Container>
-        );
+        )
       }}
     </Pump>
-  );
+  )
 }
