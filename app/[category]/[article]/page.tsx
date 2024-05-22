@@ -183,6 +183,19 @@ export default function ArticlePage({
                   <RichText
                     blocks={article.body?.json.blocks}
                     components={{
+                      video: (props) => (
+                        <Box asChild my="6" mx="0" width="100%">
+                          <video
+                            {...props}
+                            controls
+                            style={{
+                              maxWidth: '100%',
+                              height: 'auto',
+                              borderRadius: 'var(--radius-4)',
+                            }}
+                          />
+                        </Box>
+                      ),
                       p: (props) => (
                         <Text
                           as="p"
