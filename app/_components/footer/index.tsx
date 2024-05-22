@@ -30,6 +30,7 @@ export const Footer = () => {
           },
         },
       ]}
+      next={{ revalidate: 60 }}
     >
       {async ([{ index }]) => {
         'use server'

@@ -15,7 +15,7 @@ import { MobileNavbar } from './mobile-navbar'
 import { fragmentOn } from '@/.basehub'
 import { DialogTriggerDesktop as Search } from '../search'
 import Image from 'next/image'
-import clsx from 'clsx'
+import { clsx } from 'clsx'
 
 const navLinkFragment = fragmentOn('NavLinksItem', {
   _id: true,
@@ -47,6 +47,7 @@ export const Header = () => {
           },
         },
       ]}
+      next={{ revalidate: 60 }}
     >
       {async ([{ settings }]) => {
         'use server'

@@ -10,7 +10,7 @@ import { IntercomProvider } from './_components/intercom'
 import { SearchProvider } from './_components/search'
 
 export const generateMetadata = async (): Promise<Metadata> => {
-  const data = await basehub().query({
+  const data = await basehub({ next: { revalidate: 120 } }).query({
     settings: {
       logo: { url: true },
       metadata: {
@@ -55,7 +55,10 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
-      <Pump queries={[{ settings: { metadata: { icon: { url: true } } } }]}>
+      <Pump
+        queries={[{ settings: { metadata: { icon: { url: true } } } }]}
+        next={{ revalidate: 60 }}
+      >
         {async ([data]) => {
           'use server'
 

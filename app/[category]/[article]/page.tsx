@@ -30,7 +30,7 @@ import s from './styles.module.scss'
 import { ThumbsDown, ThumbsUp } from 'lucide-react'
 
 export const generateStaticParams = async () => {
-  const data = await basehub().query({
+  const data = await basehub({ next: { revalidate: 60 } }).query({
     index: {
       categoriesSection: {
         title: true,
@@ -117,6 +117,7 @@ export default function ArticlePage({
           },
         },
       ]}
+      next={{ revalidate: 60 }}
     >
       {async ([data]) => {
         'use server'

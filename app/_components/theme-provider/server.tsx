@@ -22,7 +22,7 @@ export const ThemeProvider = async ({
 }: {
   children: React.ReactNode
 }) => {
-  const data = await basehub().query({
+  const data = await basehub({ next: { revalidate: 60 } }).query({
     settings: {
       theme: ThemeFragment,
     },
@@ -52,7 +52,10 @@ export const ThemeProvider = async ({
         }}
       >
         {children}
-        <Pump queries={[{ settings: { theme: ThemeFragment } }]}>
+        <Pump
+          queries={[{ settings: { theme: ThemeFragment } }]}
+          next={{ revalidate: 60 }}
+        >
           {async ([data]) => {
             'use server'
             return <LiveThemeSwitcher theme={data.settings.theme} />
