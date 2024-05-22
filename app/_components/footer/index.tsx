@@ -19,6 +19,7 @@ export const Footer = () => {
         {
           index: {
             logo: { url: true, alt: true, width: true, height: true },
+            logoLightMode: { url: true, alt: true, width: true, height: true },
             rights: true,
             socialMediaLinks: {
               items: {
@@ -47,9 +48,19 @@ export const Footer = () => {
           >
             {index.logo && (
               <Image
+                className="dark-only"
                 {...index.logo}
                 src={index.logo.url}
                 alt={index.logo?.alt ?? ''}
+                style={{ maxHeight: 28 }}
+              />
+            )}
+            {index.logoLightMode && (
+              <Image
+                className="light-only"
+                {...index.logoLightMode}
+                src={index.logoLightMode.url}
+                alt={index.logoLightMode?.alt ?? ''}
                 style={{ maxHeight: 28 }}
               />
             )}
