@@ -2,16 +2,19 @@ import { Pump } from '@/.basehub/react-pump'
 import { RichText } from '@/.basehub/react-rich-text'
 import {
   Avatar,
+  Blockquote,
   Box,
   Card,
   Code,
   Container,
+  Em,
   Flex,
   Grid,
   Heading,
   IconButton,
   Link,
   Separator,
+  Table,
   Text,
 } from '@radix-ui/themes'
 import NextLink from 'next/link'
@@ -183,6 +186,62 @@ export default function ArticlePage({
                   <RichText
                     blocks={article.body?.json.blocks}
                     components={{
+                      h2: (props) => (
+                        <Heading
+                          as="h2"
+                          size={{ initial: '5', md: '6' }}
+                          mt="6"
+                          mb="2"
+                          {...props}
+                        />
+                      ),
+                      h3: (props) => (
+                        <Heading
+                          as="h3"
+                          size={{ initial: '4', md: '5' }}
+                          mt="6"
+                          mb="2"
+                          {...props}
+                        />
+                      ),
+                      h4: (props) => (
+                        <Heading as="h4" id={props.id}>
+                          {props.children}
+                        </Heading>
+                      ),
+                      h5: (props) => (
+                        <Heading as="h5" id={props.id}>
+                          {props.children}
+                        </Heading>
+                      ),
+                      h6: (props) => (
+                        <Heading as="h6" id={props.id}>
+                          {props.children}
+                        </Heading>
+                      ),
+                      blockquote: ({ children }) => (
+                        <Blockquote>{children}</Blockquote>
+                      ),
+                      table: (props) => (
+                        <Table.Root {...props} size="2" layout="auto" />
+                      ),
+                      em: (props) => <Em {...props} />,
+                      tbody: (props) => <Table.Body {...props} />,
+                      tr: ({ children }) => <Table.Row>{children}</Table.Row>,
+                      th: ({ children, rowspan, colspan }) => (
+                        <Table.ColumnHeaderCell
+                          colSpan={colspan}
+                          rowSpan={rowspan}
+                        >
+                          {children}
+                        </Table.ColumnHeaderCell>
+                      ),
+                      td: ({ children, rowspan, colspan }) => (
+                        <Table.Cell colSpan={colspan} rowSpan={rowspan}>
+                          {children}
+                        </Table.Cell>
+                      ),
+                      hr: () => <Separator size="4" my="7" color="gray" />,
                       video: (props) => (
                         <Box asChild my="6" mx="0" width="100%">
                           <video
@@ -208,24 +267,6 @@ export default function ArticlePage({
                         <Link asChild>
                           <NextLink {...props} />
                         </Link>
-                      ),
-                      h2: (props) => (
-                        <Heading
-                          as="h2"
-                          size={{ initial: '5', md: '6' }}
-                          mt="6"
-                          mb="2"
-                          {...props}
-                        />
-                      ),
-                      h3: (props) => (
-                        <Heading
-                          as="h3"
-                          size={{ initial: '4', md: '5' }}
-                          mt="6"
-                          mb="2"
-                          {...props}
-                        />
                       ),
                       img: (props) => (
                         <Box asChild my="6" mx="0" width="100%">
