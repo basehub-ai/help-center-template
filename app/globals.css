@@ -12,3 +12,7 @@ html.dark .light-only {
   --header-height: 48px;
   scroll-padding-top: var(--header-height);
 }
+
+h1 {
+  text-wrap: pretty;
+}

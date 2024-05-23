@@ -1,17 +1,13 @@
 import { Pump } from '@/.basehub/react-pump'
-import { RichText } from '@/.basehub/react-rich-text'
 import {
   Avatar,
   Blockquote,
   Box,
-  Card,
   Code,
   Container,
   Em,
-  Flex,
   Grid,
   Heading,
-  IconButton,
   Link,
   Separator,
   Table,
@@ -19,6 +15,7 @@ import {
 } from '@radix-ui/themes'
 import NextLink from 'next/link'
 import { basehub } from '@/.basehub'
+import { RichText } from 'basehub/react-rich-text'
 import { notFound } from 'next/navigation'
 import { CategoryMeta } from '@/app/_components/category-card'
 import { ArticleMeta } from '@/app/_components/article-link'
@@ -30,7 +27,7 @@ import { TOCRenderer } from '@/app/_components/toc'
 import { Breadcrumb } from '@/app/_components/breadcrumb'
 import { format } from 'date-fns'
 import s from './styles.module.scss'
-import { ThumbsDown, ThumbsUp } from 'lucide-react'
+import { Feedback } from '@/app/_components/feeback'
 
 export const generateStaticParams = async () => {
   const data = await basehub({ next: { revalidate: 60 } }).query({
@@ -87,6 +84,7 @@ export default function ArticlePage({
                       _sys: {
                         lastModifiedAt: true,
                       },
+                      _analyticsKey: true,
                       author: {
                         avatar: {
                           url: true,
@@ -324,29 +322,7 @@ export default function ArticlePage({
                     </Fragment>
                   )}
                   <Separator size="4" my="6" />
-                  <Card variant="classic" size="3">
-                    <Flex gap="2" align="center" wrap="wrap">
-                      <Text style={{ flexGrow: 1 }}>
-                        Did this answer your question?
-                      </Text>
-                      <Flex gap="2">
-                        <IconButton
-                          variant="ghost"
-                          mx="0 !important"
-                          color="gray"
-                        >
-                          <ThumbsDown height={16} width={16} />
-                        </IconButton>
-                        <IconButton
-                          variant="ghost"
-                          mx="0 !important"
-                          color="gray"
-                        >
-                          <ThumbsUp height={16} width={16} />
-                        </IconButton>
-                      </Flex>
-                    </Flex>
-                  </Card>
+                  <Feedback analyticsKey={article._analyticsKey} />
                 </Box>
               </Box>
             </main>
