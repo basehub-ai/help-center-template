@@ -1,6 +1,7 @@
 .container {
   position: relative;
   max-width: 280px;
+  min-width: 280px;
   flex-shrink: 0;
   display: none;
 

@@ -8,7 +8,7 @@ import { ArticlesList } from '../_components/articles-list'
 import { Breadcrumb } from '../_components/breadcrumb'
 
 export const generateStaticParams = async () => {
-  const data = await basehub().query({
+  const data = await basehub({ next: { revalidate: 120 } }).query({
     index: {
       categoriesSection: {
         title: true,
@@ -51,6 +51,7 @@ export default function CategoryPage({
           },
         },
       ]}
+      next={{ revalidate: 60 }}
     >
       {async ([data]) => {
         'use server'
@@ -73,7 +74,7 @@ export default function CategoryPage({
                 gapX="7"
                 flow="column"
                 gapY="2"
-                columns={{ sm: 'minmax(auto, 278px) 1fr' }}
+                columns={{ sm: 'minmax(auto, 308px) 1fr' }}
                 rows={{ initial: 'repeat(3, auto)', sm: 'auto auto' }}
               >
                 <Heading size="8">{category._title}</Heading>

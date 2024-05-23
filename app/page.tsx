@@ -40,6 +40,7 @@ export default function HomePage() {
           },
         },
       ]}
+      next={{ revalidate: 60 }}
     >
       {async ([data]) => {
         'use server'

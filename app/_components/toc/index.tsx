@@ -8,7 +8,7 @@ export const TOCRenderer = ({
 }: {
   children: RichTextProps['children']
 }) => {
-  if (!children) return
+  if (!children) return null
 
   return (
     <div className={s.container}>

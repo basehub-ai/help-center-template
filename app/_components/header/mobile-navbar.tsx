@@ -34,7 +34,7 @@ export const MobileNavbar = ({ links }: { links: NavLinkFragment[] }) => {
             color="gray"
             onClick={toggleState.handleToggle}
           >
-            <HamburgerMenuIcon />
+            <HamburgerMenuIcon height={18} width={18} />
           </IconButton>
         </nav>
       </Flex>
@@ -60,7 +60,7 @@ export const MobileNavbar = ({ links }: { links: NavLinkFragment[] }) => {
         <Flex
           style={{
             position: 'fixed',
-            backgroundColor: 'var(--gray-1)',
+            backgroundColor: 'var(--color-background)',
             top: 'var(--header-height)',
             left: 0,
             right: 0,

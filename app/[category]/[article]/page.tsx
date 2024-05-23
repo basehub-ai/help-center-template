@@ -1,21 +1,21 @@
 import { Pump } from '@/.basehub/react-pump'
-import { RichText } from '@/.basehub/react-rich-text'
 import {
   Avatar,
+  Blockquote,
   Box,
-  Card,
   Code,
   Container,
-  Flex,
+  Em,
   Grid,
   Heading,
-  IconButton,
   Link,
   Separator,
+  Table,
   Text,
 } from '@radix-ui/themes'
 import NextLink from 'next/link'
 import { basehub } from '@/.basehub'
+import { RichText } from 'basehub/react-rich-text'
 import { notFound } from 'next/navigation'
 import { CategoryMeta } from '@/app/_components/category-card'
 import { ArticleMeta } from '@/app/_components/article-link'
@@ -27,10 +27,10 @@ import { TOCRenderer } from '@/app/_components/toc'
 import { Breadcrumb } from '@/app/_components/breadcrumb'
 import { format } from 'date-fns'
 import s from './styles.module.scss'
-import { ThumbsDown, ThumbsUp } from 'lucide-react'
+import { Feedback } from '@/app/_components/feeback'
 
 export const generateStaticParams = async () => {
-  const data = await basehub().query({
+  const data = await basehub({ next: { revalidate: 60 } }).query({
     index: {
       categoriesSection: {
         title: true,
@@ -84,6 +84,7 @@ export default function ArticlePage({
                       _sys: {
                         lastModifiedAt: true,
                       },
+                      _analyticsKey: true,
                       author: {
                         avatar: {
                           url: true,
@@ -117,6 +118,7 @@ export default function ArticlePage({
           },
         },
       ]}
+      next={{ revalidate: 60 }}
     >
       {async ([data]) => {
         'use server'
@@ -146,7 +148,7 @@ export default function ArticlePage({
           >
             <main>
               <TOCRenderer>{article.body?.json.toc}</TOCRenderer>
-              <div>
+              <Box flexGrow="1">
                 <Breadcrumb category={category} article={article} />
                 <Heading as="h1" size={{ initial: '7', md: '8' }}>
                   {article._title}
@@ -182,19 +184,6 @@ export default function ArticlePage({
                   <RichText
                     blocks={article.body?.json.blocks}
                     components={{
-                      p: (props) => (
-                        <Text
-                          as="p"
-                          {...props}
-                          size={{ initial: '2', md: '3' }}
-                          mb="4"
-                        />
-                      ),
-                      a: (props) => (
-                        <Link asChild>
-                          <NextLink {...props} />
-                        </Link>
-                      ),
                       h2: (props) => (
                         <Heading
                           as="h2"
@@ -212,6 +201,70 @@ export default function ArticlePage({
                           mb="2"
                           {...props}
                         />
+                      ),
+                      h4: (props) => (
+                        <Heading as="h4" id={props.id}>
+                          {props.children}
+                        </Heading>
+                      ),
+                      h5: (props) => (
+                        <Heading as="h5" id={props.id}>
+                          {props.children}
+                        </Heading>
+                      ),
+                      h6: (props) => (
+                        <Heading as="h6" id={props.id}>
+                          {props.children}
+                        </Heading>
+                      ),
+                      blockquote: ({ children }) => (
+                        <Blockquote>{children}</Blockquote>
+                      ),
+                      table: (props) => (
+                        <Table.Root {...props} size="2" layout="auto" />
+                      ),
+                      em: (props) => <Em {...props} />,
+                      tbody: (props) => <Table.Body {...props} />,
+                      tr: ({ children }) => <Table.Row>{children}</Table.Row>,
+                      th: ({ children, rowspan, colspan }) => (
+                        <Table.ColumnHeaderCell
+                          colSpan={colspan}
+                          rowSpan={rowspan}
+                        >
+                          {children}
+                        </Table.ColumnHeaderCell>
+                      ),
+                      td: ({ children, rowspan, colspan }) => (
+                        <Table.Cell colSpan={colspan} rowSpan={rowspan}>
+                          {children}
+                        </Table.Cell>
+                      ),
+                      hr: () => <Separator size="4" my="7" color="gray" />,
+                      video: (props) => (
+                        <Box asChild my="6" mx="0" width="100%">
+                          <video
+                            {...props}
+                            controls
+                            style={{
+                              maxWidth: '100%',
+                              height: 'auto',
+                              borderRadius: 'var(--radius-4)',
+                            }}
+                          />
+                        </Box>
+                      ),
+                      p: (props) => (
+                        <Text
+                          as="p"
+                          {...props}
+                          size={{ initial: '2', md: '3' }}
+                          mb="4"
+                        />
+                      ),
+                      a: (props) => (
+                        <Link asChild>
+                          <NextLink {...props} />
+                        </Link>
                       ),
                       img: (props) => (
                         <Box asChild my="6" mx="0" width="100%">
@@ -268,33 +321,10 @@ export default function ArticlePage({
                       />
                     </Fragment>
                   )}
-                  {/* TODO: Related articles */}
                   <Separator size="4" my="6" />
-                  <Card variant="classic" size="3">
-                    <Flex gap="2" align="center" wrap="wrap">
-                      <Text style={{ flexGrow: 1 }}>
-                        Did this answer your question?
-                      </Text>
-                      <Flex gap="2">
-                        <IconButton
-                          variant="ghost"
-                          mx="0 !important"
-                          color="gray"
-                        >
-                          <ThumbsDown height={16} width={16} />
-                        </IconButton>
-                        <IconButton
-                          variant="ghost"
-                          mx="0 !important"
-                          color="gray"
-                        >
-                          <ThumbsUp height={16} width={16} />
-                        </IconButton>
-                      </Flex>
-                    </Flex>
-                  </Card>
+                  <Feedback analyticsKey={article._analyticsKey} />
                 </Box>
-              </div>
+              </Box>
             </main>
           </Container>
         )

@@ -225,7 +225,7 @@ export const DialogTriggerMobile = () => {
   return (
     <Dialog.Trigger>
       <IconButton variant="ghost" color="gray">
-        <MagnifyingGlassIcon />
+        <MagnifyingGlassIcon height={18} width={18} />
       </IconButton>
     </Dialog.Trigger>
   )
