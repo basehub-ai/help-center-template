@@ -60,7 +60,7 @@ export const MobileNavbar = ({ links }: { links: NavLinkFragment[] }) => {
         <Flex
           style={{
             position: 'fixed',
-            backgroundColor: 'var(--gray-1)',
+            backgroundColor: 'var(--color-background)',
             top: 'var(--header-height)',
             left: 0,
             right: 0,

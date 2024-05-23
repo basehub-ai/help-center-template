@@ -61,7 +61,7 @@ export const Header = () => {
               position: 'sticky',
               top: 0,
               zIndex: 49,
-              backgroundColor: 'var(--gray-1)',
+              backgroundColor: 'var(--color-background)',
             }}
           >
             <Grid
