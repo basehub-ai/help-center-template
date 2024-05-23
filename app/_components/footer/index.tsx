@@ -18,8 +18,6 @@ export const Footer = () => {
       queries={[
         {
           index: {
-            logo: { url: true, alt: true, width: true, height: true },
-            logoLightMode: { url: true, alt: true, width: true, height: true },
             rights: true,
             socialMediaLinks: {
               items: {
@@ -29,11 +27,15 @@ export const Footer = () => {
               },
             },
           },
+          settings: {
+            logo: { url: true, alt: true, width: true, height: true },
+            logoLightMode: { url: true, alt: true, width: true, height: true },
+          },
         },
       ]}
       next={{ revalidate: 60 }}
     >
-      {async ([{ index }]) => {
+      {async ([{ index, settings }]) => {
         'use server'
 
         return (
@@ -46,21 +48,21 @@ export const Footer = () => {
             pt="9"
             pb="80px"
           >
-            {index.logo && (
+            {settings.logo && (
               <Image
                 className="dark-only"
-                {...index.logo}
-                src={index.logo.url}
-                alt={index.logo?.alt ?? ''}
+                {...settings.logo}
+                src={settings.logo.url}
+                alt={settings.logo?.alt ?? ''}
                 style={{ maxHeight: 28 }}
               />
             )}
-            {index.logoLightMode && (
+            {settings.logoLightMode && (
               <Image
                 className="light-only"
-                {...index.logoLightMode}
-                src={index.logoLightMode.url}
-                alt={index.logoLightMode?.alt ?? ''}
+                {...settings.logoLightMode}
+                src={settings.logoLightMode.url}
+                alt={settings.logoLightMode?.alt ?? ''}
                 style={{ maxHeight: 28 }}
               />
             )}
