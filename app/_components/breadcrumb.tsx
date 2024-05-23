@@ -1,4 +1,4 @@
-import { Box, Flex, Link, Text } from '@radix-ui/themes'
+import { Flex, Link, Text } from '@radix-ui/themes'
 import { SlashIcon } from '@radix-ui/react-icons'
 import NextLink from 'next/link'
 
@@ -12,12 +12,7 @@ export const Breadcrumb = ({
   return (
     <Flex gap="1" mb={{ initial: '4', md: '5' }} align="center">
       <Link asChild color="gray" size={{ initial: '2', md: '3' }}>
-        <NextLink href="/">
-          <Box asChild display={{ initial: 'none', md: 'inline' }}>
-            <span>All </span>
-          </Box>
-          Categories
-        </NextLink>
+        <NextLink href="/">Categories</NextLink>
       </Link>
 
       <Text color="gray" asChild>
