@@ -3,6 +3,7 @@
     > div {
       display: flex;
       flex-direction: row-reverse;
+      width: 9999px; // Force to max-width
     }
   }
 }

@@ -150,7 +150,7 @@ export default function ArticlePage({
           >
             <main>
               <TOCRenderer>{article.body?.json.toc}</TOCRenderer>
-              <div>
+              <Box flexGrow="1">
                 <Breadcrumb category={category} article={article} />
                 <Heading as="h1" size={{ initial: '7', md: '8' }}>
                   {article._title}
@@ -323,7 +323,6 @@ export default function ArticlePage({
                       />
                     </Fragment>
                   )}
-                  {/* TODO: Related articles */}
                   <Separator size="4" my="6" />
                   <Card variant="classic" size="3">
                     <Flex gap="2" align="center" wrap="wrap">
@@ -349,7 +348,7 @@ export default function ArticlePage({
                     </Flex>
                   </Card>
                 </Box>
-              </div>
+              </Box>
             </main>
           </Container>
         )

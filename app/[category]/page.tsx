@@ -74,7 +74,7 @@ export default function CategoryPage({
                 gapX="7"
                 flow="column"
                 gapY="2"
-                columns={{ sm: 'minmax(auto, 278px) 1fr' }}
+                columns={{ sm: 'minmax(auto, 308px) 1fr' }}
                 rows={{ initial: 'repeat(3, auto)', sm: 'auto auto' }}
               >
                 <Heading size="8">{category._title}</Heading>
