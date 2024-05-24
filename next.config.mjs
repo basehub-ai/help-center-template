@@ -3,7 +3,7 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
-        hostname: 'assets.dub.co',
+        hostname: 'basehub.earth',
         protocol: 'https',
       },
     ],
