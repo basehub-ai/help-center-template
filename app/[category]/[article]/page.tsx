@@ -19,7 +19,6 @@ import { RichText } from 'basehub/react-rich-text'
 import { notFound } from 'next/navigation'
 import { CategoryMeta } from '@/app/_components/category-card'
 import { ArticleMeta } from '@/app/_components/article-link'
-import Image from 'next/image'
 import {
   Callout as CalloutFragment,
   InlineIcon as InlineIconFragment,
@@ -33,6 +32,8 @@ import { format } from 'date-fns'
 import s from './styles.module.scss'
 import { Feedback } from '@/app/_components/feeback'
 import { InlineIcon } from '@/app/_components/inline-icon'
+import { Video } from '@/app/_components/article/video'
+import { ImageWithZoom } from '@/app/_components/article/image-with-zoom'
 
 export const generateStaticParams = async () => {
   const data = await basehub({ next: { revalidate: 60 } }).query({
@@ -242,19 +243,7 @@ export default function ArticlePage({
                         </Table.Cell>
                       ),
                       hr: () => <Separator size="4" my="7" color="gray" />,
-                      video: (props) => (
-                        <Box asChild my="6" mx="0" width="100%">
-                          <video
-                            {...props}
-                            controls
-                            style={{
-                              maxWidth: '100%',
-                              height: 'auto',
-                              borderRadius: 'var(--radius-4)',
-                            }}
-                          />
-                        </Box>
-                      ),
+                      video: Video,
                       p: (props) => (
                         <Text
                           as="p"
@@ -268,34 +257,7 @@ export default function ArticlePage({
                           <NextLink {...props} />
                         </Link>
                       ),
-                      img: (props) => (
-                        <Box asChild my="6" mx="0" width="100%">
-                          <figure>
-                            <Image
-                              {...props}
-                              alt={props.alt ?? ''}
-                              style={{
-                                maxWidth: '100%',
-                                height: 'auto',
-                                objectFit: 'contain',
-                                borderRadius: 'var(--radius-4)',
-                              }}
-                            />
-
-                            {props.alt && (
-                              <Text
-                                color="gray"
-                                size="1"
-                                asChild
-                                mx="auto"
-                                style={{ width: 'fit-content' }}
-                              >
-                                <figcaption>{props.alt}</figcaption>
-                              </Text>
-                            )}
-                          </figure>
-                        </Box>
-                      ),
+                      img: (props) => <ImageWithZoom {...props} />,
                       code: ({ isInline, ...rest }) => {
                         if (isInline) {
                           return <Code {...rest} />

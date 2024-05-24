@@ -23,6 +23,7 @@
     "next-themes": "^0.3.0",
     "react": "^18",
     "react-dom": "^18",
+    "react-medium-image-zoom": "^5.2.4",
     "react-use-intercom": "^5.4.0",
     "sass": "^1.77.0"
   },
