@@ -9,13 +9,16 @@ export const Feedback = ({
 }: {
   analyticsKey: string
 }) => {
+  const [bothFeedbackSent, setBothFeedbackSent] = React.useState(false)
   const [previousFeedback, setPreviousFeedback] = React.useState<
     'positive' | 'negative' | null
   >(null)
 
   const handleFeedback = (type: 'positive' | 'negative') => {
-    if (previousFeedback) return
-    sendEvent({ _analyticsKey, name: `feedback:${type}` })
+    if (previousFeedback === type) return
+    // If the user has already given feedback twice, stop sending the event.
+    !bothFeedbackSent && sendEvent({ _analyticsKey, name: `feedback:${type}` })
+    if (previousFeedback) setBothFeedbackSent(true)
     setPreviousFeedback(type)
     window.localStorage.setItem(`feedback:${_analyticsKey}`, type)
   }
