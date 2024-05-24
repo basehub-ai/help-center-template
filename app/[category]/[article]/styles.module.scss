@@ -11,6 +11,13 @@
 .container {
   max-width: 100vw;
 
+  ol ol,
+  ol ul,
+  ul ol,
+  ul ul {
+    margin-block: var(--space-3);
+  }
+
   li {
     p {
       margin-bottom: 0;
