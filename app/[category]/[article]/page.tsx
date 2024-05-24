@@ -20,6 +20,10 @@ import { notFound } from 'next/navigation'
 import { CategoryMeta } from '@/app/_components/category-card'
 import { ArticleMeta } from '@/app/_components/article-link'
 import Image from 'next/image'
+import {
+  Callout as CalloutFragment,
+  InlineIcon as InlineIconFragment,
+} from './_fragments'
 import { Callout } from '@/app/_components/callout'
 import { Fragment } from 'react'
 import { ArticlesList } from '@/app/_components/articles-list'
@@ -28,6 +32,7 @@ import { Breadcrumb } from '@/app/_components/breadcrumb'
 import { format } from 'date-fns'
 import s from './styles.module.scss'
 import { Feedback } from '@/app/_components/feeback'
+import { InlineIcon } from '@/app/_components/inline-icon'
 
 export const generateStaticParams = async () => {
   const data = await basehub({ next: { revalidate: 60 } }).query({
@@ -96,12 +101,9 @@ export default function ArticlePage({
                           toc: true,
                           content: true,
                           blocks: {
-                            _id: true,
                             __typename: true,
-                            content: {
-                              plainText: true,
-                            },
-                            type: true,
+                            on_CalloutComponent: CalloutFragment,
+                            on_InlineIconComponent: InlineIconFragment,
                           },
                         },
                       },
@@ -306,6 +308,8 @@ export default function ArticlePage({
                       },
                       pre: ({ children }) => children,
                       CalloutComponent: Callout,
+                      InlineIconComponent_mark: InlineIcon,
+                      InlineIconComponent: InlineIcon,
                     }}
                   >
                     {article.body?.json.content}

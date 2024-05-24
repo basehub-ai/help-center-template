@@ -5,14 +5,9 @@ import {
   InfoCircledIcon,
 } from '@radix-ui/react-icons'
 import { Callout as RadixCallout } from '@radix-ui/themes'
+import type { Callout as CalloutFragment } from '../[category]/[article]/_fragments'
 
-export const Callout = ({
-  type = 'info',
-  content,
-}: {
-  content: { plainText: string }
-  type: string
-}) => {
+export const Callout = ({ type = 'info', content }: CalloutFragment) => {
   const { Icon, color } =
     theme[type as 'info' | 'warning' | 'error' | 'success']
   return (
