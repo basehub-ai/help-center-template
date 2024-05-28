@@ -1,5 +1,5 @@
 'use client'
-import { Card, Flex, IconButton, Text } from '@radix-ui/themes'
+import { Card, Flex, Grid, IconButton, Text } from '@radix-ui/themes'
 import { ThumbsDown, ThumbsUp } from 'lucide-react'
 import { sendEvent } from 'basehub/analytics'
 import * as React from 'react'
@@ -34,7 +34,7 @@ export const Feedback = ({
 
   return (
     <Card variant="classic" size="3">
-      <Flex gap="2" align="center" wrap="wrap">
+      <Grid columns={{ initial: '1', xs: '1fr auto' }} gap="2" align="center">
         <Text style={{ flexGrow: 1 }}>Did this answer your question?</Text>
         <Flex gap="2">
           <IconButton
@@ -66,7 +66,13 @@ export const Feedback = ({
             />
           </IconButton>
         </Flex>
-      </Flex>
+        {previousFeedback === 'negative' && (
+          <Text style={{ gridColumn: '1 / -1' }} size="2" color="gray">
+            If you're still facing issues using BaseHub you can always contact
+            our team through the chat bubble on the bottom right corner.
+          </Text>
+        )}
+      </Grid>
     </Card>
   )
 }
