@@ -42,6 +42,7 @@ export const Feedback = ({
             mx="0 !important"
             color="gray"
             onClick={() => handleFeedback('negative')}
+            aria-label="No, it did not."
           >
             <ThumbsDown
               height={16}
@@ -56,6 +57,7 @@ export const Feedback = ({
             mx="0 !important"
             color="gray"
             onClick={() => handleFeedback('positive')}
+            aria-label="Yes, the problem is solved."
           >
             <ThumbsUp
               height={16}
