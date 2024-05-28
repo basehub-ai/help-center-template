@@ -79,7 +79,7 @@ export const Header = () => {
                     // only hide on light-mode if there's a light-mode logo
                     className={clsx(settings.logoLightMode?.url && 'dark-only')}
                     src={settings.logo.url}
-                    alt={settings.logo.alt ?? ''}
+                    alt={''}
                     width={settings.logo.width}
                     height={settings.logo.height}
                     style={{ maxHeight: 28 }}
@@ -88,15 +88,17 @@ export const Header = () => {
                     <Image
                       className="light-only"
                       src={settings.logoLightMode.url}
-                      alt={settings.logoLightMode.alt ?? ''}
+                      alt={''}
                       width={settings.logoLightMode.width}
                       height={settings.logoLightMode.height}
                       style={{ maxHeight: 28 }}
                     />
                   )}
-                  {settings.logo.alt && (
+                  {(settings.logo.alt || settings.logoLightMode?.alt) && (
                     <VisuallyHidden asChild>
-                      <h2>{settings.logo.alt}</h2>
+                      <h2>
+                        {settings.logo.alt || settings.logoLightMode?.alt}
+                      </h2>
                     </VisuallyHidden>
                   )}
                 </NextLink>
