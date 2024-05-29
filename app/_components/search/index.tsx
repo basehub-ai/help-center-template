@@ -70,19 +70,12 @@ export const SearchProvider = ({
 
 const DialogContent = () => {
   const search = SearchBox.useContext()
-  const inputRef = React.useRef<HTMLInputElement>(null)
 
   return (
     <Dialog.Content maxWidth="550px" className={s['search-dialog__content']}>
       <Flex direction="column" height="100%">
         <SearchBox.Input asChild>
-          <TextField.Root
-            ref={inputRef}
-            placeholder="Search"
-            mx="2"
-            mt="2"
-            size="3"
-          >
+          <TextField.Root placeholder="Search" mx="2" mt="2" size="3">
             <TextField.Slot>
               <MagnifyingGlassIcon color="currentColor" />
             </TextField.Slot>
