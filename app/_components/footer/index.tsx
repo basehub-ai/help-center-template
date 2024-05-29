@@ -24,6 +24,7 @@ export const Footer = () => {
                 url: true,
               },
             },
+            showPoweredByBaseHub: true,
           },
           settings: {
             logo: { url: true, alt: true, width: true, height: true },
@@ -102,26 +103,28 @@ export const Footer = () => {
                 )
               })}
             </Flex>
-            <Flex
-              maxWidth="max-content"
-              mx="auto"
-              asChild
-              align="center"
-              justify="center"
-              mt="8"
-            >
-              <NextLink
-                target="_blank"
-                href="https://basehub.com/basehub/help-center"
+            {index.showPoweredByBaseHub && (
+              <Flex
+                maxWidth="max-content"
+                mx="auto"
+                asChild
+                align="center"
+                justify="center"
+                mt="8"
               >
-                <Image
-                  alt="Powered by Basehub"
-                  src="https://basehub.dev/edit-in-basehub.svg"
-                  width={156}
-                  height={28}
-                />
-              </NextLink>
-            </Flex>
+                <NextLink
+                  target="_blank"
+                  href="https://basehub.com/basehub/help-center"
+                >
+                  <Image
+                    alt="Powered by Basehub"
+                    src="https://basehub.dev/edit-in-basehub.svg"
+                    width={156}
+                    height={28}
+                  />
+                </NextLink>
+              </Flex>
+            )}
           </Flex>
         )
       }}
