@@ -3,13 +3,11 @@ import { QuestionMarkCircledIcon } from '@radix-ui/react-icons'
 import {
   Flex,
   IconButton,
-  Link,
   Separator,
   Text,
   VisuallyHidden,
 } from '@radix-ui/themes'
 import Image from 'next/image'
-import s from './footer.module.scss'
 import NextLink from 'next/link'
 
 export const Footer = () => {
@@ -112,23 +110,17 @@ export const Footer = () => {
               justify="center"
               mt="8"
             >
-              <Link asChild size="2" color="gray">
-                <NextLink
-                  href="https://basehub.com/home"
-                  className={s['footer__badge']}
-                >
-                  <Image
-                    src="/basehub.svg"
-                    width={11}
-                    height={14}
-                    alt="BaseHub logo"
-                  />
-                  &nbsp;&nbsp;Powered by&nbsp;
-                  <Text as="span" color="orange">
-                    BaseHub
-                  </Text>
-                </NextLink>
-              </Link>
+              <NextLink
+                target="_blank"
+                href="https://basehub.com/basehub/help-center"
+              >
+                <Image
+                  alt="Powered by Basehub"
+                  src="https://basehub.dev/edit-in-basehub.svg"
+                  width={156}
+                  height={28}
+                />
+              </NextLink>
             </Flex>
           </Flex>
         )
