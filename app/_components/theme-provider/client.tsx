@@ -32,8 +32,7 @@ export const LiveThemeSwitcher = ({ theme }: { theme: ThemeFragment }) => {
 
     const themeChanged =
       activeThemeRef.current !== theme.appearance &&
-      theme.appearance !== 'inherit' &&
-      theme.appearance !== 'system'
+      theme.appearance !== 'inherit'
     if (themeChanged && theme.appearance) {
       if (!theme.appearance || theme.appearance === 'inherit') {
         setTheme('system')
