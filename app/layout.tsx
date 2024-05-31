@@ -3,6 +3,7 @@ import { Header } from './_components/header'
 import { ThemeProvider } from './_components/theme-provider/server'
 import { basehub } from '@/.basehub'
 import { Pump } from '@/.basehub/react-pump'
+import { Toolbar } from '@/.basehub/next-toolbar'
 
 import './globals.css'
 import { Footer } from './_components/footer'
@@ -55,6 +56,7 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
+      <Toolbar />
       <Pump
         queries={[{ settings: { metadata: { icon: { url: true } } } }]}
         next={{ revalidate: 60 }}
