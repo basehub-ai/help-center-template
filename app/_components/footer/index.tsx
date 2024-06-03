@@ -117,8 +117,8 @@ export const Footer = () => {
                   href="https://basehub.com/basehub/help-center"
                 >
                   <Image
-                    alt="Powered by Basehub"
-                    src="https://basehub.dev/edit-in-basehub.svg"
+                    alt="Use this template"
+                    src="https://basehub.com/template-button.svg"
                     width={156}
                     height={28}
                   />
