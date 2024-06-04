@@ -5,6 +5,7 @@ import { Pump } from '@/.basehub/react-pump'
 import { LiveThemeSwitcher } from './client'
 
 import '@radix-ui/themes/styles.css'
+import { draftMode } from 'next/headers'
 
 export const ThemeFragment = fragmentOn('Theme', {
   accentColor: true,
@@ -22,7 +23,10 @@ export const ThemeProvider = async ({
 }: {
   children: React.ReactNode
 }) => {
-  const data = await basehub({ next: { revalidate: 60 } }).query({
+  const data = await basehub({
+    next: { revalidate: 60 },
+    draft: draftMode().isEnabled,
+  }).query({
     settings: {
       theme: ThemeFragment,
     },
@@ -53,6 +57,7 @@ export const ThemeProvider = async ({
       >
         {children}
         <Pump
+          draft={draftMode().isEnabled}
           queries={[{ settings: { theme: ThemeFragment } }]}
           next={{ revalidate: 60 }}
         >

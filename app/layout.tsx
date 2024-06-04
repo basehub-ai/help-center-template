@@ -9,9 +9,13 @@ import './globals.css'
 import { Footer } from './_components/footer'
 import { IntercomProvider } from './_components/intercom'
 import { SearchProvider } from './_components/search'
+import { draftMode } from 'next/headers'
 
 export const generateMetadata = async (): Promise<Metadata> => {
-  const data = await basehub({ next: { revalidate: 120 } }).query({
+  const data = await basehub({
+    next: { revalidate: 120 },
+    draft: draftMode().isEnabled,
+  }).query({
     settings: {
       logo: { url: true },
       metadata: {
@@ -49,7 +53,7 @@ export default async function RootLayout({
   children: React.ReactNode
 }>) {
   const _searchKey = (
-    await basehub().query({
+    await basehub({ draft: draftMode().isEnabled }).query({
       _componentInstances: { articlesItem: { _searchKey: true } },
     })
   )._componentInstances.articlesItem._searchKey
@@ -58,6 +62,7 @@ export default async function RootLayout({
     <html lang="en">
       <Toolbar />
       <Pump
+        draft={draftMode().isEnabled}
         queries={[{ settings: { metadata: { icon: { url: true } } } }]}
         next={{ revalidate: 60 }}
       >

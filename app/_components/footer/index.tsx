@@ -7,12 +7,14 @@ import {
   Text,
   VisuallyHidden,
 } from '@radix-ui/themes'
+import { draftMode } from 'next/headers'
 import Image from 'next/image'
 import NextLink from 'next/link'
 
 export const Footer = () => {
   return (
     <Pump
+      draft={draftMode().isEnabled}
       queries={[
         {
           index: {

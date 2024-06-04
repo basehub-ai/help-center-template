@@ -34,6 +34,7 @@ import { Feedback } from '@/app/_components/feedback'
 import { InlineIcon } from '@/app/_components/inline-icon'
 import { Video } from '@/app/_components/article/video'
 import { ImageWithZoom } from '@/app/_components/article/image-with-zoom'
+import { draftMode } from 'next/headers'
 
 export const generateStaticParams = async () => {
   const data = await basehub({ next: { revalidate: 60 } }).query({
@@ -68,6 +69,7 @@ export default function ArticlePage({
 }) {
   return (
     <Pump
+      draft={draftMode().isEnabled}
       queries={[
         {
           index: {

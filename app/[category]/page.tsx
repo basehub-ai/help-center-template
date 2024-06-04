@@ -6,6 +6,7 @@ import { ArticleMeta } from '../_components/article-link'
 import { notFound } from 'next/navigation'
 import { ArticlesList } from '../_components/articles-list'
 import { Breadcrumb } from '../_components/breadcrumb'
+import { draftMode } from 'next/headers'
 
 export const generateStaticParams = async () => {
   const data = await basehub({ next: { revalidate: 120 } }).query({
@@ -30,6 +31,7 @@ export default function CategoryPage({
 }) {
   return (
     <Pump
+      draft={draftMode().isEnabled}
       queries={[
         {
           index: {

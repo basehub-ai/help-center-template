@@ -16,6 +16,7 @@ import { fragmentOn } from '@/.basehub'
 import { DialogTriggerDesktop as Search } from '../search'
 import Image from 'next/image'
 import { clsx } from 'clsx'
+import { draftMode } from 'next/headers'
 
 const navLinkFragment = fragmentOn('NavLinksItem', {
   _id: true,
@@ -28,6 +29,7 @@ export type NavLinkFragment = fragmentOn.infer<typeof navLinkFragment>
 export const Header = () => {
   return (
     <Pump
+      draft={draftMode().isEnabled}
       queries={[
         {
           index: {

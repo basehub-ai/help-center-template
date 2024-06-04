@@ -14,6 +14,7 @@ import { ArticleLink, ArticleMeta } from './_components/article-link'
 
 import { RichText } from 'basehub/react-rich-text'
 import { DialogTriggerDesktop as Search } from './_components/search'
+import { draftMode } from 'next/headers'
 
 export default function HomePage() {
   return (
@@ -40,6 +41,7 @@ export default function HomePage() {
           },
         },
       ]}
+      draft={draftMode().isEnabled}
       next={{ revalidate: 60 }}
     >
       {async ([data]) => {
