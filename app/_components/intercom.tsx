@@ -17,11 +17,22 @@ export const IntercomProvider = ({
 }
 
 function IntercomBooter() {
-  const { boot } = useIntercom()
+  const { boot, show } = useIntercom()
 
   React.useEffect(() => {
     boot()
   }, [boot])
+
+  React.useEffect(() => {
+    if (typeof window === 'undefined') return
+
+    const isChatEnabled = new URLSearchParams(window.location.search).get(
+      'chat'
+    )
+    if (isChatEnabled !== null) {
+      show()
+    }
+  }, [show])
 
   return null
 }
