@@ -113,7 +113,7 @@ export default function ArticlePage({
                       related: {
                         _title: true,
                         _id: true,
-                        _slug: true,
+                        _slugPath: true,
                       },
                     },
                   },
@@ -283,10 +283,7 @@ export default function ArticlePage({
                       <Heading as="h2" size="6" mt="6" mb="3">
                         Related Articles
                       </Heading>
-                      <ArticlesList
-                        categorySlug={category._slug}
-                        articles={article.related}
-                      />
+                      <ArticlesList articles={article.related} />
                     </Fragment>
                   )}
                   <Separator size="4" my="6" />

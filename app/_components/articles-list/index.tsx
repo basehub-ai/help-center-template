@@ -3,14 +3,18 @@ import { ArrowRightIcon } from '@radix-ui/react-icons'
 import NextLink from 'next/link'
 import { ArticlesItem } from '@/.basehub/schema'
 import s from './articles-list.module.scss'
+import { getArticleSlugFromSlugPath } from '@/lib/basehub-helpers/util'
 
-export const ArticlesList = ({
-  articles,
-  categorySlug,
-}: {
-  articles: Pick<ArticlesItem, '_id' | '_title' | '_slug'>[]
-  categorySlug: string
-}) => {
+type Props =
+  | {
+      articles: Pick<ArticlesItem, '_id' | '_title' | '_slugPath'>[]
+    }
+  | {
+      articles: Pick<ArticlesItem, '_id' | '_title' | '_slug'>[]
+      categorySlug: string
+    }
+
+export const ArticlesList = (props: Props) => {
   return (
     <Card
       variant="classic"
@@ -19,7 +23,7 @@ export const ArticlesList = ({
       className={s.card}
     >
       <Flex direction="column" gap="2">
-        {articles.map((item) => {
+        {props.articles.map((item) => {
           return (
             <Button
               color="gray"
@@ -29,7 +33,12 @@ export const ArticlesList = ({
               style={{ padding: '12px 16px' }}
             >
               <NextLink
-                href={`/${categorySlug}/${item._slug}`}
+                href={
+                  '_slug' in item
+                    ? // @ts-expect-error categorySlug is defined at this point
+                      `/${props.categorySlug}/${item._slug}`
+                    : getArticleSlugFromSlugPath(item._slugPath)
+                }
                 style={{
                   display: 'flex',
                   justifyContent: 'space-between',
