@@ -72,7 +72,7 @@ export const Header = () => {
                 gapX="4"
                 height="100%"
               >
-                <Flex asChild align="center" flexShrink="0">
+                <Flex asChild align="center" flexShrink="0" width="fit-content">
                   <NextLink href="/">
                     <Image
                       // only hide on light-mode if there's a light-mode logo
