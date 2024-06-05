@@ -64,10 +64,11 @@ export default function CategoryPage({
         return (
           <Container
             pb="9"
+            mt={{ initial: 'var(--header)', md: '0' }}
             pt={{ initial: '6', sm: '0' }}
             px={{ initial: '5', md: '7' }}
             style={{ flexGrow: '1' }}
-            size="3"
+            size="4"
             asChild
           >
             <main>

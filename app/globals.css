@@ -9,8 +9,61 @@ html.dark .light-only {
 }
 
 :root {
-  --header-height: 48px;
-  scroll-padding-top: var(--header-height);
+  text-rendering: geometricprecision;
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-padding-top: var(--header);
+
+  --strong: var(--gray-12);
+  --normal: var(--gray-11);
+  --color-background: var(--gray-1);
+
+  .radix-themes {
+    --header: calc(52px * var(--scaling));
+    --sidebar: calc(100svh - var(--header));
+    --container-4: 1280px;
+    --color-background: var(--gray-1);
+    --default-font-family: var(--font-geist-sans);
+    --code-font-family: var(--font-geist-mono);
+  }
+
+  body {
+    margin: 0;
+  }
+
+  @media (max-width: 1023px) {
+    a:active,
+    a:focus {
+      outline: none;
+    }
+  }
+}
+
+html.dark body .radix-themes {
+  --color-background: #09090b;
+}
+
+html.dark {
+  background-color: #09090b;
+}
+
+html.light body {
+  img[data-dark-only] {
+    display: none;
+  }
+  background-color: var(--gray-1);
+}
+
+html.dark body {
+  img[data-light-only] {
+    display: none;
+  }
+
+  div[data-rmiz-modal-overlay='visible'] {
+    background: var(--gray-2);
+  }
 }
 
 h1 {

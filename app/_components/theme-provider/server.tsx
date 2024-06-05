@@ -43,12 +43,12 @@ export const ThemeProvider = async ({
     >
       <Theme
         id="theme-provider"
-        accentColor={data.settings.theme.accentColor as any}
-        grayColor={data.settings.theme.grayScale as any}
-        radius={data.settings.theme.radius as any}
-        scaling={data.settings.theme.scaling as any}
-        appearance={data.settings.theme.appearance as any}
-        panelBackground={data.settings.theme.panelBackground as any}
+        accentColor={data.settings.theme.accentColor}
+        grayColor={data.settings.theme.grayScale}
+        radius={data.settings.theme.radius}
+        scaling={data.settings.theme.scaling}
+        appearance={data.settings.theme.appearance}
+        panelBackground={data.settings.theme.panelBackground}
         style={{
           minHeight: '100vh',
           display: 'flex',

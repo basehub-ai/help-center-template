@@ -7,7 +7,6 @@
   height: var(--space-6);
 
   .theme-switcher__button {
-    cursor: pointer;
     aspect-ratio: 1;
     padding: 0;
     color: var(--gray-9);
@@ -22,13 +21,13 @@
     &:not(:hover) {
       background-color: transparent;
     }
-    
+
     &:hover {
       color: var(--strong);
       background-color: var(--gray-4);
     }
-    
-    &[data-active="true"] {
+
+    &[data-active='true'] {
       border: 1px solid var(--gray-6);
       background-color: var(--gray-4);
       color: var(--strong);

@@ -3,3 +3,29 @@
     display: none !important;
   }
 }
+
+.header {
+  flex-grow: 0;
+  position: fixed;
+  top: 0;
+  z-index: 49;
+  width: 100%;
+  height: var(--header);
+  background-color: var(--color-background);
+  margin-bottom: var(--space-2);
+
+  @media screen and (min-width: 1024px) {
+    position: sticky;
+    margin-bottom: var(--space-9);
+  }
+
+  .header__head {
+    height: var(--header);
+  }
+
+  .header__main-cta {
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}

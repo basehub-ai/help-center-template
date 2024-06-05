@@ -57,6 +57,7 @@ export default function HomePage() {
               gap="4"
               pt="6"
               px="5"
+              mt={{ initial: 'var(--header)', md: '0' }}
             >
               <Heading align="center" size="8" wrap="pretty">
                 {data.index.greeting}
@@ -77,6 +78,7 @@ export default function HomePage() {
             </Flex>
 
             <Container
+              size="4"
               py="9"
               position="relative"
               overflow="clip"

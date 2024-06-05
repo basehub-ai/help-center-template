@@ -55,87 +55,87 @@ export const Header = () => {
         'use server'
 
         return (
-          <Container
-            mb={{ initial: '2', sm: '9' }}
-            px={{ initial: '5', md: '7' }}
-            flexGrow="0"
-            style={{
-              position: 'sticky',
-              top: 0,
-              zIndex: 49,
-              backgroundColor: 'var(--color-background)',
-            }}
-          >
-            <Grid
-              align="center"
-              columns={{
-                initial: '1fr auto',
-                sm: '1fr minmax(165px, auto) 1fr',
-              }}
-              gapX="4"
-              height="var(--header-height)"
+          <header className={s.header}>
+            <Container
+              size="4"
+              px={{ initial: '5', md: '8' }}
+              height="100%"
+              className={s['header__head']}
+              position="relative"
             >
-              <Flex asChild align="center" flexShrink="0">
-                <NextLink href="/">
-                  <Image
-                    // only hide on light-mode if there's a light-mode logo
-                    className={clsx(settings.logoLightMode?.url && 'dark-only')}
-                    src={settings.logo.url}
-                    alt={''}
-                    width={settings.logo.width}
-                    height={settings.logo.height}
-                    style={{ maxHeight: 28 }}
-                  />
-                  {settings.logoLightMode?.url && (
+              <Grid
+                align="center"
+                columns={{
+                  initial: '1fr auto',
+                  sm: '1fr minmax(300px, auto) 1fr',
+                }}
+                gapX="4"
+                height="100%"
+              >
+                <Flex asChild align="center" flexShrink="0">
+                  <NextLink href="/">
                     <Image
-                      className="light-only"
-                      src={settings.logoLightMode.url}
+                      // only hide on light-mode if there's a light-mode logo
+                      className={clsx(
+                        settings.logoLightMode?.url && 'dark-only'
+                      )}
+                      src={settings.logo.url}
                       alt={''}
-                      width={settings.logoLightMode.width}
-                      height={settings.logoLightMode.height}
+                      width={settings.logo.width}
+                      height={settings.logo.height}
                       style={{ maxHeight: 28 }}
                     />
-                  )}
-                  {(settings.logo.alt || settings.logoLightMode?.alt) && (
-                    <VisuallyHidden asChild>
-                      <h2>
-                        {settings.logo.alt || settings.logoLightMode?.alt}
-                      </h2>
-                    </VisuallyHidden>
-                  )}
-                </NextLink>
-              </Flex>
-              <Search className={s.search} hideOnHomepage />
-              <Flex
-                gap="4"
-                align="center"
-                justify="end"
-                asChild
-                gridColumnStart="-2"
-                display={{ initial: 'none', sm: 'flex' }}
-              >
-                <nav>
-                  <ThemeSwitcher />
-                  {settings.navLinks.items.map((item, i, { length }) => {
-                    const isLast = i === length - 1
-                    if (isLast) {
+                    {settings.logoLightMode?.url && (
+                      <Image
+                        className="light-only"
+                        src={settings.logoLightMode.url}
+                        alt={''}
+                        width={settings.logoLightMode.width}
+                        height={settings.logoLightMode.height}
+                        style={{ maxHeight: 28 }}
+                      />
+                    )}
+                    {(settings.logo.alt || settings.logoLightMode?.alt) && (
+                      <VisuallyHidden asChild>
+                        <h2>
+                          {settings.logo.alt || settings.logoLightMode?.alt}
+                        </h2>
+                      </VisuallyHidden>
+                    )}
+                  </NextLink>
+                </Flex>
+                <Search className={s.search} hideOnHomepage />
+                <Flex
+                  gap="4"
+                  align="center"
+                  justify="end"
+                  asChild
+                  gridColumnStart="-2"
+                  display={{ initial: 'none', sm: 'flex' }}
+                >
+                  <nav>
+                    <ThemeSwitcher />
+                    {settings.navLinks.items.map((item, i, { length }) => {
+                      const isLast = i === length - 1
+                      if (isLast) {
+                        return (
+                          <Button key={item._id} asChild>
+                            <NextLink href={item.href}>{item._title}</NextLink>
+                          </Button>
+                        )
+                      }
                       return (
-                        <Button key={item._id} asChild>
+                        <Link key={item._id} color="gray" asChild size="2">
                           <NextLink href={item.href}>{item._title}</NextLink>
-                        </Button>
+                        </Link>
                       )
-                    }
-                    return (
-                      <Link key={item._id} color="gray" asChild>
-                        <NextLink href={item.href}>{item._title}</NextLink>
-                      </Link>
-                    )
-                  })}
-                </nav>
-              </Flex>
-              <MobileNavbar links={settings.navLinks.items} />
-            </Grid>
-          </Container>
+                    })}
+                  </nav>
+                </Flex>
+                <MobileNavbar links={settings.navLinks.items} />
+              </Grid>
+            </Container>
+          </header>
         )
       }}
     </Pump>

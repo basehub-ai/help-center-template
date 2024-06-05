@@ -147,7 +147,7 @@ export default function ArticlePage({
             pb="9"
             pt={{ initial: '6', sm: '0' }}
             mx="auto"
-            size="3"
+            size="4"
             px={{ initial: '5', md: '7' }}
             asChild
           >
