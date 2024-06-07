@@ -7,6 +7,8 @@ import { notFound } from 'next/navigation'
 import { ArticlesList } from '../_components/articles-list'
 import { Breadcrumb } from '../_components/breadcrumb'
 import { draftMode } from 'next/headers'
+import type { Metadata } from 'next/types'
+import { MetadataFragment } from '../_fragments'
 
 export const generateStaticParams = async () => {
   const data = await basehub({ next: { revalidate: 120 } }).query({
@@ -22,6 +24,78 @@ export const generateStaticParams = async () => {
   return data.index.categoriesSection.categories.items.map((category) => ({
     params: { category: category._slug },
   }))
+}
+
+export const generateMetadata = async ({
+  params,
+}: {
+  params: { category: string }
+}): Promise<Metadata> => {
+  const data = await basehub({
+    next: { revalidate: 60 },
+    draft: draftMode().isEnabled,
+  }).query({
+    settings: {
+      metadata: MetadataFragment,
+    },
+    index: {
+      categoriesSection: {
+        title: true,
+        categories: {
+          __args: {
+            first: 1,
+            filter: { _sys_slug: { eq: params.category } },
+          },
+          items: {
+            ...CategoryMeta,
+            ogImage: {
+              url: true,
+            },
+          },
+        },
+      },
+    },
+  })
+
+  const category = data.index.categoriesSection.categories.items[0]
+  if (!category) return {}
+  const siteName = data.settings.metadata.title
+
+  const title = {
+    absolute: `${category._title} | ${siteName}`,
+  }
+  const description = !category.description
+    ? undefined
+    : category.description.length > 150
+    ? category.description.slice(0, 147) + '...'
+    : category.description
+
+  const images = [
+    {
+      url: category.ogImage.url,
+      width: 1200,
+      height: 630,
+    },
+  ]
+
+  return {
+    title,
+    description,
+    icons: {
+      icon: data.settings.metadata.icon.url,
+      shortcut: data.settings.metadata.icon.url,
+      apple: data.settings.metadata.icon.url,
+    },
+    openGraph: {
+      title,
+      description,
+      siteName,
+      locale: 'en-US',
+      type: 'website',
+      url: `/${params.category}`,
+      images,
+    },
+  }
 }
 
 export default function CategoryPage({
