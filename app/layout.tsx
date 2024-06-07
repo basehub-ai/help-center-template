@@ -10,6 +10,7 @@ import { Footer } from './_components/footer'
 import { IntercomProvider } from './_components/intercom'
 import { SearchProvider } from './_components/search'
 import { draftMode } from 'next/headers'
+import { MetadataFragment } from './_fragments'
 
 export const generateMetadata = async (): Promise<Metadata> => {
   const data = await basehub({
@@ -19,10 +20,8 @@ export const generateMetadata = async (): Promise<Metadata> => {
     settings: {
       logo: { url: true },
       metadata: {
-        title: true,
-        description: true,
+        ...MetadataFragment,
         ogImage: { url: true, width: true, height: true, alt: true },
-        icon: { url: true },
       },
     },
   })
