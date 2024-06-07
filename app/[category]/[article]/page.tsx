@@ -148,6 +148,7 @@ export default function ArticlePage({
             pt={{ initial: '6', sm: '0' }}
             mx="auto"
             size="4"
+            mt={{ initial: 'var(--header-margin)', md: '0' }}
             px={{ initial: '5', md: '7' }}
             asChild
           >

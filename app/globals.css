@@ -22,6 +22,7 @@ html.dark .light-only {
 
   .radix-themes {
     --header: calc(52px * var(--scaling));
+    --header-margin: calc(var(--header) + var(--space-2));
     --sidebar: calc(100svh - var(--header));
     --container-4: 1280px;
     --color-background: var(--gray-1);

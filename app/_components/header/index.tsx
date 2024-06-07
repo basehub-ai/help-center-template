@@ -67,7 +67,8 @@ export const Header = () => {
                 align="center"
                 columns={{
                   initial: '1fr auto',
-                  sm: '1fr minmax(300px, auto) 1fr',
+                  sm: 'auto fit-content(80%) minmax(auto, 1fr)',
+                  md: '1fr minmax(300px, auto) 1fr',
                 }}
                 gapX="4"
                 height="100%"
