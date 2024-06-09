@@ -79,6 +79,7 @@ export default function HomePage() {
 
             <Container
               size="4"
+              maxWidth="1024px"
               py="9"
               position="relative"
               overflow="clip"

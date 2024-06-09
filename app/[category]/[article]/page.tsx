@@ -67,7 +67,7 @@ export const generateStaticParams = async () => {
 export const generateMetadata = async ({
   params,
 }: {
-  params: { category: string; slug: string }
+  params: { category: string; article: string }
 }): Promise<Metadata> => {
   const data = await basehub({
     next: { revalidate: 60 },
@@ -89,7 +89,7 @@ export const generateMetadata = async ({
             articles: {
               __args: {
                 first: 1,
-                filter: { _sys_slug: { eq: params.slug } },
+                filter: { _sys_slug: { eq: params.article } },
               },
               items: {
                 ...ArticleMeta,
@@ -118,8 +118,8 @@ export const generateMetadata = async ({
   const description = !excerpt
     ? undefined
     : excerpt.length > 150
-    ? excerpt.slice(0, 147) + '...'
-    : excerpt
+      ? excerpt.slice(0, 147) + '...'
+      : excerpt
 
   const images = [
     {
@@ -143,7 +143,7 @@ export const generateMetadata = async ({
       siteName,
       locale: 'en-US',
       type: 'website',
-      url: `/${params.category}/${params.slug}`,
+      url: `/${params.category}/${params.article}`,
       images,
     },
   }
@@ -235,15 +235,20 @@ export default function ArticlePage({
             pt={{ initial: '6', sm: '0' }}
             mx="auto"
             size="4"
+            maxWidth="1024px"
             mt={{ initial: 'var(--header-margin)', md: '0' }}
             px={{ initial: '5', md: '7' }}
             asChild
           >
             <main>
               <TOCRenderer>{article.body?.json.toc}</TOCRenderer>
-              <Box flexGrow="1">
+              <Box flexGrow="1" maxWidth="764px">
                 <Breadcrumb category={category} article={article} />
-                <Heading as="h1" size={{ initial: '7', md: '8' }}>
+                <Heading
+                  as="h1"
+                  size={{ initial: '7', md: '8' }}
+                  style={{ textWrap: 'pretty' }}
+                >
                   {article._title}
                 </Heading>
                 <Text
@@ -251,6 +256,7 @@ export default function ArticlePage({
                   mt="1"
                   size={{ initial: '3', md: '4' }}
                   color="gray"
+                  style={{ textWrap: 'pretty' }}
                 >
                   {article.excerpt}
                 </Text>
@@ -273,7 +279,7 @@ export default function ArticlePage({
                     </Text>
                   </Grid>
                 )}
-                <Box mt="9">
+                <Box mt="6">
                   <RichText
                     blocks={article.body?.json.blocks}
                     components={{
@@ -340,6 +346,7 @@ export default function ArticlePage({
                           {...props}
                           size={{ initial: '2', md: '3' }}
                           mb="4"
+                          color="gray"
                         />
                       ),
                       a: (props) => (

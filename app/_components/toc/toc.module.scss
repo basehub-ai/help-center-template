@@ -20,6 +20,14 @@
   }
 
   ol {
-    margin: 0;
+    margin: 0 !important;
+
+    ol {
+      margin-left: 1.5rem !important;
+    }
+  }
+
+  li {
+    margin: 0 !important;
   }
 }

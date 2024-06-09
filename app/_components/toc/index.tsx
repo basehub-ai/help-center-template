@@ -23,17 +23,11 @@ export const TOCRenderer = ({
                 <Text size="2" as="p" {...props} />
               </Box>
             ),
-            a: (props) => (
+            a: ({ children, href }) => (
               <Link color="gray" className={s.link} asChild>
-                {/* TODO: Remove target when bug in basehub api is fixed */}
-                <NextLink {...props} target="_self" />
+                <NextLink href={href}>{children}</NextLink>
               </Link>
             ),
-            // li: (props) => (
-            //   <Box asChild py="1">
-            //     <li {...props} />
-            //   </Box>
-            // ),
             ol: (props) => (
               <ol
                 style={{ paddingInlineStart: 0, listStyle: 'none' }}

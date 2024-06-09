@@ -10,6 +10,15 @@
 .container {
   max-width: 100vw;
 
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    scroll-margin-top: var(--space-9);
+  }
+
   ol ol,
   ol ul,
   ul ol,

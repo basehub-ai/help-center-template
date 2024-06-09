@@ -67,8 +67,8 @@ export const generateMetadata = async ({
   const description = !category.description
     ? undefined
     : category.description.length > 150
-    ? category.description.slice(0, 147) + '...'
-    : category.description
+      ? category.description.slice(0, 147) + '...'
+      : category.description
 
   const images = [
     {
@@ -143,6 +143,7 @@ export default function CategoryPage({
             px={{ initial: '5', md: '7' }}
             style={{ flexGrow: '1' }}
             size="4"
+            maxWidth="1024px"
             asChild
           >
             <main>
