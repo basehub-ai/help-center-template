@@ -346,7 +346,6 @@ export default function ArticlePage({
                           {...props}
                           size={{ initial: '2', md: '3' }}
                           mb="4"
-                          color="gray"
                         />
                       ),
                       a: (props) => (
