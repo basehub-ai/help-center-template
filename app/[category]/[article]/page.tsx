@@ -356,7 +356,7 @@ export default function ArticlePage({
                       img: (props) => <ImageWithZoom {...props} />,
                       code: ({ isInline, ...rest }) => {
                         if (isInline) {
-                          return <Code {...rest} />
+                          return <Code {...rest} variant="outline" />
                         }
                         return (
                           <pre>
