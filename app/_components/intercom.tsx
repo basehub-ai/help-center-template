@@ -9,7 +9,10 @@ export const IntercomProvider = ({
   children?: React.ReactNode
 }) => {
   return (
-    <Provider appId="d8v8a4l7" initializeDelay={500}>
+    <Provider
+      appId={process.env.NEXT_PUBLIC_INTERCOM_APP_ID!}
+      initializeDelay={500}
+    >
       <IntercomBooter />
       {children}
     </Provider>
