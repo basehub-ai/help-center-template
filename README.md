@@ -21,7 +21,7 @@ Fully featured documentation website.
 
 ## One Click Deployment
 
-[![Deploy with Vercel](https://vercel.com/button)]([https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fbasehub-ai%2Fnextjs-help-center&integration-ids=oac_xwgyJe0UwFLtsKIvIScYh0rY&env=&demo-url=https%3A%2F%2Fhelp.basehub.com&demo-image=https%3A%2F%2Fbasehub.earth%2F4d1fdd52%2Frs9ELWGrdN6BQSKDttrzw%2Freadme-1.png&external-id=mly6i259eym3jkyvq6txyciu%3Abc-k906HuZC6AF3-7c0L7))
+[![Deploy with Vercel](https://vercel.com/button)]([https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fbasehub-ai%2Fnextjs-help-center&integration-ids=oac_xwgyJe0UwFLtsKIvIScYh0rY&env=&demo-url=https%3A%2F%2Fhelp.basehub.com&demo-image=https%3A%2F%2Fbasehub.earth%2F4d1fdd52%2Frs9ELWGrdN6BQSKDttrzw%2Freadme-1.png&external-id=mly6i259eym3jkyvq6txyciu%3Abc-k906HuZC6AF3-7c0L7)
 
 _You can deploy this anywhere. Vercel works nicely and with one click._
 
