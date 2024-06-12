@@ -2,7 +2,7 @@
 
 [BaseHub Templates](https://basehub.com/templates) are production-ready website templates, powered by BaseHub.
 
-# Documentation Template
+# Help Center Template
 
 [![Use template](https://basehub.com/template-button.svg)](https://basehub.com/basehub/help-center)
 
