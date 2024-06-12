@@ -21,7 +21,7 @@ export const generateMetadata = async (): Promise<Metadata> => {
       logo: { url: true },
       metadata: {
         ...MetadataFragment,
-        ogImage: { url: true, width: true, height: true, alt: true },
+        ogImage: { url: true },
       },
     },
   })
@@ -37,9 +37,8 @@ export const generateMetadata = async (): Promise<Metadata> => {
       images: [
         {
           url: data.settings.metadata.ogImage.url,
-          width: data.settings.metadata.ogImage.width,
-          height: data.settings.metadata.ogImage.height,
-          alt: data.settings.metadata.ogImage.alt ?? undefined,
+          width: 1200,
+          height: 630,
         },
       ],
     },
