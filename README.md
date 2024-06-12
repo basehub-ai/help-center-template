@@ -6,7 +6,7 @@
 
 [![Use template](https://basehub.com/template-button.svg)](https://basehub.com/basehub/help-center)
 
-Fully featured documentation website.
+Fully featured help center website.
 
 - 🔸 Perfect for kickstarting your own help center
 - 🔸 Fully editable from BaseHub
