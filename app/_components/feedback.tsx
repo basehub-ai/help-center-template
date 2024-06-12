@@ -10,16 +10,16 @@ export const Feedback = ({
   analyticsKey: string
 }) => {
   const [bothFeedbackSent, setBothFeedbackSent] = React.useState(false)
-  const [previousFeedback, setPreviousFeedback] = React.useState<
+  const [sentFeedback, setSentFeedback] = React.useState<
     'positive' | 'negative' | null
   >(null)
 
   const handleFeedback = (type: 'positive' | 'negative') => {
-    if (previousFeedback === type) return
+    if (sentFeedback === type) return
     // If the user has already given feedback twice, stop sending the event.
     !bothFeedbackSent && sendEvent({ _analyticsKey, name: `feedback:${type}` })
-    if (previousFeedback) setBothFeedbackSent(true)
-    setPreviousFeedback(type)
+    if (sentFeedback) setBothFeedbackSent(true)
+    setSentFeedback(type)
     window.localStorage.setItem(`feedback:${_analyticsKey}`, type)
   }
 
@@ -29,7 +29,7 @@ export const Feedback = ({
       `feedback:${_analyticsKey}`
     ) as 'positive' | 'negative' | null
 
-    setPreviousFeedback(previousFeedback)
+    setSentFeedback(previousFeedback)
   }, [_analyticsKey])
 
   return (
@@ -47,9 +47,7 @@ export const Feedback = ({
             <ThumbsDown
               height={16}
               width={16}
-              fill={
-                previousFeedback === 'negative' ? 'var(--accent-12)' : 'none'
-              }
+              fill={sentFeedback === 'negative' ? 'var(--accent-12)' : 'none'}
             />
           </IconButton>
           <IconButton
@@ -62,13 +60,11 @@ export const Feedback = ({
             <ThumbsUp
               height={16}
               width={16}
-              fill={
-                previousFeedback === 'positive' ? 'var(--accent-12)' : 'none'
-              }
+              fill={sentFeedback === 'positive' ? 'var(--accent-12)' : 'none'}
             />
           </IconButton>
         </Flex>
-        {previousFeedback === 'negative' && (
+        {sentFeedback === 'negative' && (
           <Text style={{ gridColumn: '1 / -1' }} size="2" color="gray">
             If you're still facing issues using BaseHub you can always contact
             our team through the chat bubble on the bottom right corner.

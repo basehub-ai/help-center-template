@@ -51,11 +51,14 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
-  const _searchKey = (
-    await basehub({ draft: draftMode().isEnabled }).query({
-      _componentInstances: { articlesItem: { _searchKey: true } },
-    })
-  )._componentInstances.articlesItem._searchKey
+  const { settings, _componentInstances } = await basehub({
+    draft: draftMode().isEnabled,
+  }).query({
+    _componentInstances: { articlesItem: { _searchKey: true } },
+    settings: { intercomAppId: true },
+  })
+
+  const _searchKey = _componentInstances.articlesItem._searchKey
 
   return (
     <html lang="en">
@@ -81,7 +84,7 @@ export default async function RootLayout({
       </Pump>
       <body>
         <ThemeProvider>
-          <IntercomProvider>
+          <IntercomProvider appId={settings.intercomAppId}>
             <SearchProvider _searchKey={_searchKey}>
               <Header />
               {children}
