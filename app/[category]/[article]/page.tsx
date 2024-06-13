@@ -37,6 +37,7 @@ import { ImageWithZoom } from '@/app/_components/article/image-with-zoom'
 import { draftMode } from 'next/headers'
 import type { Metadata } from 'next/types'
 import { MetadataFragment } from '@/app/_fragments'
+import { PageView } from '@/app/_components/analytics/page-view'
 
 export const generateStaticParams = async () => {
   const data = await basehub({ next: { revalidate: 60 } }).query({
@@ -229,163 +230,166 @@ export default function ArticlePage({
             ) ?? 'A'
 
         return (
-          <Container
-            className={s.container}
-            pb="9"
-            pt={{ initial: '6', sm: '0' }}
-            mx="auto"
-            size="4"
-            maxWidth="1024px"
-            mt={{ initial: 'var(--header-margin)', md: '0' }}
-            px={{ initial: '5', md: '7' }}
-            asChild
-          >
-            <main>
-              <TOCRenderer>{article.body?.json.toc}</TOCRenderer>
-              <Box flexGrow="1" maxWidth="764px">
-                <Breadcrumb category={category} article={article} />
-                <Heading
-                  as="h1"
-                  size={{ initial: '7', md: '8' }}
-                  style={{ textWrap: 'pretty' }}
-                >
-                  {article._title}
-                </Heading>
-                <Text
-                  as="p"
-                  mt="1"
-                  size={{ initial: '3', md: '4' }}
-                  color="gray"
-                  style={{ textWrap: 'pretty' }}
-                >
-                  {article.excerpt}
-                </Text>
-                {article.author && (
-                  <Grid columns="auto 1fr" rows="2" gapX="2" mt="5">
-                    <Avatar
-                      src={article.author?.avatar.url}
-                      fallback={authorInitials}
-                      style={{ gridRow: '-1 / 1' }}
-                    />
-                    <Text size="2" weight="medium">
-                      {article.author?._title}
-                    </Text>
-                    <Text size="2" color="gray">
-                      Last Updated{' '}
-                      {format(
-                        new Date(article._sys.lastModifiedAt),
-                        'MMMM dd, yyyy'
-                      )}
-                    </Text>
-                  </Grid>
-                )}
-                <Box mt="6">
-                  <RichText
-                    blocks={article.body?.json.blocks}
-                    components={{
-                      h2: (props) => (
-                        <Heading
-                          as="h2"
-                          size={{ initial: '5', md: '6' }}
-                          mt="6"
-                          mb="2"
-                          {...props}
-                        />
-                      ),
-                      h3: (props) => (
-                        <Heading
-                          as="h3"
-                          size={{ initial: '4', md: '5' }}
-                          mt="6"
-                          mb="2"
-                          {...props}
-                        />
-                      ),
-                      h4: (props) => (
-                        <Heading as="h4" id={props.id}>
-                          {props.children}
-                        </Heading>
-                      ),
-                      h5: (props) => (
-                        <Heading as="h5" id={props.id}>
-                          {props.children}
-                        </Heading>
-                      ),
-                      h6: (props) => (
-                        <Heading as="h6" id={props.id}>
-                          {props.children}
-                        </Heading>
-                      ),
-                      blockquote: ({ children }) => (
-                        <Blockquote>{children}</Blockquote>
-                      ),
-                      table: (props) => (
-                        <Table.Root {...props} size="2" layout="auto" />
-                      ),
-                      em: (props) => <Em {...props} />,
-                      tbody: (props) => <Table.Body {...props} />,
-                      tr: ({ children }) => <Table.Row>{children}</Table.Row>,
-                      th: ({ children, rowspan, colspan }) => (
-                        <Table.ColumnHeaderCell
-                          colSpan={colspan}
-                          rowSpan={rowspan}
-                        >
-                          {children}
-                        </Table.ColumnHeaderCell>
-                      ),
-                      td: ({ children, rowspan, colspan }) => (
-                        <Table.Cell colSpan={colspan} rowSpan={rowspan}>
-                          {children}
-                        </Table.Cell>
-                      ),
-                      hr: () => <Separator size="4" my="7" color="gray" />,
-                      video: Video,
-                      p: (props) => (
-                        <Text
-                          as="p"
-                          {...props}
-                          size={{ initial: '2', md: '3' }}
-                          mb="4"
-                        />
-                      ),
-                      a: (props) => (
-                        <Link asChild>
-                          <NextLink {...props} />
-                        </Link>
-                      ),
-                      img: (props) => <ImageWithZoom {...props} />,
-                      code: ({ isInline, ...rest }) => {
-                        if (isInline) {
-                          return <Code {...rest} variant="outline" />
-                        }
-                        return (
-                          <pre>
-                            <code {...rest} />
-                          </pre>
-                        )
-                      },
-                      pre: ({ children }) => children,
-                      CalloutComponent: Callout,
-                      InlineIconComponent_mark: InlineIcon,
-                      InlineIconComponent: InlineIcon,
-                    }}
+          <>
+            <PageView _analyticsKey={article._analyticsKey} />
+            <Container
+              className={s.container}
+              pb="9"
+              pt={{ initial: '6', sm: '0' }}
+              mx="auto"
+              size="4"
+              maxWidth="1024px"
+              mt={{ initial: 'var(--header-margin)', md: '0' }}
+              px={{ initial: '5', md: '7' }}
+              asChild
+            >
+              <main>
+                <TOCRenderer>{article.body?.json.toc}</TOCRenderer>
+                <Box flexGrow="1" maxWidth="764px">
+                  <Breadcrumb category={category} article={article} />
+                  <Heading
+                    as="h1"
+                    size={{ initial: '7', md: '8' }}
+                    style={{ textWrap: 'pretty' }}
                   >
-                    {article.body?.json.content}
-                  </RichText>
-                  {!!article.related?.length && (
-                    <Fragment>
-                      <Heading as="h2" size="6" mt="6" mb="3">
-                        Related Articles
-                      </Heading>
-                      <ArticlesList articles={article.related} />
-                    </Fragment>
+                    {article._title}
+                  </Heading>
+                  <Text
+                    as="p"
+                    mt="1"
+                    size={{ initial: '3', md: '4' }}
+                    color="gray"
+                    style={{ textWrap: 'pretty' }}
+                  >
+                    {article.excerpt}
+                  </Text>
+                  {article.author && (
+                    <Grid columns="auto 1fr" rows="2" gapX="2" mt="5">
+                      <Avatar
+                        src={article.author?.avatar.url}
+                        fallback={authorInitials}
+                        style={{ gridRow: '-1 / 1' }}
+                      />
+                      <Text size="2" weight="medium">
+                        {article.author?._title}
+                      </Text>
+                      <Text size="2" color="gray">
+                        Last Updated{' '}
+                        {format(
+                          new Date(article._sys.lastModifiedAt),
+                          'MMMM dd, yyyy'
+                        )}
+                      </Text>
+                    </Grid>
                   )}
-                  <Separator size="4" my="6" />
-                  <Feedback analyticsKey={article._analyticsKey} />
+                  <Box mt="6">
+                    <RichText
+                      blocks={article.body?.json.blocks}
+                      components={{
+                        h2: (props) => (
+                          <Heading
+                            as="h2"
+                            size={{ initial: '5', md: '6' }}
+                            mt="6"
+                            mb="2"
+                            {...props}
+                          />
+                        ),
+                        h3: (props) => (
+                          <Heading
+                            as="h3"
+                            size={{ initial: '4', md: '5' }}
+                            mt="6"
+                            mb="2"
+                            {...props}
+                          />
+                        ),
+                        h4: (props) => (
+                          <Heading as="h4" id={props.id}>
+                            {props.children}
+                          </Heading>
+                        ),
+                        h5: (props) => (
+                          <Heading as="h5" id={props.id}>
+                            {props.children}
+                          </Heading>
+                        ),
+                        h6: (props) => (
+                          <Heading as="h6" id={props.id}>
+                            {props.children}
+                          </Heading>
+                        ),
+                        blockquote: ({ children }) => (
+                          <Blockquote>{children}</Blockquote>
+                        ),
+                        table: (props) => (
+                          <Table.Root {...props} size="2" layout="auto" />
+                        ),
+                        em: (props) => <Em {...props} />,
+                        tbody: (props) => <Table.Body {...props} />,
+                        tr: ({ children }) => <Table.Row>{children}</Table.Row>,
+                        th: ({ children, rowspan, colspan }) => (
+                          <Table.ColumnHeaderCell
+                            colSpan={colspan}
+                            rowSpan={rowspan}
+                          >
+                            {children}
+                          </Table.ColumnHeaderCell>
+                        ),
+                        td: ({ children, rowspan, colspan }) => (
+                          <Table.Cell colSpan={colspan} rowSpan={rowspan}>
+                            {children}
+                          </Table.Cell>
+                        ),
+                        hr: () => <Separator size="4" my="7" color="gray" />,
+                        video: Video,
+                        p: (props) => (
+                          <Text
+                            as="p"
+                            {...props}
+                            size={{ initial: '2', md: '3' }}
+                            mb="4"
+                          />
+                        ),
+                        a: (props) => (
+                          <Link asChild>
+                            <NextLink {...props} />
+                          </Link>
+                        ),
+                        img: (props) => <ImageWithZoom {...props} />,
+                        code: ({ isInline, ...rest }) => {
+                          if (isInline) {
+                            return <Code {...rest} variant="outline" />
+                          }
+                          return (
+                            <pre>
+                              <code {...rest} />
+                            </pre>
+                          )
+                        },
+                        pre: ({ children }) => children,
+                        CalloutComponent: Callout,
+                        InlineIconComponent_mark: InlineIcon,
+                        InlineIconComponent: InlineIcon,
+                      }}
+                    >
+                      {article.body?.json.content}
+                    </RichText>
+                    {!!article.related?.length && (
+                      <Fragment>
+                        <Heading as="h2" size="6" mt="6" mb="3">
+                          Related Articles
+                        </Heading>
+                        <ArticlesList articles={article.related} />
+                      </Fragment>
+                    )}
+                    <Separator size="4" my="6" />
+                    <Feedback analyticsKey={article._analyticsKey} />
+                  </Box>
                 </Box>
-              </Box>
-            </main>
-          </Container>
+              </main>
+            </Container>
+          </>
         )
       }}
     </Pump>

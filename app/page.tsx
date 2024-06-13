@@ -15,6 +15,7 @@ import { ArticleLink, ArticleMeta } from './_components/article-link'
 import { RichText } from 'basehub/react-rich-text'
 import { DialogTriggerDesktop as Search } from './_components/search'
 import { draftMode } from 'next/headers'
+import { PageView } from './_components/analytics/page-view'
 
 export default function HomePage() {
   return (
@@ -22,6 +23,7 @@ export default function HomePage() {
       queries={[
         {
           index: {
+            _analyticsKey: true,
             greeting: true,
             subtitle: {
               json: {
@@ -49,6 +51,7 @@ export default function HomePage() {
 
         return (
           <>
+            <PageView _analyticsKey={data.index._analyticsKey} />
             <Flex
               direction="column"
               align="center"

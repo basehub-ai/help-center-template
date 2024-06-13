@@ -9,6 +9,7 @@ import { Breadcrumb } from '../_components/breadcrumb'
 import { draftMode } from 'next/headers'
 import type { Metadata } from 'next/types'
 import { MetadataFragment } from '../_fragments'
+import { PageView } from '../_components/analytics/page-view'
 
 export const generateStaticParams = async () => {
   const data = await basehub({ next: { revalidate: 120 } }).query({
@@ -117,6 +118,7 @@ export default function CategoryPage({
                   filter: { _sys_slug: { eq: params.category } },
                 },
                 items: {
+                  _analyticsKey: true,
                   ...CategoryMeta,
                   articles: {
                     items: ArticleMeta,
@@ -136,34 +138,37 @@ export default function CategoryPage({
         if (!category) notFound()
 
         return (
-          <Container
-            pb="9"
-            mt={{ initial: 'var(--header-margin)', md: '0' }}
-            pt={{ initial: '6', sm: '0' }}
-            px={{ initial: '5', md: '7' }}
-            style={{ flexGrow: '1' }}
-            size="4"
-            maxWidth="1024px"
-            asChild
-          >
-            <main>
-              <Breadcrumb category={category} />
-              <Grid
-                gapX="7"
-                flow="column"
-                gapY="2"
-                columns={{ sm: 'minmax(auto, 308px) 1fr' }}
-                rows={{ initial: 'auto auto 1fr', sm: 'auto 1fr' }}
-              >
-                <Heading size="8">{category._title}</Heading>
-                <Text color="gray">{category.description}</Text>
-                <ArticlesList
-                  categorySlug={category._slug}
-                  articles={category.articles.items}
-                />
-              </Grid>
-            </main>
-          </Container>
+          <>
+            <PageView _analyticsKey={category._analyticsKey} />
+            <Container
+              pb="9"
+              mt={{ initial: 'var(--header-margin)', md: '0' }}
+              pt={{ initial: '6', sm: '0' }}
+              px={{ initial: '5', md: '7' }}
+              style={{ flexGrow: '1' }}
+              size="4"
+              maxWidth="1024px"
+              asChild
+            >
+              <main>
+                <Breadcrumb category={category} />
+                <Grid
+                  gapX="7"
+                  flow="column"
+                  gapY="2"
+                  columns={{ sm: 'minmax(auto, 308px) 1fr' }}
+                  rows={{ initial: 'auto auto 1fr', sm: 'auto 1fr' }}
+                >
+                  <Heading size="8">{category._title}</Heading>
+                  <Text color="gray">{category.description}</Text>
+                  <ArticlesList
+                    categorySlug={category._slug}
+                    articles={category.articles.items}
+                  />
+                </Grid>
+              </main>
+            </Container>
+          </>
         )
       }}
     </Pump>
