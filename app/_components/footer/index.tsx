@@ -26,11 +26,11 @@ export const Footer = () => {
                 url: true,
               },
             },
-            showPoweredByBaseHub: true,
           },
           settings: {
             logo: { url: true, alt: true, width: true, height: true },
             logoLightMode: { url: true, alt: true, width: true, height: true },
+            showUseTemplate: true,
           },
         },
       ]}
@@ -105,7 +105,7 @@ export const Footer = () => {
                 )
               })}
             </Flex>
-            {index.showPoweredByBaseHub && (
+            {settings.showUseTemplate && (
               <Flex
                 maxWidth="max-content"
                 mx="auto"
