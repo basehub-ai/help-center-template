@@ -24,25 +24,24 @@ function IntercomBooter() {
   React.useEffect(() => {
     const userFromCookie = Cookie.get('intercom-user')
     if (userFromCookie) {
-      let user
       try {
-        user = JSON.parse(decodeURIComponent(userFromCookie))
+        const user = JSON.parse(decodeURIComponent(userFromCookie))
+
+        boot({
+          name: user.name,
+          email: user.email,
+          avatar: {
+            type: 'avatar',
+            imageUrl: user.imageUrl,
+          },
+          userId: user.id,
+          company: user.company,
+          companies: user.companies,
+        })
       } catch {
         console.error("Couldn't parse intercom user cookie")
         boot()
       }
-
-      boot({
-        name: user.name,
-        email: user.email,
-        avatar: {
-          type: 'avatar',
-          imageUrl: user.imageUrl,
-        },
-        userId: user.id,
-        company: user.company,
-        companies: user.companies,
-      })
     } else {
       boot()
     }
