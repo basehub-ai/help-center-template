@@ -26,7 +26,7 @@ function IntercomBooter() {
     if (userFromCookie) {
       let user
       try {
-        user = JSON.parse(userFromCookie)
+        user = JSON.parse(decodeURIComponent(userFromCookie))
       } catch {
         console.error("Couldn't parse intercom user cookie")
         boot()
