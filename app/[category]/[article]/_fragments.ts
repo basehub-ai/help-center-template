@@ -3,7 +3,9 @@ import { fragmentOn } from '@/.basehub'
 export const Callout = fragmentOn('CalloutComponent', {
   _id: true,
   content: {
-    plainText: true,
+    json: {
+      content: true,
+    },
   },
   type: true,
 })

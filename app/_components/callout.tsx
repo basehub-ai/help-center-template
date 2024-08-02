@@ -4,8 +4,9 @@ import {
   ExclamationTriangleIcon,
   InfoCircledIcon,
 } from '@radix-ui/react-icons'
-import { Callout as RadixCallout } from '@radix-ui/themes'
+import { Callout as RadixCallout, Link } from '@radix-ui/themes'
 import type { Callout as CalloutFragment } from '../[category]/[article]/_fragments'
+import { RichText } from 'basehub/react-rich-text'
 
 export const Callout = ({ type = 'info', content }: CalloutFragment) => {
   const { Icon, color } =
@@ -15,7 +16,13 @@ export const Callout = ({ type = 'info', content }: CalloutFragment) => {
       <RadixCallout.Icon>
         <Icon />
       </RadixCallout.Icon>
-      <RadixCallout.Text>{content.plainText}</RadixCallout.Text>
+      <RichText
+        content={content.json.content}
+        components={{
+          p: (props) => <RadixCallout.Text {...props} />,
+          a: (props) => <Link {...props} />,
+        }}
+      />
     </RadixCallout.Root>
   )
 }
