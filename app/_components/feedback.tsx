@@ -1,36 +1,48 @@
 'use client'
+import { Test } from '@/.basehub/schema'
 import { Card, Flex, Grid, IconButton, Text } from '@radix-ui/themes'
+import { sendEventV2 } from 'basehub/analytics'
 import { ThumbsDown, ThumbsUp } from 'lucide-react'
-import { sendEvent } from 'basehub/analytics'
 import * as React from 'react'
 
-export const Feedback = ({
-  analyticsKey: _analyticsKey,
-}: {
-  analyticsKey: string
-}) => {
+export function Feedback({ eventKey }: { eventKey: Test['ingestKey'] }) {
   const [bothFeedbackSent, setBothFeedbackSent] = React.useState(false)
+  const [error, setError] = React.useState<string | null>(null)
   const [sentFeedback, setSentFeedback] = React.useState<
     'positive' | 'negative' | null
   >(null)
 
-  const handleFeedback = (type: 'positive' | 'negative') => {
+  const handleFeedback = async (type: 'positive' | 'negative') => {
     if (sentFeedback === type) return
     // If the user has already given feedback twice, stop sending the event.
-    !bothFeedbackSent && sendEvent({ _analyticsKey, name: `feedback:${type}` })
+    if (!bothFeedbackSent) {
+      const message = prompt('Feedback message', 'Default message') ?? ''
+      const response = await sendEventV2(eventKey, {
+        message,
+        category: 'eng',
+        positive: type === 'positive',
+      })
+
+      if (response.success) {
+        setSentFeedback(type)
+        setError(null)
+      } else {
+        setSentFeedback(null)
+        setError(response.error)
+      }
+    }
     if (sentFeedback) setBothFeedbackSent(true)
-    setSentFeedback(type)
-    window.localStorage.setItem(`feedback:${_analyticsKey}`, type)
+    // window.localStorage.setItem(`feedback:${_analyticsKey}`, type)
   }
 
-  React.useEffect(() => {
-    if (typeof window === 'undefined') return
-    const previousFeedback = window.localStorage.getItem(
-      `feedback:${_analyticsKey}`
-    ) as 'positive' | 'negative' | null
+  // React.useEffect(() => {
+  //   if (typeof window === 'undefined') return
+  //   const previousFeedback = window.localStorage.getItem(
+  //     `feedback:${_analyticsKey}`
+  //   ) as 'positive' | 'negative' | null
 
-    setSentFeedback(previousFeedback)
-  }, [_analyticsKey])
+  //   setSentFeedback(previousFeedback)
+  // }, [_analyticsKey])
 
   return (
     <Card variant="classic" size="3">
@@ -68,6 +80,11 @@ export const Feedback = ({
           <Text style={{ gridColumn: '1 / -1' }} size="2" color="gray">
             If you're still facing issues using BaseHub you can always contact
             our team through the chat bubble on the bottom right corner.
+          </Text>
+        )}
+        {error && (
+          <Text style={{ gridColumn: '1 / -1' }} size="2" color="red">
+            {error}
           </Text>
         )}
       </Grid>

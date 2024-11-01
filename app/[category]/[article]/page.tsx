@@ -160,6 +160,11 @@ export default function ArticlePage({
       draft={draftMode().isEnabled}
       queries={[
         {
+          settings: {
+            test: {
+              ingestKey: true,
+            },
+          },
           index: {
             categoriesSection: {
               title: true,
@@ -219,6 +224,7 @@ export default function ArticlePage({
         const category = data.index.categoriesSection.categories.items[0]
         if (!category) notFound()
         const article = category.articles.items[0]
+        const eventKey = data.settings.test.ingestKey
         if (!article) notFound()
 
         const authorInitials =
@@ -357,6 +363,7 @@ export default function ArticlePage({
                           </Link>
                         ),
                         img: (props) => <ImageWithZoom {...props} />,
+                        // @ts-ignore
                         code: ({ isInline, ...rest }) => {
                           if (isInline) {
                             return <Code {...rest} variant="outline" />
@@ -384,7 +391,7 @@ export default function ArticlePage({
                       </Fragment>
                     )}
                     <Separator size="4" my="6" />
-                    <Feedback analyticsKey={article._analyticsKey} />
+                    <Feedback eventKey={eventKey} />
                   </Box>
                 </Box>
               </main>
