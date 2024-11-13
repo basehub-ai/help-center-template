@@ -22,8 +22,12 @@ export default function HomePage() {
     <Pump
       queries={[
         {
+          settings: {
+            generalEvents: {
+              ingestKey: true,
+            },
+          },
           index: {
-            _analyticsKey: true,
             greeting: true,
             subtitle: {
               json: {
@@ -51,7 +55,7 @@ export default function HomePage() {
 
         return (
           <>
-            <PageView _analyticsKey={data.index._analyticsKey} />
+            <PageView _analyticsKey={data.settings.generalEvents.ingestKey} />
             <Flex
               direction="column"
               align="center"

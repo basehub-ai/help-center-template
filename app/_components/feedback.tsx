@@ -1,12 +1,20 @@
 'use client'
 import { Test } from '@/.basehub/schema'
 import { Card, Flex, Grid, IconButton, Text } from '@radix-ui/themes'
-import { sendEventV2 } from 'basehub/analytics'
+import { sendEvent, updateEvent } from 'basehub/events'
 import { ThumbsDown, ThumbsUp } from 'lucide-react'
 import * as React from 'react'
 
-export function Feedback({ eventKey }: { eventKey: Test['ingestKey'] }) {
-  const [bothFeedbackSent, setBothFeedbackSent] = React.useState(false)
+export function Feedback({
+  eventKey,
+  adminKey,
+  articleId,
+}: {
+  eventKey: Test['ingestKey']
+  adminKey: Test['adminKey']
+  articleId: string
+}) {
+  const [feedbackId, setFeedbackId] = React.useState<string | null>(null)
   const [error, setError] = React.useState<string | null>(null)
   const [sentFeedback, setSentFeedback] = React.useState<
     'positive' | 'negative' | null
@@ -14,35 +22,45 @@ export function Feedback({ eventKey }: { eventKey: Test['ingestKey'] }) {
 
   const handleFeedback = async (type: 'positive' | 'negative') => {
     if (sentFeedback === type) return
-    // If the user has already given feedback twice, stop sending the event.
-    if (!bothFeedbackSent) {
-      const message = prompt('Feedback message', 'Default message') ?? ''
-      const response = await sendEventV2(eventKey, {
-        message,
-        category: 'eng',
-        positive: type === 'positive',
-      })
 
-      if (response.success) {
-        setSentFeedback(type)
-        setError(null)
-      } else {
-        setSentFeedback(null)
-        setError(response.error)
-      }
+    // If the user has already given feedback, update the event.
+    const message = prompt('Feedback message', 'Default message') ?? ''
+    const response = feedbackId
+      ? await updateEvent(adminKey, feedbackId, {
+          message,
+          positive: type === 'positive',
+        })
+      : await sendEvent(eventKey, {
+          message,
+          positive: type === 'positive',
+          category: 'eng',
+        })
+
+    if (response.success) {
+      setSentFeedback(type)
+      setError(null)
+      setFeedbackId(response.eventId)
+      window.localStorage.setItem(
+        `feedback:${eventKey}:${articleId}`,
+        JSON.stringify({ type, id: response.eventId })
+      )
+    } else {
+      setSentFeedback(null)
+      setError(response.error)
     }
-    if (sentFeedback) setBothFeedbackSent(true)
-    // window.localStorage.setItem(`feedback:${_analyticsKey}`, type)
   }
 
-  // React.useEffect(() => {
-  //   if (typeof window === 'undefined') return
-  //   const previousFeedback = window.localStorage.getItem(
-  //     `feedback:${_analyticsKey}`
-  //   ) as 'positive' | 'negative' | null
+  React.useEffect(() => {
+    if (typeof window === 'undefined') return
+    const previousFeedback = window.localStorage.getItem(
+      `feedback:${eventKey}:${articleId}`
+    )
 
-  //   setSentFeedback(previousFeedback)
-  // }, [_analyticsKey])
+    if (!previousFeedback) return
+    const { type, id } = JSON.parse(previousFeedback)
+    setFeedbackId(id)
+    setSentFeedback(type)
+  }, [eventKey, articleId])
 
   return (
     <Card variant="classic" size="3">

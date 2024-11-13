@@ -15,7 +15,7 @@
     "@radix-ui/react-slot": "^1.0.2",
     "@radix-ui/themes": "^3.0.2",
     "@types/js-cookie": "^3.0.6",
-    "basehub": "8.0.0-canary.6",
+    "basehub": "https://pkg.pr.new/basehub-ai/basehub@120",
     "change-case": "^5.4.4",
     "clsx": "^2.1.1",
     "date-fns": "^3.6.0",
@@ -27,6 +27,7 @@
     "react": "^18",
     "react-dom": "^18",
     "react-medium-image-zoom": "^5.2.4",
+    "react-query": "^3.39.3",
     "react-use-intercom": "^5.4.0",
     "sass": "^1.77.0"
   },

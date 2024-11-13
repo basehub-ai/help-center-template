@@ -109,6 +109,9 @@ export default function CategoryPage({
       draft={draftMode().isEnabled}
       queries={[
         {
+          settings: {
+            generalEvents: { ingestKey: true },
+          },
           index: {
             categoriesSection: {
               title: true,
@@ -118,7 +121,6 @@ export default function CategoryPage({
                   filter: { _sys_slug: { eq: params.category } },
                 },
                 items: {
-                  _analyticsKey: true,
                   ...CategoryMeta,
                   articles: {
                     items: ArticleMeta,
@@ -139,7 +141,7 @@ export default function CategoryPage({
 
         return (
           <>
-            <PageView _analyticsKey={category._analyticsKey} />
+            <PageView _analyticsKey={data.settings.generalEvents.ingestKey} />
             <Container
               pb="9"
               mt={{ initial: 'var(--header-margin)', md: '0' }}

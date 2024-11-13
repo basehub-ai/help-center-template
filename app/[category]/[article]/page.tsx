@@ -39,6 +39,8 @@ import type { Metadata } from 'next/types'
 import { MetadataFragment } from '@/app/_fragments'
 import { PageView } from '@/app/_components/analytics/page-view'
 
+import { Comments } from './comments'
+
 export const generateStaticParams = async () => {
   const data = await basehub({ next: { revalidate: 60 } }).query({
     index: {
@@ -163,6 +165,10 @@ export default function ArticlePage({
           settings: {
             test: {
               ingestKey: true,
+              adminKey: true,
+            },
+            generalEvents: {
+              ingestKey: true,
             },
           },
           index: {
@@ -185,7 +191,6 @@ export default function ArticlePage({
                       _sys: {
                         lastModifiedAt: true,
                       },
-                      _analyticsKey: true,
                       author: {
                         avatar: {
                           url: true,
@@ -225,6 +230,8 @@ export default function ArticlePage({
         if (!category) notFound()
         const article = category.articles.items[0]
         const eventKey = data.settings.test.ingestKey
+        const queryKey = data.settings.test.adminKey
+        const generalKey = data.settings.generalEvents.ingestKey
         if (!article) notFound()
 
         const authorInitials =
@@ -237,7 +244,7 @@ export default function ArticlePage({
 
         return (
           <>
-            <PageView _analyticsKey={article._analyticsKey} />
+            <PageView _analyticsKey={generalKey} />
             <Container
               className={s.container}
               pb="9"
@@ -391,8 +398,13 @@ export default function ArticlePage({
                       </Fragment>
                     )}
                     <Separator size="4" my="6" />
-                    <Feedback eventKey={eventKey} />
+                    <Feedback
+                      eventKey={eventKey}
+                      articleId={article._id}
+                      adminKey={queryKey}
+                    />
                   </Box>
+                  <Comments eventKey={queryKey} />
                 </Box>
               </main>
             </Container>
