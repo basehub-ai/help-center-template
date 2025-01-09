@@ -25,7 +25,7 @@ export const ThemeProvider = async ({
 }) => {
   const data = await basehub({
     next: { revalidate: 60 },
-    draft: draftMode().isEnabled,
+    draft: (await draftMode()).isEnabled,
   }).query({
     settings: {
       theme: ThemeFragment,
@@ -57,7 +57,7 @@ export const ThemeProvider = async ({
       >
         {children}
         <Pump
-          draft={draftMode().isEnabled}
+          draft={(await draftMode()).isEnabled}
           queries={[{ settings: { theme: ThemeFragment } }]}
           next={{ revalidate: 60 }}
         >

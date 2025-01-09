@@ -11,10 +11,10 @@ import { draftMode } from 'next/headers'
 import Image from 'next/image'
 import NextLink from 'next/link'
 
-export const Footer = () => {
+export const Footer = async () => {
   return (
     <Pump
-      draft={draftMode().isEnabled}
+      draft={(await draftMode()).isEnabled}
       queries={[
         {
           index: {

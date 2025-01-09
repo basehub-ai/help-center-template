@@ -15,7 +15,7 @@ import { MetadataFragment } from './_fragments'
 export const generateMetadata = async (): Promise<Metadata> => {
   const data = await basehub({
     next: { revalidate: 120 },
-    draft: draftMode().isEnabled,
+    draft: (await draftMode()).isEnabled,
   }).query({
     settings: {
       logo: { url: true },
@@ -51,7 +51,7 @@ export default async function RootLayout({
   children: React.ReactNode
 }>) {
   const { settings, _componentInstances } = await basehub({
-    draft: draftMode().isEnabled,
+    draft: (await draftMode()).isEnabled,
   }).query({
     _componentInstances: { articlesItem: { _searchKey: true } },
     settings: { intercomAppId: true },
@@ -63,7 +63,7 @@ export default async function RootLayout({
     <html lang="en">
       <Toolbar />
       <Pump
-        draft={draftMode().isEnabled}
+        draft={(await draftMode()).isEnabled}
         queries={[{ settings: { metadata: { icon: { url: true } } } }]}
         next={{ revalidate: 60 }}
       >

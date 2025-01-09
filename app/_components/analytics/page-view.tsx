@@ -1,13 +1,13 @@
 'use client'
+import { Views } from '@/.basehub/schema'
 import * as React from 'react'
-import { sendEvent } from 'basehub/analytics'
+import { sendEvent } from 'basehub/events'
 
-export const PageView = ({ _analyticsKey }: { _analyticsKey: string }) => {
+export const PageView = ({ ingestKey }: { ingestKey: Views['ingestKey'] }) => {
   // On mount, send the event
   React.useEffect(() => {
-    sendEvent({ _analyticsKey, name: 'view' })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+    sendEvent(ingestKey)
+  }, [ingestKey])
 
   return null
 }

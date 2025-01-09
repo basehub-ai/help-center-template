@@ -27,7 +27,17 @@ export const CategoryCard = ({ data }: { data: CategoryMeta }) => {
           <Text size="3" weight="bold" mt="2">
             {data._title}
           </Text>
-          <Text size="3" color="gray">
+          <Text
+            size="3"
+            color="gray"
+            style={{
+              overflow: 'hidden',
+              display: '-webkit-box',
+              // @ts-expect-error
+              '-webkit-box-orient': 'vertical',
+              '-webkit-line-clamp': '3',
+            }}
+          >
             {data.description}
           </Text>
         </Flex>

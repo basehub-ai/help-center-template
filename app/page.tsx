@@ -17,13 +17,17 @@ import { DialogTriggerDesktop as Search } from './_components/search'
 import { draftMode } from 'next/headers'
 import { PageView } from './_components/analytics/page-view'
 
-export default function HomePage() {
+export default async function HomePage() {
   return (
     <Pump
       queries={[
         {
           index: {
-            _analyticsKey: true,
+            analytics: {
+              views: {
+                ingestKey: true,
+              },
+            },
             greeting: true,
             subtitle: {
               json: {
@@ -43,7 +47,7 @@ export default function HomePage() {
           },
         },
       ]}
-      draft={draftMode().isEnabled}
+      draft={(await draftMode()).isEnabled}
       next={{ revalidate: 60 }}
     >
       {async ([data]) => {
@@ -51,7 +55,7 @@ export default function HomePage() {
 
         return (
           <>
-            <PageView _analyticsKey={data.index._analyticsKey} />
+            <PageView ingestKey={data.index.analytics.views.ingestKey} />
             <Flex
               direction="column"
               align="center"

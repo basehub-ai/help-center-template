@@ -28,13 +28,14 @@ export const generateStaticParams = async () => {
 }
 
 export const generateMetadata = async ({
-  params,
+  params: _params,
 }: {
-  params: { category: string }
+  params: Promise<{ category: string }>
 }): Promise<Metadata> => {
+  const params = await _params
   const data = await basehub({
     next: { revalidate: 60 },
-    draft: draftMode().isEnabled,
+    draft: (await draftMode()).isEnabled,
   }).query({
     settings: {
       metadata: MetadataFragment,
@@ -99,14 +100,15 @@ export const generateMetadata = async ({
   }
 }
 
-export default function CategoryPage({
-  params,
+export default async function CategoryPage({
+  params: _params,
 }: {
-  params: { category: string }
+  params: Promise<{ category: string }>
 }) {
+  const params = await _params
   return (
     <Pump
-      draft={draftMode().isEnabled}
+      draft={(await draftMode()).isEnabled}
       queries={[
         {
           index: {
@@ -118,7 +120,11 @@ export default function CategoryPage({
                   filter: { _sys_slug: { eq: params.category } },
                 },
                 items: {
-                  _analyticsKey: true,
+                  analytics: {
+                    views: {
+                      ingestKey: true,
+                    },
+                  },
                   ...CategoryMeta,
                   articles: {
                     items: ArticleMeta,
@@ -139,7 +145,7 @@ export default function CategoryPage({
 
         return (
           <>
-            <PageView _analyticsKey={category._analyticsKey} />
+            <PageView ingestKey={category.analytics.views.ingestKey} />
             <Container
               pb="9"
               mt={{ initial: 'var(--header-margin)', md: '0' }}

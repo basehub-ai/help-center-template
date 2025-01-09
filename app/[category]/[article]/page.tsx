@@ -66,13 +66,14 @@ export const generateStaticParams = async () => {
 }
 
 export const generateMetadata = async ({
-  params,
+  params: _params,
 }: {
-  params: { category: string; article: string }
+  params: Promise<{ category: string; article: string }>
 }): Promise<Metadata> => {
+  const params = await _params
   const data = await basehub({
     next: { revalidate: 60 },
-    draft: draftMode().isEnabled,
+    draft: (await draftMode()).isEnabled,
   }).query({
     settings: {
       metadata: MetadataFragment,
@@ -150,14 +151,15 @@ export const generateMetadata = async ({
   }
 }
 
-export default function ArticlePage({
-  params,
+export default async function ArticlePage({
+  params: _params,
 }: {
-  params: { category: string; article: string }
+  params: Promise<{ category: string; article: string }>
 }) {
+  const params = await _params
   return (
     <Pump
-      draft={draftMode().isEnabled}
+      draft={(await draftMode()).isEnabled}
       queries={[
         {
           index: {
@@ -180,7 +182,6 @@ export default function ArticlePage({
                       _sys: {
                         lastModifiedAt: true,
                       },
-                      _analyticsKey: true,
                       author: {
                         avatar: {
                           url: true,
@@ -203,10 +204,21 @@ export default function ArticlePage({
                         _id: true,
                         _slugPath: true,
                       },
+                      analytics: {
+                        views: {
+                          ingestKey: true,
+                        },
+                      },
                     },
                   },
                 },
               },
+            },
+          },
+          feedback: {
+            submissions: {
+              ingestKey: true,
+              schema: true,
             },
           },
         },
@@ -231,7 +243,7 @@ export default function ArticlePage({
 
         return (
           <>
-            <PageView _analyticsKey={article._analyticsKey} />
+            <PageView ingestKey={article.analytics.views.ingestKey} />
             <Container
               className={s.container}
               pb="9"
@@ -357,6 +369,7 @@ export default function ArticlePage({
                           </Link>
                         ),
                         img: (props) => <ImageWithZoom {...props} />,
+                        // @ts-expect-error isInline does not exist
                         code: ({ isInline, ...rest }) => {
                           if (isInline) {
                             return <Code {...rest} variant="outline" />
@@ -384,7 +397,7 @@ export default function ArticlePage({
                       </Fragment>
                     )}
                     <Separator size="4" my="6" />
-                    <Feedback analyticsKey={article._analyticsKey} />
+                    <Feedback {...data.feedback.submissions} />
                   </Box>
                 </Box>
               </main>

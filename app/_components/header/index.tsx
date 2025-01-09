@@ -26,10 +26,10 @@ const navLinkFragment = fragmentOn('NavLinksItem', {
 
 export type NavLinkFragment = fragmentOn.infer<typeof navLinkFragment>
 
-export const Header = () => {
+export const Header = async () => {
   return (
     <Pump
-      draft={draftMode().isEnabled}
+      draft={(await draftMode()).isEnabled}
       queries={[
         {
           index: {
