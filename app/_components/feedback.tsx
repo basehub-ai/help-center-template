@@ -15,6 +15,7 @@ import { Feedback as FeedbackType } from '@/.basehub/schema'
 import { CheckCircledIcon } from '@radix-ui/react-icons'
 import { usePathname } from 'next/navigation'
 import { ThumbsUp, ThumbsDown } from 'lucide-react'
+import Cookie  from 'js-cookie'
 
 export const Feedback = ({
   ingestKey,
@@ -49,6 +50,16 @@ export const Feedback = ({
     const formData = new FormData(form)
     formData.set('intent', intent)
     formData.set('path', pathname)
+
+    try {
+      const userFromCookie = Cookie.get('intercom-user')
+      if (userFromCookie) {
+        const user = JSON.parse(decodeURIComponent(userFromCookie))
+        formData.set('email', user.email)
+      }
+    } catch (err) {
+      null
+    }
 
     const parsed = parseFormData(ingestKey, schema, formData)
     if (!parsed.success) {
