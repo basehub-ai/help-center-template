@@ -14,7 +14,7 @@ import {
   TextField,
 } from '@radix-ui/themes'
 import NextLink from 'next/link'
-import { getArticleSlugFromSlugPath } from '@/lib/basehub-helpers/util'
+import { getArticleHrefFromSlugPath } from '@/lib/basehub-helpers/util'
 import { clsx } from 'clsx'
 import { usePathname } from 'next/navigation'
 import { CSSProperties } from 'react'
@@ -141,7 +141,7 @@ const HitList = ({ hits, isRecent }: { hits: Hit[]; isRecent?: boolean }) => {
         </Text>
       )}
       {hits.map((hit) => {
-        let pathname = getArticleSlugFromSlugPath(hit.document._slugPath ?? '')
+        let pathname = getArticleHrefFromSlugPath(hit.document._slugPath ?? '')
 
         // TODO is there an opportunity to build a helper function in our SDK here? looks like a common usecase
         const bodyHighlight = hit.highlights

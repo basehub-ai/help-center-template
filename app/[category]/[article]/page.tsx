@@ -38,6 +38,7 @@ import { draftMode } from 'next/headers'
 import type { Metadata } from 'next/types'
 import { MetadataFragment } from '@/app/_fragments'
 import { PageView } from '@/app/_components/analytics/page-view'
+import { getArticleHrefFromSlugPath } from '@/lib/basehub-helpers/util'
 
 export const generateStaticParams = async () => {
   const data = await basehub({ next: { revalidate: 60 } }).query({
@@ -194,8 +195,10 @@ export default async function ArticlePage({
                           content: true,
                           blocks: {
                             __typename: true,
+                            on_BlockDocument: { _id: true },
                             on_CalloutComponent: CalloutFragment,
                             on_InlineIconComponent: InlineIconFragment,
+                            on_ArticlesItem: { _slugPath: true },
                           },
                         },
                       },
@@ -363,11 +366,33 @@ export default async function ArticlePage({
                             mb="4"
                           />
                         ),
-                        a: (props) => (
-                          <Link asChild>
-                            <NextLink {...props} />
-                          </Link>
-                        ),
+                        a: (props) => {
+                          if (props.internal) {
+                            if (props.internal.__typename !== 'ArticlesItem') {
+                              console.error(
+                                'unhandled internal link',
+                                props.internal
+                              )
+                              return null
+                            }
+
+                            return (
+                              <Link asChild>
+                                <NextLink
+                                  {...props}
+                                  href={getArticleHrefFromSlugPath(
+                                    props.internal._slugPath
+                                  )}
+                                />
+                              </Link>
+                            )
+                          }
+                          return (
+                            <Link asChild>
+                              <NextLink {...props} />
+                            </Link>
+                          )
+                        },
                         img: (props) => <ImageWithZoom {...props} />,
                         // @ts-expect-error isInline does not exist
                         code: ({ isInline, ...rest }) => {

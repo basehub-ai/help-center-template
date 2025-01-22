@@ -3,7 +3,7 @@ import { ArrowRightIcon } from '@radix-ui/react-icons'
 import NextLink from 'next/link'
 import { ArticlesItem } from '@/.basehub/schema'
 import s from './articles-list.module.scss'
-import { getArticleSlugFromSlugPath } from '@/lib/basehub-helpers/util'
+import { getArticleHrefFromSlugPath } from '@/lib/basehub-helpers/util'
 
 type Props =
   | {
@@ -37,7 +37,7 @@ export const ArticlesList = (props: Props) => {
                   '_slug' in item
                     ? // @ts-expect-error categorySlug is defined at this point
                       `/${props.categorySlug}/${item._slug}`
-                    : getArticleSlugFromSlugPath(item._slugPath)
+                    : getArticleHrefFromSlugPath(item._slugPath)
                 }
                 style={{
                   display: 'flex',
