@@ -39,6 +39,7 @@ import type { Metadata } from 'next/types'
 import { MetadataFragment } from '@/app/_fragments'
 import { PageView } from '@/app/_components/analytics/page-view'
 import { getArticleHrefFromSlugPath } from '@/lib/basehub-helpers/util'
+import { CodeBlock, createCssVariablesTheme } from 'basehub/react-code-block'
 
 export const generateStaticParams = async () => {
   const data = await basehub({ next: { revalidate: 60 } }).query({
@@ -394,18 +395,20 @@ export default async function ArticlePage({
                           )
                         },
                         img: (props) => <ImageWithZoom {...props} />,
-                        // @ts-expect-error isInline does not exist
-                        code: ({ isInline, ...rest }) => {
-                          if (isInline) {
-                            return <Code {...rest} variant="outline" />
-                          }
-                          return (
-                            <pre>
-                              <code {...rest} />
-                            </pre>
-                          )
+                        code: (props) => {
+                          return <Code {...props} variant="outline" />
                         },
-                        pre: ({ children }) => children,
+                        pre: ({ code, language }) => (
+                          <CodeBlock
+                            snippets={[{ code, language }]}
+                            theme={createCssVariablesTheme({
+                              name: 'css-variables',
+                              variablePrefix: '--shiki-',
+                              variableDefaults: {},
+                              fontStyle: true,
+                            })}
+                          />
+                        ),
                         CalloutComponent: Callout,
                         InlineIconComponent_mark: InlineIcon,
                         InlineIconComponent: InlineIcon,
