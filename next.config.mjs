@@ -6,6 +6,10 @@ const nextConfig = {
         hostname: 'basehub.earth',
         protocol: 'https',
       },
+      {
+        hostname: 'assets.basehub.com',
+        protocol: 'https',
+      },
     ],
   },
 }
