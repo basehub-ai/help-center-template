@@ -15,7 +15,7 @@
     "@radix-ui/react-slot": "^1.0.2",
     "@radix-ui/themes": "^3.1.6",
     "@types/js-cookie": "^3.0.6",
-    "basehub": "8.1.1",
+    "basehub": "8.1.18",
     "change-case": "^5.4.4",
     "clsx": "^2.1.1",
     "date-fns": "^3.6.0",

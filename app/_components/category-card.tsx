@@ -33,9 +33,8 @@ export const CategoryCard = ({ data }: { data: CategoryMeta }) => {
             style={{
               overflow: 'hidden',
               display: '-webkit-box',
-              // @ts-expect-error
-              '-webkit-box-orient': 'vertical',
-              '-webkit-line-clamp': '3',
+              WebkitBoxOrient: 'vertical',
+              WebkitLineClamp: '3',
             }}
           >
             {data.description}

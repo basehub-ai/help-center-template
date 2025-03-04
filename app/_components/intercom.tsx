@@ -5,13 +5,14 @@ import { IntercomProvider as Provider, useIntercom } from 'react-use-intercom'
 
 export const IntercomProvider = ({
   children,
-  ...rest
+  appId,
 }: {
   children?: React.ReactNode
-  appId: string
+  appId: string | null
 }) => {
+  if (!appId) return children
   return (
-    <Provider {...rest} initializeDelay={500}>
+    <Provider appId={appId} initializeDelay={500}>
       <IntercomBooter />
       {children}
     </Provider>
