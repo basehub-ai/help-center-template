@@ -4,6 +4,7 @@ export function getArticleHrefFromSlugPath(slugPath: string) {
   return (
     '/' +
     slugPath
+      .trim()
       .replace(/(root|index|categories-section|categories|articles)\s/gm, '')
       .split(/\s/)
       .join('/')

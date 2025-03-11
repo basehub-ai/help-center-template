@@ -23,12 +23,12 @@ export const LiveThemeSwitcher = ({ theme }: { theme: ThemeFragment }) => {
   React.useEffect(() => {
     // wait for first render to happen before re-syncing theme
     if (!hasRendered) return
-    onAccentColorChange(theme.accentColor as any)
-    onRadiusChange(theme.radius as any)
-    onGrayColorChange(theme.grayScale as any)
-    onAppearanceChange(theme.appearance as any)
-    onScalingChange(theme.scaling as any)
-    onPanelBackgroundChange(theme.panelBackground as any)
+    onAccentColorChange(theme.accentColor)
+    onRadiusChange(theme.radius)
+    onGrayColorChange(theme.grayScale)
+    onAppearanceChange(theme.appearance)
+    onScalingChange(theme.scaling)
+    onPanelBackgroundChange(theme.panelBackground)
 
     const themeChanged =
       activeThemeRef.current !== theme.appearance &&
