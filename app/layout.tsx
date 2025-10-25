@@ -1,9 +1,9 @@
 import type { Metadata } from 'next'
 import { Header } from './_components/header'
 import { ThemeProvider } from './_components/theme-provider/server'
-import { basehub } from '@/.basehub'
-import { Pump } from '@/.basehub/react-pump'
-import { Toolbar } from '@/.basehub/next-toolbar'
+import { basehub } from 'basehub'
+import { Pump } from 'basehub/react-pump'
+import { Toolbar } from 'basehub/next-toolbar'
 
 import './globals.css'
 import { Footer } from './_components/footer'

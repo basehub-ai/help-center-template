@@ -1,5 +1,5 @@
 'use client'
-import { Views } from '@/.basehub/schema'
+import type { Views } from '@/.basehub/basehub-types'
 import * as React from 'react'
 import { sendEvent } from 'basehub/events'
 

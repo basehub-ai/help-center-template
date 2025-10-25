@@ -1,5 +1,5 @@
 import { siteUrl } from '@/lib/constants'
-import { basehub } from '@/.basehub'
+import { basehub } from 'basehub'
 import type { MetadataRoute } from 'next'
 import { CategoryMeta } from './_components/category-card'
 import { ArticleMeta } from './_components/article-link'

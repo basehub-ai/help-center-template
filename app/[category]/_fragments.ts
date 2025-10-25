@@ -1,4 +1,4 @@
-import { fragmentOn } from '@/.basehub'
+import { fragmentOn } from 'basehub'
 
 export const Category = fragmentOn('CategoriesItem', {
   _id: true,

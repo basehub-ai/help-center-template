@@ -1,6 +1,6 @@
-import { Pump } from '@/.basehub/react-pump'
+import { Pump } from 'basehub/react-pump'
 import { Container, Grid, Heading, Text } from '@radix-ui/themes'
-import { basehub } from '@/.basehub'
+import { basehub } from 'basehub'
 import { CategoryMeta } from '../_components/category-card'
 import { ArticleMeta } from '../_components/article-link'
 import { notFound } from 'next/navigation'

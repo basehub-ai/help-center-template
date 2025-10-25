@@ -1,7 +1,7 @@
-import { basehub, fragmentOn } from '@/.basehub'
+import { basehub, fragmentOn } from 'basehub'
 import { Theme } from '@radix-ui/themes'
 import { ThemeProvider as NextThemesThemeProvider } from 'next-themes'
-import { Pump } from '@/.basehub/react-pump'
+import { Pump } from 'basehub/react-pump'
 import { LiveThemeSwitcher } from './client'
 
 import '@radix-ui/themes/styles.css'

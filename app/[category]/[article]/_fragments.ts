@@ -1,4 +1,4 @@
-import { fragmentOn } from '@/.basehub'
+import { fragmentOn } from 'basehub'
 
 export const Callout = fragmentOn('CalloutComponent', {
   _id: true,

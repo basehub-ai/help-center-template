@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import { Pump } from '@/.basehub/react-pump'
+import { Pump } from 'basehub/react-pump'
 import {
   Button,
   Container,
@@ -12,7 +12,7 @@ import NextLink from 'next/link'
 import { ThemeSwitcher } from '../theme-switcher'
 import s from './header.module.scss'
 import { MobileNavbar } from './mobile-navbar'
-import { fragmentOn } from '@/.basehub'
+import { fragmentOn } from 'basehub'
 import { DialogTriggerDesktop as Search } from '../search'
 import Image from 'next/image'
 import { clsx } from 'clsx'
