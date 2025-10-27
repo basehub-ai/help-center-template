@@ -1,7 +1,7 @@
 import { Button, Card, Flex } from '@radix-ui/themes'
 import { ArrowRightIcon } from '@radix-ui/react-icons'
 import NextLink from 'next/link'
-import { ArticlesItem } from '@/.basehub/schema'
+import type { ArticlesItem } from '@/.basehub/basehub-types'
 import s from './articles-list.module.scss'
 import { getArticleHrefFromSlugPath } from '@/lib/basehub-helpers/util'
 

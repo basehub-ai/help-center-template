@@ -1,4 +1,4 @@
-import { Pump } from '@/.basehub/react-pump'
+import { Pump } from 'basehub/react-pump'
 import {
   Avatar,
   Blockquote,
@@ -14,7 +14,7 @@ import {
   Text,
 } from '@radix-ui/themes'
 import NextLink from 'next/link'
-import { basehub } from '@/.basehub'
+import { basehub } from 'basehub'
 import { RichText } from 'basehub/react-rich-text'
 import { notFound } from 'next/navigation'
 import { CategoryMeta } from '@/app/_components/category-card'

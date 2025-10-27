@@ -1,4 +1,4 @@
-import { fragmentOn } from '@/.basehub'
+import { fragmentOn } from 'basehub'
 import { ArrowRightIcon } from '@radix-ui/react-icons'
 import { Card, Flex, Text } from '@radix-ui/themes'
 import Link from 'next/link'

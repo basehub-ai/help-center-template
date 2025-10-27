@@ -1,4 +1,4 @@
-import { Pump } from '@/.basehub/react-pump'
+import { Pump } from 'basehub/react-pump'
 import {
   Box,
   Container,

@@ -11,7 +11,7 @@ import {
 } from '@radix-ui/themes'
 import * as React from 'react'
 import { parseFormData, sendEvent, EventSchema } from 'basehub/events'
-import { Feedback as FeedbackType } from '@/.basehub/schema'
+import type { Feedback as FeedbackType } from '@/.basehub/basehub-types'
 import { CheckCircledIcon } from '@radix-ui/react-icons'
 import { usePathname } from 'next/navigation'
 import { ThumbsUp, ThumbsDown } from 'lucide-react'
