@@ -60,7 +60,7 @@ export default async function RootLayout({
   const _searchKey = _componentInstances.articlesItem._searchKey
 
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <Toolbar />
       <Pump
         draft={(await draftMode()).isEnabled}
