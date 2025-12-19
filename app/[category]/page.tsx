@@ -6,7 +6,6 @@ import { ArticleMeta } from '../_components/article-link'
 import { notFound } from 'next/navigation'
 import { ArticlesList } from '../_components/articles-list'
 import { Breadcrumb } from '../_components/breadcrumb'
-import { draftMode } from 'next/headers'
 import type { Metadata } from 'next/types'
 import { MetadataFragment } from '../_fragments'
 import { PageView } from '../_components/analytics/page-view'
@@ -33,10 +32,7 @@ export const generateMetadata = async ({
   params: Promise<{ category: string }>
 }): Promise<Metadata> => {
   const params = await _params
-  const data = await basehub({
-    next: { revalidate: 60 },
-    draft: (await draftMode()).isEnabled,
-  }).query({
+  const data = await basehub().query({
     settings: {
       metadata: MetadataFragment,
     },
@@ -108,7 +104,6 @@ export default async function CategoryPage({
   const params = await _params
   return (
     <Pump
-      draft={(await draftMode()).isEnabled}
       queries={[
         {
           index: {
@@ -135,7 +130,6 @@ export default async function CategoryPage({
           },
         },
       ]}
-      next={{ revalidate: 60 }}
     >
       {async ([data]) => {
         'use server'
