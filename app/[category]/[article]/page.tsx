@@ -34,7 +34,6 @@ import { Feedback } from '@/app/_components/feedback'
 import { InlineIcon } from '@/app/_components/inline-icon'
 import { Video } from '@/app/_components/article/video'
 import { ImageWithZoom } from '@/app/_components/article/image-with-zoom'
-import { draftMode } from 'next/headers'
 import type { Metadata } from 'next/types'
 import { MetadataFragment } from '@/app/_fragments'
 import { PageView } from '@/app/_components/analytics/page-view'
@@ -42,12 +41,17 @@ import { getArticleHrefFromSlugPath } from '@/lib/basehub-helpers/util'
 import { CodeBlock, createCssVariablesTheme } from 'basehub/react-code-block'
 
 export const generateStaticParams = async () => {
-  const data = await basehub({ next: { revalidate: 60 } }).query({
+  const data = await basehub().query({
     index: {
       categoriesSection: {
         title: true,
         categories: {
           items: {
+            analytics: {
+              views: {
+                ingestKey: true,
+              },
+            },
             ...CategoryMeta,
             articles: {
               items: ArticleMeta,
@@ -73,10 +77,7 @@ export const generateMetadata = async ({
   params: Promise<{ category: string; article: string }>
 }): Promise<Metadata> => {
   const params = await _params
-  const data = await basehub({
-    next: { revalidate: 60 },
-    draft: (await draftMode()).isEnabled,
-  }).query({
+  const data = await basehub().query({
     settings: {
       metadata: MetadataFragment,
     },
@@ -161,7 +162,6 @@ export default async function ArticlePage({
   const params = await _params
   return (
     <Pump
-      draft={(await draftMode()).isEnabled}
       queries={[
         {
           index: {
@@ -227,7 +227,6 @@ export default async function ArticlePage({
           },
         },
       ]}
-      next={{ revalidate: 60 }}
     >
       {async ([data]) => {
         'use server'

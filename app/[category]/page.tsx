@@ -11,12 +11,22 @@ import { MetadataFragment } from '../_fragments'
 import { PageView } from '../_components/analytics/page-view'
 
 export const generateStaticParams = async () => {
-  const data = await basehub({ next: { revalidate: 120 } }).query({
+  const data = await basehub().query({
     index: {
       categoriesSection: {
         title: true,
         categories: {
-          items: CategoryMeta,
+          items: {
+            analytics: {
+              views: {
+                ingestKey: true,
+              },
+            },
+            ...CategoryMeta,
+            articles: {
+              items: ArticleMeta,
+            },
+          },
         },
       },
     },
