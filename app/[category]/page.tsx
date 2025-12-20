@@ -10,6 +10,8 @@ import type { Metadata } from 'next/types'
 import { MetadataFragment } from '../_fragments'
 import { PageView } from '../_components/analytics/page-view'
 
+export const dynamic = 'force-static'
+
 export const generateStaticParams = async () => {
   const data = await basehub().query({
     index: {
@@ -32,7 +34,7 @@ export const generateStaticParams = async () => {
     },
   })
   return data.index.categoriesSection.categories.items.map((category) => ({
-    params: { category: category._slug },
+    category: category._slug,
   }))
 }
 

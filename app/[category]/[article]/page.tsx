@@ -40,6 +40,8 @@ import { PageView } from '@/app/_components/analytics/page-view'
 import { getArticleHrefFromSlugPath } from '@/lib/basehub-helpers/util'
 import { CodeBlock, createCssVariablesTheme } from 'basehub/react-code-block'
 
+export const dynamic = 'force-static'
+
 export const generateStaticParams = async () => {
   const data = await basehub().query({
     index: {
